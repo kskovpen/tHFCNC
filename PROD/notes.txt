@@ -1,0 +1,7 @@
+https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideCrabForPublication#Invalidate_a_dataset_in_DBS
+source /cvmfs/cms.cern.ch/crab/crab.sh
+python $CRABPYTHON/DBS3SetDatasetStatus.py --dataset=<datasetname>
+--url=https://cmsweb.cern.ch/dbs/prod/phys03/DBSWriter
+--status=INVALID --recursive=False
+
+https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookCRAB3Tutorial#Running_on_the_published_dataset
