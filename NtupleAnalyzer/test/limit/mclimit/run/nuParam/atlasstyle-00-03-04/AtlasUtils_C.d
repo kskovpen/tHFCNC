@@ -1,0 +1,49 @@
+
+# DO NOT DELETE
+
+libAtlasUtils.so: AtlasUtils.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TGraphErrors.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TGraph.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TNamed.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TObject.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/Rtypes.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/RConfig.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/RVersion.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/DllImport.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/Rtypeinfo.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/snprintf.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/strlcpy.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TGenericClassInfo.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TSchemaHelper.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TStorage.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TVersionCheck.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/Riosfwd.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TBuffer.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TString.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TMathBase.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAttLine.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAttFill.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAttMarker.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TVectorFfwd.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TVectorDfwd.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TFitResultPtr.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TGraphAsymmErrors.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TLine.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TLatex.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TText.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAttText.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TMarker.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TPave.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TBox.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TH1.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAxis.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TAttAxis.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArrayD.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArray.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArrayC.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArrayS.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArrayI.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/TArrayF.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/Foption.h
+libAtlasUtils.so: /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/cintdictversion.h /gcf/atlas/software/tier3/ATLASLocalRootBase/x86_64/root/5.34.03-x86_64-slc5-gcc4.3/include/RVersion.h
+libAtlasUtils__ROOTBUILDVERSION= 5.34/03
