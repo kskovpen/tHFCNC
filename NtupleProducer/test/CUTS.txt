@@ -1,0 +1,8 @@
+electrons: https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedElectronIdentificationRun2
+muons: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideMuonId
+jets and met: https://twiki.cern.ch/twiki/bin/view/CMS/TopJME
+https://twiki.cern.ch/twiki/bin/view/CMS/JetID
+https://github.com/CERN-PH-CMG/cmg-cmssw/blob/v7.0.1-from-CMSSW_7_2_3/PhysicsTools/Heppy/python/physicsobjects/Jet.py#L67
+met already with type-1 correction
+
+example: https://twiki.cern.ch/twiki/bin/view/CMS/TTbarHiggsRun2Sync

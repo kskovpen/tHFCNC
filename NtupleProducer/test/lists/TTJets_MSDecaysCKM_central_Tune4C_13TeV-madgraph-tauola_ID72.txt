@@ -1,0 +1,1 @@
+root://sbgse1.in2p3.fr//dpm/in2p3.fr/home/cms/phedex/store/user/kskovpen/FlatTree/MantaRay-v20150429_MERGED/TTJets_MSDecaysCKM_central_Tune4C_13TeV-madgraph-tauola/output_76.root
