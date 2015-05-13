@@ -13,7 +13,7 @@ class Hist
    
  public:
    
-   Hist();
+   Hist(std::string home);
    virtual ~Hist();
    
    void setElectron(std::vector<Electron> *v)                  {_v_Electron = v;};
@@ -28,6 +28,7 @@ class Hist
    void fill();
    void close();
    bool printout(bool doPrint);
+   void fillTree(int ic);
 
    std::vector<Lepton> filterPt(double Pt1, double Pt2, double Pt3,
 				std::vector<Electron>* ntElectron,
@@ -106,19 +107,23 @@ class Hist
 
    // Tree variables
    double m_weight;
-   int m_channel;
-   int m_sel;
    
-   float m_wmassGen;
-   int m_foundNuMom;
-   int m_truthMatch;
-   
-/*   int m_l1_type;
-   int m_l1_charge;
-   double m_l1_pt;
-   double m_l1_eta;
-   double m_l1_phi;
-   double m_l1_m;*/
+   double m_H_m;
+   double m_H_pt;
+   double m_top_m;
+   double m_H_eta;
+   double m_top_pt;
+   double m_top_eta;
+   double m_HT;
+   int m_njet;
+   double m_Hb1_Hb2_dr;
+   double m_H_nu_dr;
+   double m_H_l_dr;
+   double m_W_m;
+   double m_W_pt;
+   double m_W_eta;
+   double m_chi2;
+   int m_l_charge;
    
  protected:
 
@@ -175,11 +180,13 @@ class Hist
    
    FILE *_fevc;
    std::ofstream _fevcVal;
+   
+   std::string _home;
 	
    TRandom3 *rnd;
    
    TFile *_fout;
-   TTree *_trout;
+   TTree *_trout[100];
    
    TopReco *_trec;
    

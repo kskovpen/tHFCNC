@@ -10,7 +10,7 @@ class TopReco
    
  public:
 
-   TopReco(bool standalone,TFile *foutput);
+   TopReco(std::string home,bool standalone,TFile *foutput);
    virtual ~TopReco();
    
    void setElectron(std::vector<Electron> *v)                {_v_Electron = v;};
@@ -73,6 +73,8 @@ class TopReco
    TLorentzVector top_Top_p4()    {return _top_Top_p4;};
    TLorentzVector H_Top_p4()      {return _H_Top_p4;};
    TLorentzVector W_Top_p4()      {return _W_Top_p4;};
+   
+   double chi2()     {return _chi2;};
    
  protected:
 
@@ -153,6 +155,8 @@ class TopReco
    TLorentzVector _Hb1_IS_truth_p4;
    TLorentzVector _Hb2_IS_truth_p4;
    
+   double _chi2;
+   
    bool _Hb1_match;
    bool _Hb2_match;
    bool _topb_match;
@@ -164,6 +168,7 @@ class TopReco
    TRandom3 *rnd;
 
    bool _standalone;
+   std::string _home;
    
    TFile *_fout;
    

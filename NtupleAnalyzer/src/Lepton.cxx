@@ -11,6 +11,8 @@ Lepton::Lepton()
    
    _idx = -1;
    _isElectron = 0;
+   
+   _charge = 0;
 }
 
 Lepton::~Lepton()

@@ -98,12 +98,9 @@ int main()
 	  {
 	     if( iv == 0 ) 
 	       {
-		  for(int it=0;it<nmtype;it++)
-		    {
-		       hname[idx] = "h_"+var[iv]+"_"+alg[is];
-		       varid[idx] = iv;
-		       idx++;
-		    }	     
+		  hname[idx] = "h_"+var[iv]+"_"+alg[is];
+		  varid[idx] = iv;
+		  idx++;
 	       }
 	     else
 	       {	     		  		  

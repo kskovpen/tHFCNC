@@ -30,4 +30,9 @@ namespace RANGE
    double set_HT[3] = {25,0.,1000.};
    double set_MET[3] = {25,0.,250.};
    double set_njet[3] = {11,-0.5,10.5};
+   double set_phi[3] = {15,-3.6,3.6};
+   double set_H_nu_dr[3] = {25,0.,5.0};
+   double set_H_l_dr[3] = {25,0.,5.0};
+   double set_chi2[3] = {25,0.,10.0};
+   double set_l_charge[3] = {3,-1.5,1.5};
 }

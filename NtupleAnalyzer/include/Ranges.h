@@ -31,6 +31,11 @@ namespace RANGE
    extern double set_HT[3];
    extern double set_MET[3];
    extern double set_njet[3];
+   extern double set_phi[3];
+   extern double set_H_nu_dr[3];
+   extern double set_H_l_dr[3];
+   extern double set_chi2[3];
+   extern double set_l_charge[3];
    
 /*
    double set_j_JP[19][3] = {

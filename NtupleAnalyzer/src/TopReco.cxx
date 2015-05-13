@@ -6,8 +6,10 @@
 #include <boost/function.hpp>
 #include <boost/type_traits.hpp>
 
-TopReco::TopReco(bool standalone,TFile *foutput)
+TopReco::TopReco(std::string home,bool standalone,TFile *foutput)
 {
+   _home = home;
+   
    help = new Helper();
    
    _standalone = standalone;
@@ -38,7 +40,7 @@ void TopReco::init()
 
    if( _standalone )
      {	
-	std::string foutput = "hist/"+std::string(flog)+".root";
+	std::string foutput = _home+"/"+std::string(flog)+".root";
 	_fout = new TFile(foutput.c_str(),"RECREATE");
      }
    
@@ -608,8 +610,8 @@ bool TopReco::Top()
 	
    if( nSol > 0 )
      {
-	float E_nu[nSol][2];
-	float pz_nu[nSol][2];
+	float E_nu[100][2];
+	float pz_nu[100][2];
 	
 	for(int in=0;in<nSol;in++)
 	  {
@@ -645,68 +647,75 @@ bool TopReco::Top()
 		       
 	     for(int in=0;in<nSol;in++)
 	       {
-		  float totPz1 = pz_bjet[ib]+pz_nu[in][0]+pz_l;
+/*		  float totPz1 = pz_bjet[ib]+pz_nu[in][0]+pz_l;
 		  float totPz2 = pz_bjet[ib]+pz_nu[in][1]+pz_l;
 		  float totPzMin = totPz1;
 		  int idMin = 0;
-		  if( totPz2 < totPzMin )
+		  if( fabs(totPz2) < fabs(totPzMin) )
 		    {
 		       idMin = 1;
 		       totPzMin = totPz2;
-		    }
+		    }*/
+
+		  for(int in2=0;in2<2;in2++)
+		    {		       
+		       float totE = E_bjet[ib]+E_nu[in][in2]+E_l;
+		       //float totE = E_bjet[ib]+E_nu[in][idMin]+E_l;
+		       float totPx = px_bjet[ib]+px_nu+px_l;
+		       float totPy = py_bjet[ib]+py_nu+py_l;
+		       float totPz = pz_bjet[ib]+pz_nu[in][in2]+pz_l;
+//		       float totPz = totPzMin;
+		       float mW = pow(E_nu[in][in2]+E_l,2)-pow(px_nu+px_l,2)-pow(py_nu+py_l,2)-pow(pz_nu[in][in2]+pz_l,2);
+		       //float mW = pow(E_nu[in][idMin]+E_l,2)-pow(px_nu+px_l,2)-pow(py_nu+py_l,2)-pow(pz_nu[in][idMin]+pz_l,2);
+		       float mtop = totE*totE-totPx*totPx-totPy*totPy-totPz*totPz;
+
+		       if( mtop >= 0 )
+			 {
+			    mtop = sqrt(mtop);
+			    mW = sqrt(mW);
 			    
-		  float totE = E_bjet[ib]+E_nu[in][idMin]+E_l;
-		  float totPx = px_bjet[ib]+px_nu+px_l;
-		  float totPy = py_bjet[ib]+py_nu+py_l;
-		  float totPz = totPzMin;
-		  float mW = pow(E_nu[in][idMin]+E_l,2)-pow(px_nu+px_l,2)-pow(py_nu+py_l,2)-pow(pz_nu[in][idMin]+pz_l,2);
-		  float mtop = totE*totE-totPx*totPx-totPy*totPy-totPz*totPz;
-
-		  if( mtop >= 0 )
-		    {
-		       mtop = sqrt(mtop);
-		       mW = sqrt(mW);
-		       
-		       int Hb1i = -1;
-		       int Hb2i = -1;
-		       
-		       for(int ibb=0;ibb<nbjets;ibb++)
-			 {
-			    if( ib != ibb )
-			      {				 
-				 if( Hb1i < 0 ) Hb1i = ibb;
-				 else if( Hb2i < 0 ) Hb2i = ibb;
+			    int Hb1i = -1;
+			    int Hb2i = -1;
+			    
+			    for(int ibb=0;ibb<nbjets;ibb++)
+			      {
+				 if( ib != ibb )
+				   {				 
+				      if( Hb1i < 0 ) Hb1i = ibb;
+				      else if( Hb2i < 0 ) Hb2i = ibb;
+				   }
 			      }
-			 }
+			    
+			    TLorentzVector hb1;
+			    hb1.SetPtEtaPhiE(_v_BJetTight->at(Hb1i).p4().Pt(),
+					     _v_BJetTight->at(Hb1i).p4().PseudoRapidity(),
+					     _v_BJetTight->at(Hb1i).p4().Phi(),
+					     _v_BJetTight->at(Hb1i).p4().E());
+			    
+			    TLorentzVector hb2;
+			    hb2.SetPtEtaPhiE(_v_BJetTight->at(Hb2i).p4().Pt(),
+					     _v_BJetTight->at(Hb2i).p4().PseudoRapidity(),
+					     _v_BJetTight->at(Hb2i).p4().Phi(),
+					     _v_BJetTight->at(Hb2i).p4().E());
+			    
+			    float mH = (hb1+hb2).M();
+			    
+			    float chi2 = pow(mtop-173.,2)/pow(40.,2) +
+			      pow(mW-80.4,2)/pow(15.,2) +
+			      pow(mH-125.,2)/pow(30.,2);
 
-		       TLorentzVector hb1;
-		       hb1.SetPtEtaPhiE(_v_BJetTight->at(Hb1i).p4().Pt(),
-					_v_BJetTight->at(Hb1i).p4().PseudoRapidity(),
-					_v_BJetTight->at(Hb1i).p4().Phi(),
-					_v_BJetTight->at(Hb1i).p4().E());
-
-		       TLorentzVector hb2;
-		       hb2.SetPtEtaPhiE(_v_BJetTight->at(Hb2i).p4().Pt(),
-					_v_BJetTight->at(Hb2i).p4().PseudoRapidity(),
-					_v_BJetTight->at(Hb2i).p4().Phi(),
-					_v_BJetTight->at(Hb2i).p4().E());
-		       
-		       float mH = (hb1+hb2).M();
-		       
-		       float chi2 = pow(mtop-173.,2)/pow(40.,2) +
-			 pow(mW-80.4,2)/pow(15.,2) +
-			 pow(mH-125.,2)/pow(30.,2);
-
-//		       if( chi2 < mtopDiff && mH > 60. && mH < 140. )
-		       if( chi2 < mtopDiff )
-			 {
-			    mtopDiff = chi2;
-			    tb_idx = ib;
-			    Hb1_idx = Hb1i;
-			    Hb2_idx = Hb2i;
-			    nu_idx = in;
-			    nu12_idx = idMin;
-			 }
+			    if( chi2 < mtopDiff )
+			      {
+				 _chi2 = chi2;
+				 mtopDiff = chi2;
+				 tb_idx = ib;
+				 Hb1_idx = Hb1i;
+				 Hb2_idx = Hb2i;
+				 nu_idx = in;
+				 nu12_idx = in2;
+				 //nu12_idx = idMin;
+			      }
+			 }		       
 		    }		  
 	       }
 	  }

@@ -24,21 +24,21 @@ int main()
 
    TFile *f_input = new TFile("../../../../proc/input.root");
 
-   TH1 *h_ch1_data = (TH1*)f_input->Get("h_e_data");
-   TH1 *h_ch1_signal = (TH1*)f_input->Get("h_e_signal");
-   TH1 *h_ch1_signal_sys_jesUp = (TH1*)f_input->Get("h_e_signal");
-   TH1 *h_ch1_signal_sys_jesDown = (TH1*)f_input->Get("h_e_signal");
-   TH1 *h_ch1_background = (TH1*)f_input->Get("h_e_bg");
-   TH1 *h_ch1_background_sys_jesUp = (TH1*)f_input->Get("h_e_bg");
-   TH1 *h_ch1_background_sys_jesDown = (TH1*)f_input->Get("h_e_bg");
+   TH1 *h_ch1_data = (TH1*)f_input->Get("h_m_data_oneBin");
+   TH1 *h_ch1_signal = (TH1*)f_input->Get("h_m_signal_oneBin");
+   TH1 *h_ch1_signal_sys_jesUp = (TH1*)f_input->Get("h_m_signal_oneBin");
+   TH1 *h_ch1_signal_sys_jesDown = (TH1*)f_input->Get("h_m_signal_oneBin");
+   TH1 *h_ch1_background = (TH1*)f_input->Get("h_m_bg_oneBin");
+   TH1 *h_ch1_background_sys_jesUp = (TH1*)f_input->Get("h_m_bg_oneBin");
+   TH1 *h_ch1_background_sys_jesDown = (TH1*)f_input->Get("h_m_bg_oneBin");
 
-   TH1 *h_ch2_data = (TH1*)f_input->Get("h_m_data");
-   TH1 *h_ch2_signal = (TH1*)f_input->Get("h_m_signal");
-   TH1 *h_ch2_signal_sys_jesUp = (TH1*)f_input->Get("h_m_signal");
-   TH1 *h_ch2_signal_sys_jesDown = (TH1*)f_input->Get("h_m_signal");
-   TH1 *h_ch2_background = (TH1*)f_input->Get("h_m_bg");
-   TH1 *h_ch2_background_sys_jesUp = (TH1*)f_input->Get("h_m_bg");
-   TH1 *h_ch2_background_sys_jesDown = (TH1*)f_input->Get("h_m_bg");
+   TH1 *h_ch2_data = (TH1*)f_input->Get("h_e_data_oneBin");
+   TH1 *h_ch2_signal = (TH1*)f_input->Get("h_e_signal_oneBin");
+   TH1 *h_ch2_signal_sys_jesUp = (TH1*)f_input->Get("h_e_signal_oneBin");
+   TH1 *h_ch2_signal_sys_jesDown = (TH1*)f_input->Get("h_e_signal_oneBin");
+   TH1 *h_ch2_background = (TH1*)f_input->Get("h_e_bg_oneBin");
+   TH1 *h_ch2_background_sys_jesUp = (TH1*)f_input->Get("h_e_bg_oneBin");
+   TH1 *h_ch2_background_sys_jesDown = (TH1*)f_input->Get("h_e_bg_oneBin");
    
    const int nsys = 1;
    char *sysname[nsys];
@@ -244,7 +244,7 @@ int main()
    nullhyp_pe_combined->print();
    testhyp_pe_combined->print();
 
-   int npe = 1000;
+   int npe = 1500;
 //   int npe = 10000;
    
    mymclimit->setminuitstepsize(0.001);

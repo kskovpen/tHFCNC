@@ -97,7 +97,7 @@ int main()
 
    float ksig = 1;
    
-   const int nvar = 28;
+   const int nvar = 34;
    std::string var[nvar] =
      {
 	"H_m",
@@ -127,7 +127,13 @@ int main()
 	"W_topb_costheta",
 	"HT",
 	"MET",
-	"njet"
+	"njet",
+	"nu_phi",
+	"MET_phi",
+	"H_nu_dr",
+	"H_l_dr",
+	"chi2",
+	"l_charge"
      };   
 
    std::string xtit[nvar] =
@@ -159,7 +165,13 @@ int main()
 	"cos #theta (W,b_{top})",
 	"H_{T} [GeV]",
 	"E_{T}^{miss} [GeV]",
-	"Number of jets"
+	"Number of jets",
+	"#phi (#nu)",
+	"#phi (MET)",
+	"#Delta R (H,#nu)",
+	"#Delta R (H,l)",
+	"#chi^{2}",
+	"lepton charge"
      };   
    
    const int nchan = 2;
@@ -682,8 +694,10 @@ int main()
 
 	float bg_norm_max = h_bg_norm->GetMaximum();
 	float sig_hut_stop_max = h_sig_hut_stop_norm->GetMaximum();
+	float sig_hut_ttbar_max = h_sig_hut_ttbar_norm->GetMaximum();
 
-	float max = std::max(bg_norm_max,sig_hut_stop_max);
+	float max_sig = std::max(sig_hut_stop_max,sig_hut_ttbar_max);
+	float max = std::max(bg_norm_max,max_sig);
 	h_bg_norm->SetMaximum(1.2*max);
 	
 	leg->Draw();

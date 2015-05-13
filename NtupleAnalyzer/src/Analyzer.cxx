@@ -12,6 +12,7 @@ char *flog;
 //char *runmode;
 char *tool;
 char *evc;
+std::string home;
 int nmax;
 //int lept;
 //int lepm;
@@ -27,9 +28,9 @@ std::vector<Truth>             *v_Truth;
 
 int main(int argc, char *argv[])
 {
-   if( argc < 5 )
+   if( argc < 6 )
      {
-	std::cout << "Usage: ./Analyzer [input file] [log file] [tool] [evc] [nmax]" << std::endl;
+	std::cout << "Usage: ./Analyzer [input file] [log file] [tool] [evc] [nmax] [home]" << std::endl;
 	exit(1);
      }   
    
@@ -38,6 +39,7 @@ int main(int argc, char *argv[])
    tool = argv[3];
    evc = argv[4];
    nmax = atoi(argv[5]);
+   home = std::string(argv[6]);
    
    TChain f("Nt");
    
@@ -85,7 +87,7 @@ int main(int argc, char *argv[])
    
    if( strcmp(tool,"plot") == 0 )
      {		
-	Hist hist;
+	Hist hist(home);
 	
 	hist.setElectron(v_Electron);
 	hist.setMuon(v_Muon);
@@ -121,8 +123,8 @@ int main(int argc, char *argv[])
 	hist.close();
      }
    else if( strcmp(tool,"topreco") == 0 )
-     {		
-	TopReco topr(1,NULL);
+     {
+	TopReco topr(home,1,NULL);
 	
 	topr.init();
 	topr.setElectron(v_Electron);

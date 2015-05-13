@@ -24,6 +24,8 @@ class Lepton
    int idx() {return _idx;};
    bool isElectron() {return _isElectron;};
    
+   int charge() {return _charge;};
+   
    template <class T> void setLepton(T *lep, int idx, bool isE)
      {
 	_pt = lep->pt();
@@ -35,6 +37,7 @@ class Lepton
 	
 	_idx = idx;
 	_isElectron = isE;
+	_charge = lep->charge();
      }
    
  protected:
@@ -48,6 +51,8 @@ class Lepton
    
    int _idx;
    bool _isElectron;
+   
+   int _charge;
 };
 
 #endif

@@ -6,9 +6,11 @@
 #include <boost/function.hpp>
 #include <boost/type_traits.hpp>
 
-Hist::Hist()
+Hist::Hist(std::string home)
 {
    help = new Helper();
+   
+   _home = home;
    
    _recAlg = 3; // 0 - mbb, 1 - mt, 2 - mbb&mt, 3 - top
    
@@ -41,34 +43,17 @@ void Hist::init()
 {
    rnd = new TRandom3(666);
    
-   std::string foutput = "hist/"+std::string(flog)+".root";
+   std::string foutput = _home+"/"+std::string(flog)+".root";
    _fout = new TFile(foutput.c_str(),"RECREATE");
 
-   _trec = new TopReco(0,_fout);
+   _trec = new TopReco(_home,0,_fout);
    _trec->init();
    
    _h_PassSel = new TH1D("h_PassSel","h_PassSel",10,0.,10.);
-   
-   _trout = new TTree("tr","tree");
-   
-   _trout->Branch("wmassGen",&m_wmassGen,"wmassGen/F");
-   _trout->Branch("foundNuMom",&m_foundNuMom,"foundNuMom/I");
-   _trout->Branch("truthMatch",&m_truthMatch,"truthMatch/I");
-   
-//   _trout->Branch("weight",&m_weight,"weight/D");
-//   _trout->Branch("channel",&m_channel,"channel/I");
-//   _trout->Branch("sel",&m_sel,"sel/I");
-   
-/*   _trout->Branch("l1_type",&m_l1_type,"l1_type/I");
-   _trout->Branch("l1_charge",&m_l1_charge,"l1_charge/I");                                                  
-   _trout->Branch("l1_pt",&m_l1_pt,"l1_pt/D");
-   _trout->Branch("l1_eta",&m_l1_eta,"l1_eta/D");
-   _trout->Branch("l1_phi",&m_l1_phi,"l1_phi/D");
-   _trout->Branch("l1_m",&m_l1_m,"l1_m/D");*/
 
    hname.clear(); 
 
-   histname_n = 28;
+   histname_n = 34;
    histname[0] = "h_H_m_";
    histname[1] = "h_H_pt_";
    histname[2] = "h_H_eta_";
@@ -97,6 +82,12 @@ void Hist::init()
    histname[25] = "h_HT_";
    histname[26] = "h_MET_";
    histname[27] = "h_njet_";
+   histname[28] = "h_nu_phi_";
+   histname[29] = "h_MET_phi_";
+   histname[30] = "h_H_nu_dr_";
+   histname[31] = "h_H_l_dr_";
+   histname[32] = "h_chi2_";
+   histname[33] = "h_l_charge_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
@@ -105,7 +96,6 @@ void Hist::init()
 
    sel_n = 1;
    sel[0] = "nosel";
-//   sel[1] = "bjge1";
 //   sel[2] = "bjge2";
 //   sel[0] = "bjge3";
 //   sel[0] = "bjge3";
@@ -137,6 +127,30 @@ void Hist::init()
 	sys[sys_low_n+is2] = sys_up[is2];
      }   
 
+   for(int ic=0;ic<chan_n;ic++)
+     {
+	std::string trName = "tr_"+chan[ic];
+	_trout[ic] = new TTree(trName.c_str(),trName.c_str());
+
+	_trout[ic]->Branch("weight",&m_weight,"weight/D");
+	_trout[ic]->Branch("H_m",&m_H_m,"H_m/D");
+	_trout[ic]->Branch("H_pt",&m_H_pt,"H_pt/D");
+	_trout[ic]->Branch("top_m",&m_top_m,"top_m/D");
+	_trout[ic]->Branch("H_eta",&m_H_eta,"H_eta/D");
+	_trout[ic]->Branch("top_pt",&m_top_pt,"top_pt/D");
+	_trout[ic]->Branch("top_eta",&m_top_eta,"top_eta/D");
+	_trout[ic]->Branch("HT",&m_HT,"HT/D");
+	_trout[ic]->Branch("njet",&m_njet,"njet/I");
+	_trout[ic]->Branch("Hb1_Hb2_dr",&m_Hb1_Hb2_dr,"Hb1_Hb2_dr/D");
+	_trout[ic]->Branch("H_nu_dr",&m_H_nu_dr,"H_nu_dr/D");
+	_trout[ic]->Branch("H_l_dr",&m_H_l_dr,"H_l_dr/D");
+	_trout[ic]->Branch("W_m",&m_W_m,"W_m/D");
+	_trout[ic]->Branch("W_pt",&m_W_pt,"W_pt/D");
+	_trout[ic]->Branch("W_eta",&m_W_eta,"W_eta/D");
+	_trout[ic]->Branch("chi2",&m_chi2,"chi2/D");
+	_trout[ic]->Branch("l_charge",&m_l_charge,"l_charge/I");
+     }   
+   
    _s_Hist = new std::vector<std::pair<std::vector<std::string>,double*> >();
    _m1d_Hist = new std::map<std::string, TH1D*>();
 
@@ -172,6 +186,12 @@ void Hist::init()
    set_hist.push_back(RANGE::set_HT);
    set_hist.push_back(RANGE::set_MET);
    set_hist.push_back(RANGE::set_njet);
+   set_hist.push_back(RANGE::set_phi);
+   set_hist.push_back(RANGE::set_phi);
+   set_hist.push_back(RANGE::set_H_nu_dr);
+   set_hist.push_back(RANGE::set_H_l_dr);
+   set_hist.push_back(RANGE::set_chi2);
+   set_hist.push_back(RANGE::set_l_charge);
    
    std::string titl;
 
@@ -243,8 +263,6 @@ void Hist::init()
 
 void Hist::fill()
 {
-   m_truthMatch = 0;
-   
    float w = _v_Event->at(0).w();
 
    _v_ElectronTight->clear();
@@ -424,6 +442,11 @@ void Hist::fill()
 			    for(int ij=0;ij<jets_n;ij++)
 			      {
 				 if( !jets_pass[ij] ) continue;
+
+				 if( ih == 0 && is == 0 && ij == 0 && isys == 0 )
+				   {
+				      fillTree(ic);
+				   }				 
 				 
 				 // [JETS][CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
 				 histNAMESSEL.push_back(histNAMES[ij][ic][0][is][ih][isys]);
@@ -445,8 +468,6 @@ void Hist::fill()
 	       }
 	  }
      }
-
-   _trout->Fill();
    
    fillPassSel(_h_PassSel,w);
 }
@@ -459,6 +480,34 @@ void Hist::close()
    _fevcVal.close();
    
 //   delete rnd;
+}
+
+void Hist::fillTree(int ic)
+{
+   m_H_m = _H_p4.M();
+   m_H_pt = _H_p4.Pt();
+   m_top_pt = _top_p4.Pt();
+   m_H_eta = _H_p4.PseudoRapidity();
+   m_top_eta = _top_p4.PseudoRapidity();
+   m_top_m = _top_p4.M();
+   
+   float HT = 0.;
+   int njets = _v_JetTight->size();
+   for(int ij=0;ij<njets;ij++) 
+     HT += _v_JetTight->at(ij).p4().Pt();
+   
+   m_HT = HT;
+   m_njet = njets;
+   m_Hb1_Hb2_dr = _Hb1_p4.DeltaR(_Hb2_p4);   
+   m_H_nu_dr = _H_p4.DeltaR(_nu_p4);
+   m_H_l_dr = _H_p4.DeltaR(_l_p4);
+   m_W_m = _W_p4.M();
+   m_W_pt = _W_p4.Pt();
+   m_W_eta = _W_p4.PseudoRapidity();
+   m_chi2 = _trec->chi2();
+   m_l_charge = _v_Lepton->at(0).charge();
+   
+   _trout[ic]->Fill();
 }
 
 bool Hist::printout(bool doPrint)
@@ -629,6 +678,34 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
 	int njets = _v_JetTight->size();
 	h->Fill(njets,sfj);
      }   
+   else if( strcmp(varName.c_str(),"h_nu_phi_") == 0 )
+     {	
+	float nu_phi = _nu_p4.Phi();
+	h->Fill(nu_phi,sfj);
+     }   
+   else if( strcmp(varName.c_str(),"h_MET_phi_") == 0 )
+     {
+	float metphi = _v_Event->at(0).metphi();
+	h->Fill(metphi,sfj);
+     }   
+   else if( strcmp(varName.c_str(),"h_H_nu_dr_") == 0 )
+     {	
+	float H_nu_dr = _H_p4.DeltaR(_nu_p4);
+	h->Fill(H_nu_dr,sfj);
+     }   
+   else if( strcmp(varName.c_str(),"h_H_l_dr_") == 0 )
+     {	
+	float H_l_dr = _H_p4.DeltaR(_l_p4);
+	h->Fill(H_l_dr,sfj);
+     }   
+   else if( strcmp(varName.c_str(),"h_chi2_") == 0 )
+     {	
+	h->Fill(_trec->chi2(),sfj);
+     }
+   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
+     {	
+	h->Fill(_v_Lepton->at(0).charge(),sfj);
+     }
 }
 
 float Hist::getWmassBW(float mWmean,float GammaW)
