@@ -15,9 +15,9 @@ WJetsToLNu_13TeV-madgraph-pythia8-tauola                      61500
 ZH_HToBB_ZToLL_M-125_13TeV_powheg-herwigpp                  0.08713
 THQtoTBBQ_1L                                                  0.012
 TZQtoTQQQ_1L                                                  0.128
-tHToBB_1L_Kappa_hut                                           14.13
-tHToBB_1L_Kappa_hct                                            1.75
-tHToBB_1L_Kappa_gut                                            9.31
-tHToBB_1L_Kappa_gct                                            1.22
-TTtoTHToBB_1L_Kappa_hut                                       41.61
-TTtoTHToBB_1L_Kappa_hct                                       41.61
+tHToBB_1L_Kappa_hut                                            0.88
+tHToBB_1L_Kappa_hct                                            0.11
+tHToBB_1L_Kappa_gut                                          0.0023
+tHToBB_1L_Kappa_gct                                          0.0015
+TTtoTHToBB_1L_Kappa_hut                                        2.60
+TTtoTHToBB_1L_Kappa_hct                                        2.60

@@ -13,7 +13,8 @@ if [[ ${dirName} == "" ]]; then
 fi
 
 dpath="/opt/sbg/scratch1/${voName}/kskovpen/tH/${dirName}DATA/"
-opath="/opt/sbg/data/sbgse24/data1/cms/kskovpen/tH/toy${dirName}/"
+opath="/opt/sbg/scratch1/cms/kskovpen/toyTEST/"
+#opath="/opt/sbg/data/sbgse24/data1/cms/kskovpen/tH/toy${dirName}/"
 
 rm -rf ${opath}
 mkdir ${opath}
