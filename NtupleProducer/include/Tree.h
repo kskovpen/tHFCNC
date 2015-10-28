@@ -536,7 +536,7 @@ public :
    TBranch           *b_mc_truth_tWq1_id;
    TBranch           *b_mc_truth_tWq2_id;
    
-   Tree(TChain *tree=0,char* fname="output.root",std::string treename="FlatTree/tree");
+   Tree(TChain *tree=0,std::string fname="output.root",std::string treename="FlatTree/tree");
    virtual ~Tree();
    virtual Int_t    GetEntry(Long64_t entry);
 //   virtual Long64_t LoadTree(Long64_t entry);
