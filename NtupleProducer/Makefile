@@ -3,20 +3,18 @@ CMSINC      = -I$(CMSSW_BASE)/src
 #EGAMLIB      = -L$(CMSSW_BASE)/lib/slc6_amd64_gcc481 -lEgammaAnalysisElectronTools
 #FORMLIB      = -L$(CMSSW_BASE)/lib/slc6_amd64_gcc481 -lEgammaAnalysisElectronTools
 
-# escape c11
-#ROOTCFLAGS    = $(shell root-config --cflags | sed -e "s%-std=c++0x %%g")
-ROOTCFLAGS    = $(shell root-config --cflags | sed -e "s%-std=c++11 %%g")
+ROOTCFLAGS    = $(shell root-config --cflags)
 ROOTLIBS      = $(shell root-config --libs)
 ROOTGLIBS     = $(shell root-config --glibs)
 
-CXX           = g++ -fPIC -Wno-write-strings
+CXX           = g++ -fPIC -Wno-write-strings -Wno-writable-strings
 LD            = g++
 LDFLAGS       = -g
 SOFLAGS       = -shared
 
 CXXFLAGS       = $(ROOTCFLAGS)
 INCLUDE_FLAGS  = $(CMSINC)
-LDLIBS         = $(ROOTLIBS) -lCintex
+LDLIBS         = $(ROOTLIBS)
 GLIBS          = $(ROOTGLIBS)
 
 EXE           = test/NtupleProducer
@@ -57,4 +55,4 @@ $(EXE):	      $(LIB) src/NtupleProducer.cxx
 	      @$(CXX) $(CXXFLAGS) obj/NtupleProducer.o $(LDLIBS) $(LIB) -o $(EXE)
 
 clean:
-	      @rm -f $(OBJS) $(EXE) obj/NtupleProducerDict.cxx obj/NtupleProducerDict.h $(LIB)
+	      @rm -f $(OBJS) $(EXE) obj/NtupleProducerDict.cxx obj/NtupleProducerDict.h obj/NtupleProducerDict_rdict.pcm $(LIB)
