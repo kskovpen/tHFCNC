@@ -1,12 +1,12 @@
 #include "include/Tree.h"
 #include "include/NtupleProducer.h"
 
-Tree::Tree(TChain *ch,char *fname,std::string treename)
+Tree::Tree(TChain *ch,std::string fname,std::string treename)
 {
    ch = new TChain(treename.c_str());
    
    std::ifstream infile;
-   infile.open(fname);
+   infile.open(fname.c_str());
    std::string ifile = "";
    while( getline(infile, ifile) )     
      {
