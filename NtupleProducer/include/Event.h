@@ -23,7 +23,7 @@ class Event : public Base
    
    float mc_weight()         {return _mc_weight;};
    float w()                 {return _w;};
-   float setWeight(float weight)  {_w = weight;};
+   void setWeight(float weight)  {_w = weight;};
    
    int tth_channel()         {return _tth_channel;};
    
