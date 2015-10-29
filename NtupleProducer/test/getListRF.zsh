@@ -80,10 +80,14 @@ do
     jid=0
     echo $lsfi | while read fil
     do
-      if [[ $#d2 != 1 ]]; then
+      if [[ $#d2 != 1 && ${d1} != "tHFCNC13TeV" ]]; then
         mv ${fil} ${outDir}${d1}_${id2}_ID${jid}.txt
       else
-        mv ${fil} ${outDir}${d1}_ID${jid}.txt
+        if [[ ${d1} == "tHFCNC13TeV" ]]; then
+          mv ${fil} ${outDir}${d1}"_"$(echo ${id2} | sed "s%_AODFASTSIM_.*%%g")_ID${jid}.txt
+        else
+          mv ${fil} ${outDir}${d1}_ID${jid}.txt
+	fi
       fi
       jid=$[$jid+1]
     done
