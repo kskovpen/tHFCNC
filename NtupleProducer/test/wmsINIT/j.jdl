@@ -1,8 +1,0 @@
-Executable = "/bin/sh";
-Arguments = "wmsjob.sh anaName runName voName inputName dirli";
-StdOutput = "stdout.out";
-StdError = "stderr.err";
-InputSandbox={"wmsjob.sh"};
-OutputSandbox = { "stdout.out", "stderr.err" };
-#Requirements=other.GlueCEUniqueID=="sbgce2.in2p3.fr:8443/cream-pbs-cms"
-Requirements=other.GlueCEUniqueID=="sbgce2.in2p3.fr:8443/cream-pbs-vo.sbg.in2p3.fr"
