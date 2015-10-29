@@ -43,7 +43,11 @@ do
     jid=0
     echo $lsfi | while read fil
     do
-      mv ${fil} ${outDir}${d1}_ID${jid}.txt
+      if [[ $#d2 != 1 ]]; then
+        mv ${fil} ${outDir}${d1}_${id2}_ID${jid}.txt
+      else
+        mv ${fil} ${outDir}${d1}_ID${jid}.txt
+      fi
       jid=$[$jid+1]
     done
     rm -f /tmp/tempDATA.txt
@@ -76,7 +80,11 @@ do
     jid=0
     echo $lsfi | while read fil
     do
-      mv ${fil} ${outDir}${d1}_ID${jid}.txt
+      if [[ $#d2 != 1 ]]; then
+        mv ${fil} ${outDir}${d1}_${id2}_ID${jid}.txt
+      else
+        mv ${fil} ${outDir}${d1}_ID${jid}.txt
+      fi
       jid=$[$jid+1]
     done
     rm -f /tmp/tempMC.txt
