@@ -8,7 +8,7 @@ Produce user class based ntuples from [FlatTrees](https://github.com/kskovpen/Fl
 and selection criteria, apply initial event selection
 
 ```c++
-cd NtupleProducer/;make;cd test/;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBRARY_PATH
+cd NtupleProducer/;make;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:cd test;$LD_LIBRARY_PATH
 
 ./NtupleProducer
 --file ${infl} # txt file with the list of input FlatTree files to read
