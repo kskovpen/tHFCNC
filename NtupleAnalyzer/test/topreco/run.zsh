@@ -1,5 +1,0 @@
-#!/bin/env zsh
-
-rm -rf pics
-mkdir pics
-./plot
