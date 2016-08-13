@@ -2,8 +2,8 @@
 
 CC = g++ -g
 
-NTUPLEINC    = -I$(CMSSW_BASE)/src/NtupleProducer/include
-NTUPLELIB    = -L$(CMSSW_BASE)/src/NtupleProducer \
+NTUPLEINC    = -I$(CMSSW_BASE)/src/tHFCNC/NtupleProducer/include
+NTUPLELIB    = -L$(CMSSW_BASE)/src/tHFCNC/NtupleProducer \
               -lNtuple
 
 KINFITINC    = -I$(CMSSW_BASE)/src/TopKinFit
