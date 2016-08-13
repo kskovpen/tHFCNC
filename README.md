@@ -7,6 +7,7 @@ Code for tH (H->bb) FCNC analysis
 Produce user class based ntuples from [FlatTrees](https://github.com/kskovpen/FlatTree), define object quality
 and selection criteria, apply initial event selection
 
+`
 cd NtupleProducer/;make;cd test/;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBRARY_PATH
 
 ./NtupleProducer
@@ -19,6 +20,7 @@ cd NtupleProducer/;make;cd test/;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LI
 --isdata 0 # run on data or MC
 --stream -1 # 0: SingleElectron, 1: SingleMuon (only for data)
 --issig 0 # flag to mark signal events (1: signal)
+`
 
 ## NtupleAnalyzer
 
