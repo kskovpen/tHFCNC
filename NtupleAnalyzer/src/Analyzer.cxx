@@ -1,5 +1,7 @@
 #include "../include/Hist.h"
 #include "../include/TopReco.h"
+#include "../include/JetAssign.h"
+#include "../include/ApplyMVA.h"
 //#include "ChargeMisid.h"
 //#include "RealEff.h"
 //#include "FakeRate.h"
@@ -140,10 +142,33 @@ int main(int argc, char *argv[])
 	     f.GetEntry(i);
 	     
 	     std::string fcur = f.GetCurrentFile()->GetName();
-	     topr.run();
+	     bool res = topr.run();
 	  }   
 	
 	topr.close();
+     }
+   else if( strcmp(tool,"jetassign") == 0 )
+     {
+	JetAssign jeta(home,1,NULL);
+	
+	jeta.init();
+	jeta.setElectron(v_Electron);
+	jeta.setMuon(v_Muon);
+	jeta.setEvent(v_Event);
+	jeta.setJet(v_Jet);
+	jeta.setTruth(v_Truth);
+	
+	for(int i=0;i<nent;i++)
+	  {
+	     if( nmax >= 0 && i > nmax ) break;
+	     
+	     f.GetEntry(i);
+	     
+	     std::string fcur = f.GetCurrentFile()->GetName();
+	     bool res = jeta.run();
+	  }   
+	
+	jeta.close();
      }   
 /*   else if( strcmp(tool,"misid") == 0 )
      {		

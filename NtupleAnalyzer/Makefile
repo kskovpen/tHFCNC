@@ -6,6 +6,10 @@ NTUPLEINC    = -I$(CMSSW_BASE)/src/NtupleProducer/include
 NTUPLELIB    = -L$(CMSSW_BASE)/src/NtupleProducer \
               -lNtuple
 
+KINFITINC    = -I$(CMSSW_BASE)/src/TopKinFit
+KINFITLIB    = -L$(CMSSW_BASE)/src/TopKinFit \
+              -lKinFit
+
 SOVERSION               = $(shell echo $(VERSION) | \
                                sed 's/\(.*\)\.\(.*\)\.\(.*\)/\1:\2:0/')
 ROOTCONF                = root-config
@@ -15,19 +19,22 @@ ROOTGLIBS               = $(shell $(ROOTCONF) --glibs)
 ROOTCFLAGS              = $(shell $(ROOTCONF) --cflags)
 INCLUDES                = $(shell $(ROOTCONF) --incdir) $(ROOTCFLAGS)
 CINTINCLUDES            = $(shell $(ROOTCONF) --incdir)
-LIBS                    = $(ROOTLIBS)
+LIBS                    = $(ROOTLIBS) 
 
-LDLIBS  = $(ROOTLIBS) $(NTUPLELIB)
+LDLIBS  = $(ROOTLIBS) -lTMVA $(NTUPLELIB) $(KINFITLIB)
 
-ADDINC = $(NTUPLEINC)
+ADDINC = $(NTUPLEINC) $(KINFITINC)
 
 SRC = src/Analyzer.cxx src/Hist.cxx src/Lepton.cxx \
-src/TopReco.cxx src/Helper.cxx src/Ranges.cxx
+src/TopReco.cxx src/Helper.cxx src/Ranges.cxx \
+src/JetAssign.cxx src/ApplyMVA.cxx
 
 INC = include/Hist.h include/Ranges.h include/Analyzer.h \
-include/Lepton.h include/TopReco.h include/Helper.h
+include/Lepton.h include/TopReco.h include/Helper.h \
+include/JetAssign.h include/ApplyMVA.h
 
-OBJ = Analyzer.o Hist.o Lepton.o TopReco.o Helper.o Ranges.o
+OBJ = Analyzer.o Hist.o Lepton.o TopReco.o \
+Helper.o Ranges.o JetAssign.o ApplyMVA.o
 
 EXE = Analyzer
 

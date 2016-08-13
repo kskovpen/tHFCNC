@@ -4,6 +4,7 @@
 #include "Analyzer.h"
 
 #include "TopReco.h"
+#include "ApplyMVA.h"
 #include "Helper.h"
 
 //#include "FakeWeight.h"
@@ -34,14 +35,16 @@ class Hist
 				std::vector<Electron>* ntElectron,
 				std::vector<Muon>* ntMuon);
    
-   unsigned int passSel;
+   unsigned int passSel_all;
+   unsigned int passSel_e;
+   unsigned int passSel_m;
    
    std::vector<TLorentzVector> lep_tlv(std::string sys,int llc,bool isTIGHT);
    std::vector<TLorentzVector> jet_tlv(std::string sys); 
    
    void fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string varName);
 
-   void fillPassSel(TH1D *h,float sfj);
+   void fillPassSel(TH1D *h,TH1D *he,TH1D *hm,float sfj);
      
    float getWmassBW(float mWmean,float GammaW);
    float BW(float mW,float mWmean,float GammaW);
@@ -125,6 +128,23 @@ class Hist
    double m_chi2;
    int m_l_charge;
    
+   double m_TTbar_topLep_m;
+   double m_TTbar_topLep_pt;
+   double m_TTbar_topLep_eta;
+   double m_TTbar_topHad_m;
+   double m_TTbar_topHad_pt;
+   double m_TTbar_topHad_eta;
+   double m_TTbar_WLep_m;
+   double m_TTbar_WLep_pt;
+   double m_TTbar_WLep_eta;
+   double m_TTbar_WHad_m;
+   double m_TTbar_WHad_pt;
+   double m_TTbar_WHad_eta;
+   double m_TTbar_tbLep_tWLep_Dr;
+   double m_TTbar_tbHad_tWHad_Dr;
+   double m_TTbar_tWj1_tWj2_Dr;
+   double m_TTbar_chi2;
+   
  protected:
 
    std::vector<Lepton>             *_v_Lepton;
@@ -132,12 +152,15 @@ class Hist
    std::vector<Electron>             *_v_Electron;
    std::vector<Muon>             *_v_Muon;
    std::vector<Electron>             *_v_ElectronTight;
+   std::vector<Electron>             *_v_ElectronLoose;
    std::vector<Muon>             *_v_MuonTight;
+   std::vector<Muon>             *_v_MuonLoose;
    
    std::vector<Event>             *_v_Event;
    std::vector<Jet>             *_v_Jet;
    std::vector<Jet>             *_v_JetTight;
    std::vector<Jet>             *_v_BJetTight;
+   std::vector<Jet>             *_v_NonBJetTight;
    
    std::vector<Truth>             *_v_Truth;
    
@@ -145,9 +168,13 @@ class Hist
   
    std::map<std::string, TH1D*> *_m1d_Hist;
    
-   TH1D *_h_PassSel;
+   TH1D *_h_PassSel_all;
+   TH1D *_h_PassSel_e;
+   TH1D *_h_PassSel_m;
 
    std::vector<std::pair<std::vector<std::string>,double*> > *_s_Hist;
+   
+   bool _resTop;
 	
  private:
 
@@ -166,8 +193,6 @@ class Hist
 //	TLorentzVector *v_jet_sys_jerTotalUp;
 //	TLorentzVector *v_jet_sys_jerTotalLow;
 //	TLorentzVector *v_mu;
-
-   int _recAlg;
    
    TLorentzVector _topb_p4;
    TLorentzVector _Hb1_p4;
@@ -177,18 +202,30 @@ class Hist
    TLorentzVector _top_p4;
    TLorentzVector _H_p4;
    TLorentzVector _W_p4;
+
+   TLorentzVector _topLep_TTbar_p4;
+   TLorentzVector _topHad_TTbar_p4;
+   TLorentzVector _topbLep_TTbar_p4;
+   TLorentzVector _topbHad_TTbar_p4;
+   TLorentzVector _topWj1_TTbar_p4;
+   TLorentzVector _topWj2_TTbar_p4;
+   TLorentzVector _l_TTbar_p4;
+   TLorentzVector _nu_TTbar_p4;
+   TLorentzVector _WLep_TTbar_p4;
+   TLorentzVector _WHad_TTbar_p4;
    
    FILE *_fevc;
    std::ofstream _fevcVal;
    
    std::string _home;
-	
+   
    TRandom3 *rnd;
    
    TFile *_fout;
    TTree *_trout[100];
    
    TopReco *_trec;
+   ApplyMVA *_mva;
    
    Helper *help;
 };

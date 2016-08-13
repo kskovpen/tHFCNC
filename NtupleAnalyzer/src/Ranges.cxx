@@ -33,6 +33,7 @@ namespace RANGE
    double set_phi[3] = {15,-3.6,3.6};
    double set_H_nu_dr[3] = {25,0.,5.0};
    double set_H_l_dr[3] = {25,0.,5.0};
-   double set_chi2[3] = {25,0.,10.0};
+   double set_chi2[3] = {25,0.,200.0};
    double set_l_charge[3] = {3,-1.5,1.5};
+   double set_MVA[3] = {20,-0.6,0.6};
 }

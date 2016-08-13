@@ -2,16 +2,20 @@
 
 Code for tH (H->bb) FCNC analysis
 
+```
+git clone https://github.com/kskovpen/tHFCNC
+```
+
 ## NtupleProducer
 
 Produce user class based ntuples from [FlatTrees](https://github.com/kskovpen/FlatTree), define object quality
 and selection criteria, apply initial event selection
 
 ```c++
-cd NtupleProducer/;make;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBRARY_PATH;cd test/
+cd tHFCNC/NtupleProducer/;make;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBRARY_PATH;cd test/
 
 ./NtupleProducer
---file ${infl} # txt file with the list of input FlatTree files to read
+--file list.txt # txt file with the list of input FlatTree files to read
 --tree FlatTree/tree # name of FlatTree TTree directory
 --outfile "output" # name of the output ROOT file
 --noe 666 # initial number of events for considered dataset to be used for normalization
@@ -26,3 +30,19 @@ cd NtupleProducer/;make;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBRARY_PAT
 
 Run various analysis routines, produce histograms and plots
 
+```c++
+git clone https://github.com/kskovpen/TopKinFit
+cd TopKinFit/;make;cd -
+
+cd tHFCNC/NtupleAnalyzer/;make
+export LD_LIBRARY_PATH=${PWD}:${PWD}/../NtupleProducer:${PWD}/../NtupleProducer/obj:../TopKinFit/:$LD_LIBRARY_PATH
+cd test/
+
+./Analyzer \
+list.txt \ # txt file with the list of input Ntuple files to read 
+output \ # name of the output ROOT file
+plot \ # name of the tool to run (plot: apply selection and produce histograms)
+0 \ # outdated option, to be removed
+-1 \ # maximum number of events to process
+$(PWD) # path to current directory
+```
