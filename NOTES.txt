@@ -1,3 +1,0 @@
-http://cms.cern.ch/iCMS/analysisadmin/cadilines?line=TOP-14-020&tp=an&id=1368&ancode=TOP-14-020
-
-http://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS%20AN-2014/139
