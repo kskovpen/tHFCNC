@@ -10,37 +10,52 @@ Ntuple::~Ntuple()
    m_file->Close();
 }
 
-void Ntuple::Init()
+void Ntuple::Init(std::string fname)
 {
-   m_file = new TFile("output.root","RECREATE");
+   std::string foutName = fname+".root";
+   m_file = new TFile(foutName.c_str(),"RECREATE");
    
    m_tree = new TTree("Nt"," Ntuple");
 }
 
 void Ntuple::setBranchAddress()
 {
-   m_tree->Branch("Electron","std::vector<Electron>",(NtElectron),32000,1);
-   m_tree->Branch("Muon","std::vector<Muon>",(NtMuon),32000,1);
+   m_tree->Branch("Electron","std::vector<Electron>",(NtElectronTight),32000,1);
+   m_tree->Branch("Muon","std::vector<Muon>",(NtMuonTight),32000,1);
    m_tree->Branch("Event","std::vector<Event>",(NtEvent),32000,1);
-   m_tree->Branch("Jet","std::vector<Jet>",(NtJet),32000,1);
+   m_tree->Branch("Jet","std::vector<Jet>",(NtJetTight),32000,1);
    m_tree->Branch("Truth","std::vector<Truth>",(NtTruth),32000,1);
 }
 
 void Ntuple::createVar()
 {
-   NtElectron           = new std::vector<Electron>;
-   NtMuon               = new std::vector<Muon>;
+   NtElectronLoose           = new std::vector<Electron>;
+   NtElectronTight           = new std::vector<Electron>;
+   
+   NtMuonLoose               = new std::vector<Muon>;
+   NtMuonTight               = new std::vector<Muon>;
+
+   NtJetLoose               = new std::vector<Jet>;
+   NtJetTight               = new std::vector<Jet>;
+   NtBJetTight               = new std::vector<Jet>;
+   
    NtEvent               = new std::vector<Event>;
-   NtJet               = new std::vector<Jet>;
    NtTruth               = new std::vector<Truth>;
 }
 
 void Ntuple::clearVar()
 {
-   NtElectron->clear();
-   NtMuon->clear();
+   NtElectronLoose->clear();
+   NtElectronTight->clear();
+   
+   NtMuonLoose->clear();
+   NtMuonTight->clear();
+
+   NtJetLoose->clear();
+   NtJetTight->clear();
+   NtBJetTight->clear();
+   
    NtEvent->clear();
-   NtJet->clear();
    NtTruth->clear();
 }
 

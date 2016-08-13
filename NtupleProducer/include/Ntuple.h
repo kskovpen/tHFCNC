@@ -17,13 +17,20 @@ class Ntuple
    Ntuple();
    virtual ~Ntuple();
    
-   std::vector<Electron>* NtElectron;
-   std::vector<Muon>* NtMuon;
+   std::vector<Electron>* NtElectronLoose;
+   std::vector<Electron>* NtElectronTight;
+   
+   std::vector<Muon>* NtMuonLoose;
+   std::vector<Muon>* NtMuonTight;
+
+   std::vector<Jet>* NtJetLoose;
+   std::vector<Jet>* NtJetTight;
+   std::vector<Jet>* NtBJetTight;
+   
    std::vector<Event>* NtEvent;
-   std::vector<Jet>* NtJet;
    std::vector<Truth>* NtTruth;
    
-   void Init();
+   void Init(std::string fname);
    
    void setBranchAddress();
    void createVar();
@@ -31,9 +38,10 @@ class Ntuple
    void fill();
    
    TFile*  m_file;
+   TTree*  m_tree;
    
  private:
-   TTree*  m_tree;
+
    TChain* m_chain;
 };
 

@@ -30,17 +30,17 @@ class Electron : public Base
    
    float dxy()         {return _dxy;};
    float dz()         {return _dz;};
-   float iso()         {return _iso;};
    bool isLoose()         {return _isLoose;};
    bool isTight()         {return _isTight;};
    
    int charge()         {return _charge;};
    int id()         {return _id;};
-
-   bool pass_ID_veto() {return _pass_ID_veto;};
-   bool pass_ID_loose() {return _pass_ID_loose;};
-   bool pass_ID_medium() {return _pass_ID_medium;};
-   bool pass_ID_tight() {return _pass_ID_tight;};
+   
+   bool isLooseCBId()     {return _isLooseCBId;};
+   bool isMediumCBId()     {return _isMediumCBId;};
+   bool isTightCBId()     {return _isTightCBId;};
+   
+   float relIso()     {return _relIso;};
    
    void read();
    void init();
@@ -60,17 +60,17 @@ class Electron : public Base
    
    float _dxy;
    float _dz;
-   float _iso;
    bool _isLoose;
    bool _isTight;
    
    int _charge;
    int _id;
-
-   bool _pass_ID_veto;
-   bool _pass_ID_loose;
-   bool _pass_ID_medium;
-   bool _pass_ID_tight;
+   
+   bool _isLooseCBId;
+   bool _isMediumCBId;
+   bool _isTightCBId;
+   
+   float _relIso;
    
    ClassDef(Electron,1)
 };

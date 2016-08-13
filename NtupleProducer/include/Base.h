@@ -3,10 +3,13 @@
 
 #include "TObject.h"
 #include "TLorentzVector.h"
+#include "Common.h"
+
+#define VDEF -666
 
 extern unsigned int idx;
 
-class Base : public TLorentzVector
+class Base : public TObject
 {
  public:
    

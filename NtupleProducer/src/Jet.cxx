@@ -14,144 +14,198 @@ void Jet::read()
 {
    _ID = idx;
    
-   if( CHECK(ntP->jet_E) )                _E   = ntP->jet_E->at(idx);
-   if( CHECK(ntP->jet_pt) )               _pt  = ntP->jet_pt->at(idx);
-   if( CHECK(ntP->jet_eta) )              _eta = ntP->jet_eta->at(idx);   
-   if( CHECK(ntP->jet_phi) )              _phi = ntP->jet_phi->at(idx);   
-   if( CHECK(ntP->jet_m) )                _m   = ntP->jet_m->at(idx);
+   _E   = ntP->jet_E->at(idx);
+   _pt  = ntP->jet_pt->at(idx);
+   _eta = ntP->jet_eta->at(idx);
+   _phi = ntP->jet_phi->at(idx);
+   _m   = ntP->jet_m->at(idx);
 
-   if( CHECK(ntP->jet_gen_E) )                _gen_E   = ntP->jet_gen_E->at(idx);
-   if( CHECK(ntP->jet_gen_pt) )               _gen_pt  = ntP->jet_gen_pt->at(idx);
-   if( CHECK(ntP->jet_gen_eta) )              _gen_eta = ntP->jet_gen_eta->at(idx);   
-   if( CHECK(ntP->jet_gen_phi) )              _gen_phi = ntP->jet_gen_phi->at(idx);   
-   if( CHECK(ntP->jet_gen_m) )                _gen_m   = ntP->jet_gen_m->at(idx);
-   if( CHECK(ntP->jet_gen_status) )                _gen_status   = ntP->jet_gen_status->at(idx);
-   if( CHECK(ntP->jet_gen_id) )                _gen_id   = ntP->jet_gen_id->at(idx);
+   if( CHECK(ntP->jet_genJet_E) )                _gen_E   = ntP->jet_genJet_E->at(idx);
+   if( CHECK(ntP->jet_genJet_pt) )               _gen_pt  = ntP->jet_genJet_pt->at(idx);
+   if( CHECK(ntP->jet_genJet_eta) )              _gen_eta = ntP->jet_genJet_eta->at(idx);   
+   if( CHECK(ntP->jet_genJet_phi) )              _gen_phi = ntP->jet_genJet_phi->at(idx);
+   if( CHECK(ntP->jet_genJet_m) )                _gen_m   = ntP->jet_genJet_m->at(idx);
+   if( CHECK(ntP->jet_genJet_status) )           _gen_status   = ntP->jet_genJet_status->at(idx);
+   if( CHECK(ntP->jet_genJet_id) )               _gen_id   = ntP->jet_genJet_id->at(idx);
    
-   if( CHECK(ntP->jet_ntrk) )             _ntrk   = ntP->jet_ntrk->at(idx);
-   
-   if( CHECK(ntP->jet_CSV) )                _CSV   = ntP->jet_CSV->at(idx);
    if( CHECK(ntP->jet_CSVv2) )                _CSVv2   = ntP->jet_CSVv2->at(idx);
+   if( CHECK(ntP->jet_cMVAv2) )                _cMVAv2   = ntP->jet_cMVAv2->at(idx);
+   
+   if( CHECK(ntP->jet_CharmCvsL) )                _CharmCvsL   = ntP->jet_CharmCvsL->at(idx);
+   if( CHECK(ntP->jet_CharmCvsB) )                _CharmCvsB   = ntP->jet_CharmCvsB->at(idx);
+   
+   if( CHECK(ntP->jet_looseJetID) )               _isLooseJetID   = ntP->jet_looseJetID->at(idx);
+   if( CHECK(ntP->jet_tightJetID) )               _isTightJetID   = ntP->jet_tightJetID->at(idx);
+   
+   if( CHECK(ntP->jet_hadronFlavour) )               _hadronFlavour   = ntP->jet_hadronFlavour->at(idx);
+   
+   if( CHECK(ntP->jet_hasGenJet) )               _hasGenJet   = ntP->jet_hasGenJet->at(idx);
+   if( CHECK(ntP->jet_genJet_pt) )               _genJetPt   = ntP->jet_genJet_pt->at(idx);
+   if( CHECK(ntP->jet_genJet_eta) )              _genJetEta   = ntP->jet_genJet_eta->at(idx);
+   if( CHECK(ntP->jet_genJet_phi) )              _genJetPhi   = ntP->jet_genJet_phi->at(idx);
+   if( CHECK(ntP->jet_genJet_E) )                _genJetE   = ntP->jet_genJet_E->at(idx);
    
    if(_pt > 0.) _p4.SetPtEtaPhiE(_pt,_eta,_phi,_E);
 }
 
 void Jet::init()
 {
-   _E        = -666;
-   _pt       = -666;
-   _eta      = -666;
-   _phi      = -666;
-   _m        = -666;
+   _E        = VDEF;
+   _pt       = VDEF;
+   _eta      = VDEF;
+   _phi      = VDEF;
+   _m        = VDEF;
 
-   _gen_E        = -666;
-   _gen_pt       = -666;
-   _gen_eta      = -666;
-   _gen_phi      = -666;
-   _gen_m        = -666;
-   _gen_status        = -666;
-   _gen_id        = -666;
+   _gen_E        = VDEF;
+   _gen_pt       = VDEF;
+   _gen_eta      = VDEF;
+   _gen_phi      = VDEF;
+   _gen_m        = VDEF;
+   _gen_status        = VDEF;
+   _gen_id        = VDEF;
    
-   _ntrk        = -666;
+   _CSVv2        = VDEF;
+   _cMVAv2        = VDEF;
    
-   _CSV        = -666.;
-   _CSVv2        = -666.;
+   _CharmCvsL        = VDEF;
+   _CharmCvsB        = VDEF;
 
+   _isLoose   = 0;
    _isTight   = 0;
    
-   _pass_ID_loose   = 0;
-   _pass_ID_medium   = 0;
-   _pass_ID_tight   = 0;
+   _isBTag   = 0;
    
-   _pass_pujetId = 0;
+   _isLooseJetID   = 0;
+   _isTightJetID   = 0;
+   
+   _hadronFlavour   = VDEF;
+   
+   _hasGenJet = 0;
+   _genJetPt = VDEF;
+   _genJetEta = VDEF;
+   _genJetPhi = VDEF;
+   _genJetE = VDEF;
+   
+   _passElecOverlap   = 0;
+   _passMuonOverlap   = 0;
+   
+   _SfIterativeFitCentral = 1.;
+   _SfIterativeFitJesUp = 1.;
+   _SfIterativeFitJesDown = 1.;
+   _SfIterativeFitLfUp = 1.;
+   _SfIterativeFitLfDown = 1.;
+   _SfIterativeFitHfstats1Up = 1.;
+   _SfIterativeFitHfstats1Down = 1.;
+   _SfIterativeFitHfstats2Up = 1.;
+   _SfIterativeFitHfstats2Down = 1.;
+   _SfIterativeFitCferr1Up = 1.;
+   _SfIterativeFitCferr1Down = 1.;
+   _SfIterativeFitCferr2Up = 1.;
+   _SfIterativeFitCferr2Down = 1.;
 }
 
 void Jet::sel()
 {   
-   bool pass_pt = (_pt > 20.);
-   bool pass_eta = (fabs(_eta) < 5.2);
+   bool passPt = (_pt > 30.);
+   bool passEta = (fabs(_eta) < 5.2);
 
    TLorentzVector vjet;
    vjet.SetPtEtaPhiE(_pt,_eta,_phi,_E);
    
-   float energy = (vjet*ntP->jet_jecFactorUncorrected->at(idx)).E();
-   int numberOfConstituents = ntP->jet_chargedMultiplicity->at(idx) + ntP->jet_neutralMultiplicity->at(idx);
-   float phf = ntP->jet_neutralEmEnergy->at(idx)/energy;
-   float nhf = ntP->jet_neutralHadronEnergy->at(idx)/energy;
-   float chf = ntP->jet_chargedHadronEnergy->at(idx)/energy;
-   float muf = ntP->jet_muonEnergy->at(idx)/energy;
-   float elf = ntP->jet_chargedEmEnergy->at(idx)/energy;
-   float chm = ntP->jet_chargedHadronMultiplicity->at(idx);
-   
-   _pass_ID_loose = (nhf < 0.99 && phf < 0.99 && numberOfConstituents > 1 &&
-		     muf < 0.8 && elf < 0.99);
-   if( fabs(_eta) < 2.4 ) 
-     _pass_ID_loose = _pass_ID_loose && (chf > 0 && chm > 0);
-   
-   _pass_ID_medium = (nhf < 0.95 && phf < 0.95 && numberOfConstituents > 1 &&
-		      muf < 0.8 && elf < 0.99);
-   if( fabs(_eta) < 2.4 ) 
-     _pass_ID_medium = _pass_ID_medium && (chf > 0 && chm > 0);
-   
-   _pass_ID_tight = (nhf < 0.90 && phf < 0.90 && numberOfConstituents > 1 &&
-		     muf < 0.8 && elf < 0.99);
-   if( fabs(_eta) < 2.4 ) 
-     _pass_ID_tight = _pass_ID_tight && (chf > 0 && chm > 0);
-   
-   bool pass_pujetId = 0;
-   
-   float pileupJetId = ntP->jet_pileupJetId->at(idx);
-   
-   if( fabs(_eta) >= 0 && fabs(_eta) < 2.5 )
-     if( pileupJetId > -0.63 ) pass_pujetId = 1;
-   else if( fabs(_eta) >= 2.5 && fabs(_eta) < 2.75 )
-     if( pileupJetId > -0.60 ) pass_pujetId = 1;
-   else if( fabs(_eta) >= 2.75 && fabs(_eta) < 3.0 )
-     if( pileupJetId > -0.55 ) pass_pujetId = 1;
-   else if( fabs(_eta) >= 3.0 && fabs(_eta) < 5.2 )
-     if( pileupJetId > -0.45 ) pass_pujetId = 1;
-   
-   _pass_pujetId = pass_pujetId;
-   
-   bool pass_muOverlap = 1;
-   int nMuon = nt->NtMuon->size();
-   for(int im=0;im<nMuon;im++)
+   bool passMuOverlap = 1;
+   int nMuonLoose = nt->NtMuonLoose->size();
+   for(int im=0;im<nMuonLoose;im++)
      {
-	float dr = GetDeltaR(_eta,_phi,nt->NtMuon->at(im).eta(),nt->NtMuon->at(im).phi());
-	if( dr < 0.4 && nt->NtMuon->at(im).pt() > 10. ) pass_muOverlap = 0;
+	float dr = GetDeltaR(_eta,_phi,nt->NtMuonLoose->at(im).eta(),nt->NtMuonLoose->at(im).phi());
+	if( dr < 0.4 && nt->NtMuonLoose->at(im).pt() > 10. ) passMuOverlap = 0;
      }  
 
-   bool pass_elOverlap = 1;
-   int nElectron = nt->NtElectron->size();
-   for(int ie=0;ie<nElectron;ie++)
+   bool passElOverlap = 1;
+   int nElectronLoose = nt->NtElectronLoose->size();
+   for(int ie=0;ie<nElectronLoose;ie++)
      {
-	float dr = GetDeltaR(_eta,_phi,nt->NtElectron->at(ie).eta(),nt->NtElectron->at(ie).phi());
-	if( dr < 0.4 && nt->NtElectron->at(ie).pt() > 10. ) pass_elOverlap = 0;
+	float dr = GetDeltaR(_eta,_phi,nt->NtElectronLoose->at(ie).eta(),nt->NtElectronLoose->at(ie).phi());
+	if( dr < 0.4 && nt->NtElectronLoose->at(ie).pt() > 10. ) passElOverlap = 0;
      }  
+
+   _passElecOverlap = passElOverlap;
+   _passMuonOverlap = passMuOverlap;
+
+   if( !_isdata )
+     {	
+	if( abs(_hadronFlavour) == 5 )
+	  {	
+	     _SfIterativeFitCentral = reader_iterativefit->eval_auto_bounds("central",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitJesUp = reader_iterativefit->eval_auto_bounds("up_jes",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitJesDown = reader_iterativefit->eval_auto_bounds("down_jes",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitLfUp = reader_iterativefit->eval_auto_bounds("up_lf",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitLfDown = reader_iterativefit->eval_auto_bounds("down_lf",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitHfstats1Up = reader_iterativefit->eval_auto_bounds("up_hfstats1",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitHfstats1Down = reader_iterativefit->eval_auto_bounds("down_hfstats1",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitHfstats2Up = reader_iterativefit->eval_auto_bounds("up_hfstats2",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitHfstats2Down = reader_iterativefit->eval_auto_bounds("down_hfstats2",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitCferr1Up = reader_iterativefit->eval_auto_bounds("up_cferr1",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitCferr1Down = reader_iterativefit->eval_auto_bounds("down_cferr1",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitCferr2Up = reader_iterativefit->eval_auto_bounds("up_cferr2",BTagEntry::FLAV_B,_eta,_pt);
+	     _SfIterativeFitCferr2Down = reader_iterativefit->eval_auto_bounds("down_cferr2",BTagEntry::FLAV_B,_eta,_pt);
+	  }
+	else if( abs(_hadronFlavour) == 4 )
+	  {
+	     _SfIterativeFitCentral = reader_iterativefit->eval_auto_bounds("central",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitJesUp = reader_iterativefit->eval_auto_bounds("up_jes",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitJesDown = reader_iterativefit->eval_auto_bounds("down_jes",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitLfUp = reader_iterativefit->eval_auto_bounds("up_lf",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitLfDown = reader_iterativefit->eval_auto_bounds("down_lf",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitHfstats1Up = reader_iterativefit->eval_auto_bounds("up_hfstats1",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitHfstats1Down = reader_iterativefit->eval_auto_bounds("down_hfstats1",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitHfstats2Up = reader_iterativefit->eval_auto_bounds("up_hfstats2",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitHfstats2Down = reader_iterativefit->eval_auto_bounds("down_hfstats2",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitCferr1Up = reader_iterativefit->eval_auto_bounds("up_cferr1",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitCferr1Down = reader_iterativefit->eval_auto_bounds("down_cferr1",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitCferr2Up = reader_iterativefit->eval_auto_bounds("up_cferr2",BTagEntry::FLAV_C,_eta,_pt);
+	     _SfIterativeFitCferr2Down = reader_iterativefit->eval_auto_bounds("down_cferr2",BTagEntry::FLAV_C,_eta,_pt);
+	  }
+	else
+	  {
+	     _SfIterativeFitCentral = reader_iterativefit->eval_auto_bounds("central",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitJesUp = reader_iterativefit->eval_auto_bounds("up_jes",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitJesDown = reader_iterativefit->eval_auto_bounds("down_jes",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitLfUp = reader_iterativefit->eval_auto_bounds("up_lf",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitLfDown = reader_iterativefit->eval_auto_bounds("down_lf",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitHfstats1Up = reader_iterativefit->eval_auto_bounds("up_hfstats1",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitHfstats1Down = reader_iterativefit->eval_auto_bounds("down_hfstats1",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitHfstats2Up = reader_iterativefit->eval_auto_bounds("up_hfstats2",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitHfstats2Down = reader_iterativefit->eval_auto_bounds("down_hfstats2",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitCferr1Up = reader_iterativefit->eval_auto_bounds("up_cferr1",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitCferr1Down = reader_iterativefit->eval_auto_bounds("down_cferr1",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitCferr2Up = reader_iterativefit->eval_auto_bounds("up_cferr2",BTagEntry::FLAV_UDSG,_eta,_pt);
+	     _SfIterativeFitCferr2Down = reader_iterativefit->eval_auto_bounds("down_cferr2",BTagEntry::FLAV_UDSG,_eta,_pt);
+	  }   
+     }
    
-   _isTight = (
-//	       pass_pt &&
-//	       pass_eta &&
-////	       pass_pujetId &&
-	       pass_muOverlap &&
-	       pass_elOverlap
+   _isLoose = (
+	       passPt &&
+	       passEta &&
+	       passMuOverlap &&
+	       passElOverlap
 	      );
+
+   _isTight = (
+	       _isLoose &&
+	       _isLooseJetID
+	      );
+   
+   _isBTag = (_CSVv2 > 0.800);
 
    for(int id=0;id<evdebug->size();id++)
      {	
 	if( nt->NtEvent->at(0).id() == evdebug->at(id) )
 	  {
-	     if( _isTight && _pt > 10. &&
-		 fabs(_eta) < 5.2 )
-	       {		  
-		  std::cout << "Jet #" << _ID << std::endl;
-		  std::cout << "   pt=" << _pt << " eta=" << _eta << " phi=" << _phi << std::endl;
-		  std::cout << "   pileupJetId=" << pileupJetId << std::endl;
-		  std::cout << "   isTight=" << _isTight << std::endl;
-		  std::cout << "   pass_pujetId=" << pass_pujetId << std::endl;
-		  std::cout << "   pass_elOverlap=" << pass_elOverlap << std::endl;
-		  std::cout << "   pass_muOverlap=" << pass_muOverlap << std::endl;
-	       }	     
+	     std::cout << "Jet #" << _ID << std::endl;
+	     std::cout << "   pt=" << _pt << " eta=" << _eta << " phi=" << _phi << std::endl;
+	     std::cout << "   isTight=" << _isTight << std::endl;
+	     std::cout << "   passElOverlap=" << passElOverlap << std::endl;
+	     std::cout << "   passMuOverlap=" << passMuOverlap << std::endl;
 	  }	
      }
 }

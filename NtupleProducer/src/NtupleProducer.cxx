@@ -15,13 +15,15 @@ Tree *ntP;
 TChain *ch;
 Ntuple *nt;
 std::vector<int> *evdebug;
+int _isdata;
+
+BTagCalibration *calib;
+BTagCalibrationReader *reader_iterativefit;
 
 unsigned int idx;
 
 int main(int argc, char *argv[])
 {
-//   gSystem->Load("/cvmfs/cms.cern.ch/slc6_amd64_gcc480/external/dpm/1.8.0.1-cms/lib/libdpm.so");
-   
    if( argc < 4 )
      {
 	std::cout << "NtupleProducer usage:" << std::endl;
@@ -29,6 +31,11 @@ int main(int argc, char *argv[])
 	std::cout << "--tree: TTree name" << std::endl;
 	std::cout << "--noe : Number of events" << std::endl;
 	std::cout << "--xsec: Cross-section" << std::endl;
+	std::cout << "--nmax: Max number of events" << std::endl;
+	std::cout << "--outfile: output file" << std::endl;
+	std::cout << "--isdata: is data flag" << std::endl;
+	std::cout << "--stream: data stream" << std::endl;
+	std::cout << "--issig: is signal" << std::endl;
 	exit(1);
      }
    
@@ -36,6 +43,11 @@ int main(int argc, char *argv[])
    const char *stream_str = "FlatTree/tree";
    float noe = 1.;
    float xsec = 1.;
+   int nmax = -1;
+   const char *outfile_str = "666";
+   _isdata = 0;
+   int dataStream = -1;
+   int issig = 0;
    
    for(int i=0;i<argc;i++)
      {
@@ -43,20 +55,27 @@ int main(int argc, char *argv[])
 	if( ! strcmp(argv[i],"--tree") ) stream_str = argv[i+1];
 	if( ! strcmp(argv[i],"--noe") ) noe = atof(argv[i+1]);
 	if( ! strcmp(argv[i],"--xsec") ) xsec = atof(argv[i+1]);
+	if( ! strcmp(argv[i],"--nmax") ) nmax = atoi(argv[i+1]);
+	if( ! strcmp(argv[i],"--outfile") ) outfile_str = argv[i+1];
+	if( ! strcmp(argv[i],"--isdata") ) _isdata = atoi(argv[i+1]);
+	if( ! strcmp(argv[i],"--stream") ) dataStream = atoi(argv[i+1]);
+	if( ! strcmp(argv[i],"--issig") ) issig = atoi(argv[i+1]);
      }   
 
    const char *fname  = fname_str;
    const char *stream = stream_str;
+   const char *outfile = outfile_str;
    
    std::cout << "--file=" << fname << std::endl;
    std::cout << "--tree=" << stream << std::endl;
    std::cout << "--noe=" << noe << std::endl;
    std::cout << "--xsec=" << xsec << std::endl;
+   std::cout << "--nmax=" << nmax << std::endl;
+   std::cout << "--outfile=" << outfile << std::endl;
+   std::cout << "--isdata=" << _isdata << std::endl;
+   std::cout << "--stream=" << dataStream << std::endl;
+   std::cout << "--issig=" << issig << std::endl;
 
-   // force the production of dictionary to get rid of TBuffer errors on GRID
-//   ROOT::Cintex::Cintex::Enable();
-//   gROOT->ProcessLine("#include <vector>");
-   
    Tree tree(0,const_cast<char*>(fname),stream);
    ntP = &tree;
    
@@ -66,61 +85,46 @@ int main(int argc, char *argv[])
    
    nt = new Ntuple();
 
-   nt->Init();
+   nt->Init(std::string(outfile));
    nt->createVar();
    nt->setBranchAddress();
-   
+
    Electron el;
    Muon mu;
    Jet jet;
    Event ev;
    Truth truth;
 
+   calib = new BTagCalibration("csvv2","/home-pbs/kskovpen/tHFCNC2016/CMSSW_8_0_12/src/NtupleProducer/test/CSVv2_ichep.csv");
+   reader_iterativefit = new BTagCalibrationReader(BTagEntry::OP_RESHAPING,"central",
+						   {"up_jes","down_jes","up_lf","down_lf",
+							"up_hfstats1","down_hfstats1",
+							"up_hfstats2","down_hfstats2",
+							"up_cferr1","down_cferr1",
+							"up_cferr2","down_cferr2"});
+   reader_iterativefit->load(*calib,BTagEntry::FLAV_B,"iterativefit");
+   reader_iterativefit->load(*calib,BTagEntry::FLAV_C,"iterativefit");
+   reader_iterativefit->load(*calib,BTagEntry::FLAV_UDSG,"iterativefit");
+
+   std::cout << "BTagCalibration initialized" << std::endl;
+   
    evdebug = new std::vector<int>();
 //   evdebug->push_back(91408);
    
-   float ilexp = 10000;
+   std::cout << "Input events = " << nentries << std::endl;
    
    for(Long64_t i=0;i<nentries;i++)
-     {   
+     {
+//	std::cout << i << std::endl;
+	if( nmax >= 0 && i >= nmax ) break;
+	
 	ch->GetEntry(i);
 
 	nt->clearVar();	
-
-	// to be updated to https://twiki.cern.ch/twiki/bin/view/CMS/TTbarHiggsRun2Sync
-//	if( fabs(ntP->pv_z) > 24. ) continue;	
-	
-/*	bool isHtoWW = (abs(ntP->mc_truth_h0W1_id) == 24 &&
-			abs(ntP->mc_truth_h0W2_id) == 24);
-	bool isHtoZZ = (abs(ntP->mc_truth_h0Z1_id) == 23 &&
-			abs(ntP->mc_truth_h0Z2_id) == 23);
-	bool isHtoTT = (abs(ntP->mc_truth_h0tau1_id) == 15 &&
-			abs(ntP->mc_truth_h0tau2_id) == 15);
-	
-	for(int id=0;id<evdebug->size();id++)
-	  {
-	     if( ntP->ev_id == evdebug->at(id) )
-	       {
-		  std::cout << "isHtoWW=" << isHtoWW <<
-		    " isHtoZZ=" << isHtoZZ <<
-		    " isHtoTT=" << isHtoTT << std::endl;
-	       }
-	  }*/
-	
-//////	if( !(isHtoWW || isHtoZZ) ) continue;
-//	if( !(isHtoWW || isHtoZZ || isHtoTT) ) continue;
-	
-	float mc_weight = ntP->mc_weight;
-	float w = ilexp/(noe/xsec)*mc_weight;
 	
 	// event
 	ev.init();
-	ev.read();
-	ev.setWeight(w);
-	
-//	if( isHtoWW ) ev._tth_channel = 0;
-//	else if( isHtoZZ ) ev._tth_channel = 1;
-//	else if( isHtoTT ) ev._tth_channel = 2;
+	ev.read(xsec,noe,dataStream,issig);
 	
 	nt->NtEvent->push_back(ev);
 	
@@ -132,8 +136,9 @@ int main(int argc, char *argv[])
 	     mu.init();
 	     mu.read();
 	     mu.sel();
-		  
-	     nt->NtMuon->push_back(mu);
+	
+	     if( mu.isLoose() ) nt->NtMuonLoose->push_back(mu);	     
+	     if( mu.isTight() ) nt->NtMuonTight->push_back(mu);	     
 	  }		
 
 	// electrons
@@ -144,10 +149,11 @@ int main(int argc, char *argv[])
 	     el.init();
 	     el.read();
 	     el.sel();
-		  
-	     nt->NtElectron->push_back(el);
-	  }		
-	
+
+	     if( el.isLoose() ) nt->NtElectronLoose->push_back(el);
+	     if( el.isTight() ) nt->NtElectronTight->push_back(el);
+	  }
+
 	// jets
 	for(int j=0;j<ntP->jet_n;j++)
 	  {
@@ -156,8 +162,10 @@ int main(int argc, char *argv[])
 	     jet.init();
 	     jet.read();
 	     jet.sel();
-	     
-	     nt->NtJet->push_back(jet);
+
+	     if( jet.isLoose() ) nt->NtJetLoose->push_back(jet);
+	     if( jet.isTight() ) nt->NtJetTight->push_back(jet);
+	     if( jet.isTight() && jet.isBTag() ) nt->NtBJetTight->push_back(jet);
 	  }
 
 	// truth
@@ -165,9 +173,28 @@ int main(int argc, char *argv[])
 	truth.read();
 	
 	nt->NtTruth->push_back(truth);
+
+	int nElecLoose = nt->NtElectronLoose->size();
+	int nMuonLoose = nt->NtMuonLoose->size();
 	
-	nt->fill();
-     }   
+	int nElecTight = nt->NtElectronTight->size();
+	int nMuonTight = nt->NtMuonTight->size();
+
+	int nJetLoose = nt->NtJetLoose->size();
+	int nJetTight = nt->NtJetTight->size();
+	int nJetBTag = nt->NtBJetTight->size();
+
+	if(
+	   nElecTight+nMuonTight == 1 &&
+	   nElecLoose+nMuonLoose == 1 &&
+	   nJetTight >= 3 
+	  )
+	  {
+	     nt->fill();
+	  }
+     }
+   
+   std::cout << "Output events = " << nt->m_tree->GetEntries() << std::endl;
 
    delete nt;
 }

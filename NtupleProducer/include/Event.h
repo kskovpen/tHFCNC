@@ -22,12 +22,17 @@ class Event : public Base
    float metsumet()         {return _metsumet;};
    
    float mc_weight()         {return _mc_weight;};
-   float w()                 {return _w;};
-   void setWeight(float weight)  {_w = weight;};
+
+   float xsec() {return _xsec;};
+   float noe() {return _noe;};
    
-   int tth_channel()         {return _tth_channel;};
+   bool isData() {return _isData;};
+   bool isSignal() {return _isSignal;};
    
-   void read();
+   bool isTrigMuon() {return _isTrigMuon;};
+   bool isTrigElec() {return _isTrigElec;};
+   
+   void read(float xsec,float noe,int dataStream,bool issig);
    void init();
 	
  protected:
@@ -43,10 +48,20 @@ class Event : public Base
    float _metsumet;
 
    float _mc_weight;
-   float _w;
 
- public:
-   int _tth_channel;
+   float _xsec;
+   float _noe;
+   
+   bool _isData;
+   bool _isSignal;
+   
+   bool _isTrigMuon;
+   bool _isTrigElec;
+
+   float _pv_chi2;
+   int _pv_ndof;
+   float _pv_rho;
+   int _pv_isFake;
    
    ClassDef(Event,1)
 };

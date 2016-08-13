@@ -14,16 +14,10 @@ class Truth : public Base
    int mc_truth_n()         {return _mc_truth_n;};
    std::vector<int> mc_truth_id()         {return _mc_truth_id;};
    std::vector<int> mc_truth_label()         {return _mc_truth_label;};
-   std::vector<TLorentzVector> mc_truth_p4()         {return _mc_truth_p4;};
-
-   int gen_n() {return _gen_n;};
-   std::vector<float> gen_pt() {return _gen_pt;};
-   std::vector<float> gen_eta() {return _gen_eta;};
-   std::vector<float> gen_phi() {return _gen_phi;};
-   std::vector<float> gen_m() {return _gen_m;};
-   std::vector<int> gen_id() {return _gen_id;};
-   std::vector<int> gen_status() {return _gen_status;};
-   std::vector<int> gen_mother_id() {return _gen_mother_id;};
+   std::vector<float> mc_truth_pt()         {return _mc_truth_pt;};
+   std::vector<float> mc_truth_eta()         {return _mc_truth_eta;};
+   std::vector<float> mc_truth_phi()         {return _mc_truth_phi;};
+   std::vector<float> mc_truth_E()         {return _mc_truth_E;};
    
    void read();
    void init();
@@ -33,17 +27,13 @@ class Truth : public Base
    int _mc_truth_n;
    std::vector<int> _mc_truth_id;
    std::vector<int> _mc_truth_label;
-   std::vector<TLorentzVector> _mc_truth_p4;
+   std::vector<float> _mc_truth_pt;
+   std::vector<float> _mc_truth_eta;
+   std::vector<float> _mc_truth_phi;
+   std::vector<float> _mc_truth_E;
    
-   int _gen_n;
-   std::vector<float> _gen_pt;
-   std::vector<float> _gen_eta;
-   std::vector<float> _gen_phi;
-   std::vector<float> _gen_m;
-   std::vector<int> _gen_id;
-   std::vector<int> _gen_status;
-   std::vector<int> _gen_mother_id;
-   
+   int getUnique(int p);
+
    ClassDef(Truth,1)
 };
 

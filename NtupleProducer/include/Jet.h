@@ -13,6 +13,12 @@ class Jet : public Base
 
    static bool sortPtPredicate(Jet lhs, Jet rhs)
      {return (lhs.pt() > rhs.pt());};
+
+   static bool sortCSVv2Predicate(Jet lhs, Jet rhs)
+     {return (lhs.CSVv2() > rhs.CSVv2());};
+
+   static bool sortcMVAv2Predicate(Jet lhs, Jet rhs)
+     {return (lhs.cMVAv2() > rhs.cMVAv2());};
    
    int ID()    {return _ID;};
    
@@ -35,18 +41,43 @@ class Jet : public Base
    
    TLorentzVector p4()  {return _p4;};
    
-   int ntrk()         {return _ntrk;};
-   
-   float CSV()         {return _CSV;};
    float CSVv2()         {return _CSVv2;};
+   float cMVAv2()         {return _cMVAv2;};
    
+   float CharmCvsL()         {return _CharmCvsL;};
+   float CharmCvsB()         {return _CharmCvsB;};
+   
+   bool isLoose()         {return _isLoose;};
    bool isTight()         {return _isTight;};
    
-   bool idLoose()         {return _pass_ID_loose;};
-   bool idMedium()         {return _pass_ID_medium;};
-   bool idTight()         {return _pass_ID_tight;};
+   bool isBTag()         {return _isBTag;};
    
-   bool passPUID()         {return _pass_pujetId;};
+   bool isLooseJetID()         {return _isLooseJetID;};
+   bool isTightJetID()         {return _isTightJetID;};
+   bool passElecOverlap()      {return _passElecOverlap;};
+   bool passMuonOverlap()      {return _passMuonOverlap;};
+   
+   int hadronFlavour()         {return _hadronFlavour;};
+   
+   bool hasGenJet()         {return _hasGenJet;};
+   float genJetPt()         {return _genJetPt;};
+   float genJetEta()        {return _genJetEta;};
+   float genJetPhi()        {return _genJetPhi;};
+   float genJetE()          {return _genJetE;};
+   
+   float SfIterativeFitCentral()         {return _SfIterativeFitCentral;};
+   float SfIterativeFitJesUp()         {return _SfIterativeFitJesUp;};
+   float SfIterativeFitJesDown()         {return _SfIterativeFitJesDown;};
+   float SfIterativeFitLfUp()         {return _SfIterativeFitLfUp;};
+   float SfIterativeFitLfDown()         {return _SfIterativeFitLfDown;};
+   float SfIterativeFitHfstats1Up()         {return _SfIterativeFitHfstats1Up;};
+   float SfIterativeFitHfstats1Down()         {return _SfIterativeFitHfstats1Down;};
+   float SfIterativeFitHfstats2Up()         {return _SfIterativeFitHfstats2Up;};
+   float SfIterativeFitHfstats2Down()         {return _SfIterativeFitHfstats2Down;};
+   float SfIterativeFitCferr1Up()         {return _SfIterativeFitCferr1Up;};
+   float SfIterativeFitCferr1Down()         {return _SfIterativeFitCferr1Down;};
+   float SfIterativeFitCferr2Up()         {return _SfIterativeFitCferr2Up;};
+   float SfIterativeFitCferr2Down()         {return _SfIterativeFitCferr2Down;};
    
    void read();
    void init();
@@ -70,19 +101,45 @@ class Jet : public Base
    int _gen_id;
    
    TLorentzVector _p4;
-   
-   int _ntrk;
-   
-   float _CSV;
-   float _CSVv2;
 
+   float _CSVv2;
+   float _cMVAv2;
+   
+   float _CharmCvsL;
+   float _CharmCvsB;
+
+   bool _isLoose;
    bool _isTight;
    
-   bool _pass_ID_loose;
-   bool _pass_ID_medium;
-   bool _pass_ID_tight;
+   bool _isBTag;
 
-   bool _pass_pujetId;
+   bool _isLooseJetID;
+   bool _isTightJetID;
+   
+   int _hadronFlavour;
+   
+   bool _hasGenJet;
+   float _genJetPt;
+   float _genJetEta;
+   float _genJetPhi;
+   float _genJetE;
+   
+   bool _passElecOverlap;
+   bool _passMuonOverlap;
+   
+   float _SfIterativeFitCentral;
+   float _SfIterativeFitJesUp;
+   float _SfIterativeFitJesDown;
+   float _SfIterativeFitLfUp;
+   float _SfIterativeFitLfDown;
+   float _SfIterativeFitHfstats1Up;
+   float _SfIterativeFitHfstats1Down;
+   float _SfIterativeFitHfstats2Up;
+   float _SfIterativeFitHfstats2Down;
+   float _SfIterativeFitCferr1Up;
+   float _SfIterativeFitCferr1Down;
+   float _SfIterativeFitCferr2Up;
+   float _SfIterativeFitCferr2Down;
    
    ClassDef(Jet,1)
 };

@@ -29,13 +29,16 @@ class Muon : public Base
 
    TLorentzVector p4()  {return _p4;};
    
-   float iso()         {return _iso;};
+   float relIso()         {return _relIso;};
    
    int charge()         {return _charge;};
    int id()         {return _id;};
 
-   bool idLoose() {return _idLoose;};
-   bool idTight() {return _idTight;};
+   bool isLoose() {return _isLoose;};
+   bool isTight() {return _isTight;};
+   
+   bool isLooseID() {return _isLooseID;};
+   bool isTightID() {return _isTightID;};
    
    void read();
    void init();
@@ -51,15 +54,18 @@ class Muon : public Base
    float _m;
    float _dxy;
    float _dz;
-   float _iso;
+   float _relIso;
 
    TLorentzVector _p4;
    
    int _charge;
    int _id;
    
-   bool _idLoose;
-   bool _idTight;
+   bool _isLoose;
+   bool _isTight;
+   
+   bool _isLooseID;
+   bool _isTightID;
      
    ClassDef(Muon,1)
 };
