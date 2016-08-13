@@ -31,7 +31,7 @@ cd tHFCNC/NtupleProducer/;make;export LD_LIBRARY_PATH=${PWD}:${PWD}/obj:$LD_LIBR
 Run various analysis routines, produce histograms and plots
 
 ```c++
-git clone [https://github.com/kskovpen/TopKinFit](https://github.com/kskovpen/TopKinFit)
+git clone `https://github.com/kskovpen/TopKinFit
 cd TopKinFit/;make;cd -
 
 cd tHFCNC/NtupleAnalyzer/;make
