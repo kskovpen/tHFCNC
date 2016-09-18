@@ -39,17 +39,9 @@ class Hist
    unsigned int passSel_e;
    unsigned int passSel_m;
    
-   std::vector<TLorentzVector> lep_tlv(std::string sys,int llc,bool isTIGHT);
-   std::vector<TLorentzVector> jet_tlv(std::string sys); 
-   
    void fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string varName);
 
    void fillPassSel(TH1D *h,TH1D *he,TH1D *hm,float sfj);
-     
-   float getWmassBW(float mWmean,float GammaW);
-   float BW(float mW,float mWmean,float GammaW);
-   bool getNuMom(float Wmass,float px_l,float py_l,float pz_l,float E_l,
-		 float px_nu,float py_nu,float &pz_nu1,float &pz_nu2);
    
 //   float getVar(std::string sys,int ijet,std::string varName,int ibin);
 //   std::vector<float> getVarVec(std::string sys,int ijet,std::string varName,int ibin);
@@ -69,7 +61,6 @@ class Hist
 	
    std::string chan[100];
 //   std::string char[100];                                                                                           
-   std::string jets[100];                                                                                              
    std::string sys[100];                                                                                               
    std::string sys_low[100];                                                                                           
    std::string sys_up[100];                                                                                            
@@ -96,7 +87,6 @@ class Hist
 //   std::vector<std::vector<std::vector<std::pair<double,double> > > > rw2DBinY;
 //   std::vector<std::vector<std::vector<std::pair<double,double> > > > rw2DSf;
 
-   int jets_n;
    int sel_n;
    int chan_n;
    int histname_n;
@@ -173,13 +163,11 @@ class Hist
    TH1D *_h_PassSel_m;
 
    std::vector<std::pair<std::vector<std::string>,double*> > *_s_Hist;
-   
-   bool _resTop;
 	
  private:
 
-   // [JETS][CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
-   std::string histNAMES[5][5][5][5][100][2];
+   // [CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
+   std::string histNAMES[5][5][5][100][2];
    
 //   JetCorrectionUncertainty *jesTotal;
    

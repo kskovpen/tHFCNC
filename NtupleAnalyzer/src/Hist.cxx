@@ -23,7 +23,6 @@ Hist::Hist(std::string home)
    _v_ElectronLoose = new std::vector<Electron>;
    _v_MuonTight = new std::vector<Muon>;
    _v_MuonLoose = new std::vector<Muon>;
-//   _v_LeptonTight = new std::vector<Lepton>;
    _v_JetTight = new std::vector<Jet>;
    _v_BJetTight = new std::vector<Jet>;
    _v_NonBJetTight = new std::vector<Jet>;
@@ -52,13 +51,13 @@ void Hist::init()
    std::string foutput = std::string(flog)+".root";
    _fout = new TFile(foutput.c_str(),"RECREATE");
 
-   _trec = new TopReco(_home,0,_fout);
+   _trec = new TopReco();
    _trec->init();
 
    _fout->cd();
    
-   _mva = new ApplyMVA(_home);
-   _mva->init();
+//   _mva = new ApplyMVA(_home);
+//   _mva->init();
    
    _h_PassSel_all = new TH1D("h_PassSel_all","h_PassSel_all",6,0.,6.);
    _h_PassSel_e = new TH1D("h_PassSel_e","h_PassSel_e",6,0.,6.);
@@ -66,58 +65,8 @@ void Hist::init()
 
    hname.clear(); 
 
-   histname_n = 51;
-   histname[0] = "h_H_m_";
-   histname[1] = "h_H_pt_";
-   histname[2] = "h_H_eta_";
-   histname[3] = "h_top_m_";
-   histname[4] = "h_top_pt_";
-   histname[5] = "h_top_eta_";
-   histname[6] = "h_W_m_";
-   histname[7] = "h_W_pt_";
-   histname[8] = "h_W_eta_";
-   histname[9] = "h_l_pt_";
-   histname[10] = "h_l_eta_";
-   histname[11] = "h_nu_pt_";
-   histname[12] = "h_nu_eta_";
-   histname[13] = "h_Hb_pt_";
-   histname[14] = "h_Hb_eta_";
-   histname[15] = "h_topb_pt_";
-   histname[16] = "h_topb_eta_";
-   histname[17] = "h_Hb1_Hb2_dr_";
-   histname[18] = "h_H_top_dr_";
-   histname[19] = "h_l_nu_dr_";
-   histname[20] = "h_W_topb_dr_";
-   histname[21] = "h_Hb1_Hb2_costheta_";
-   histname[22] = "h_H_top_costheta_";
-   histname[23] = "h_l_nu_costheta_";
-   histname[24] = "h_W_topb_costheta_";
-   histname[25] = "h_HT_";
-   histname[26] = "h_MET_";
-   histname[27] = "h_njet_";
-   histname[28] = "h_nu_phi_";
-   histname[29] = "h_MET_phi_";
-   histname[30] = "h_H_nu_dr_";
-   histname[31] = "h_H_l_dr_";
-   histname[32] = "h_chi2_";
-   histname[33] = "h_l_charge_";
-   histname[34] = "h_TTbar_topLep_m_";
-   histname[35] = "h_TTbar_topHad_m_";
-   histname[36] = "h_TTbar_topLep_pt_";
-   histname[37] = "h_TTbar_topHad_pt_";
-   histname[38] = "h_TTbar_topLep_eta_";
-   histname[39] = "h_TTbar_topHad_eta_";
-   histname[40] = "h_TTbar_WLep_m_";
-   histname[41] = "h_TTbar_WHad_m_";
-   histname[42] = "h_TTbar_WLep_pt_";
-   histname[43] = "h_TTbar_WHad_pt_";
-   histname[44] = "h_TTbar_WLep_eta_";
-   histname[45] = "h_TTbar_WHad_eta_";
-   histname[46] = "h_TTbar_tbLep_tWLep_Dr_";
-   histname[47] = "h_TTbar_tbHad_tWHad_Dr_";
-   histname[48] = "h_TTbar_tWj1_tWj2_Dr_";
-   histname[49] = "h_TTbar_chi2_";
-   histname[50] = "h_MVA_";
+   histname_n = 1;
+   histname[0] = "h_chi2_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
@@ -125,7 +74,7 @@ void Hist::init()
    type[0] = "ALL";
 
    sel_n = 1;
-   sel[0] = "nosel";
+   sel[0] = "TopTopLepHbb";
 //   sel[2] = "bjge2";
 //   sel[0] = "bjge3";
 //   sel[0] = "bjge3";
@@ -136,11 +85,6 @@ void Hist::init()
    chan[0] = "all";
    chan[1] = "e";
    chan[2] = "m";
-   
-   jets_n = 1;
-//   jets[0]  = "NjetsGE3";
-   jets[0]  = "NBjetsGE3";
-//   jets[0]  = "NBjetsGE2";
    
    sys_low_n = 1;
    sys_low[0]   = "";
@@ -159,7 +103,7 @@ void Hist::init()
      {
 	sys[sys_low_n+is2] = sys_up[is2];
      }   
-
+/*
    for(int ic=0;ic<chan_n;ic++)
      {
 	std::string trName = "tr_"+chan[ic];
@@ -200,7 +144,7 @@ void Hist::init()
 	_trout[ic]->Branch("TTbar_tWj1_tWj2_Dr",&m_TTbar_tWj1_tWj2_Dr,"TTbar_tWj1_tWj2_Dr/D");
 	_trout[ic]->Branch("TTbar_chi2",&m_TTbar_chi2,"TTbar_chi2/D");
      }   
-   
+*/   
    _s_Hist = new std::vector<std::pair<std::vector<std::string>,double*> >();
    _m1d_Hist = new std::map<std::string, TH1D*>();
 
@@ -208,7 +152,7 @@ void Hist::init()
    set_hist.clear();
 
    // Ranges
-   set_hist.push_back(RANGE::set_H_m);
+/*   set_hist.push_back(RANGE::set_H_m);
    set_hist.push_back(RANGE::set_H_pt);
    set_hist.push_back(RANGE::set_H_eta);
    set_hist.push_back(RANGE::set_top_m);
@@ -239,11 +183,11 @@ void Hist::init()
    set_hist.push_back(RANGE::set_phi);
    set_hist.push_back(RANGE::set_phi);
    set_hist.push_back(RANGE::set_H_nu_dr);
-   set_hist.push_back(RANGE::set_H_l_dr);
+   set_hist.push_back(RANGE::set_H_l_dr);*/
    set_hist.push_back(RANGE::set_chi2);
-   set_hist.push_back(RANGE::set_l_charge);
+//   set_hist.push_back(RANGE::set_l_charge);
    
-   set_hist.push_back(RANGE::set_top_m);
+/*   set_hist.push_back(RANGE::set_top_m);
    set_hist.push_back(RANGE::set_top_m);
    set_hist.push_back(RANGE::set_top_pt);
    set_hist.push_back(RANGE::set_top_pt);
@@ -259,33 +203,30 @@ void Hist::init()
    set_hist.push_back(RANGE::set_W_topb_dr);
    set_hist.push_back(RANGE::set_W_topb_dr);
    set_hist.push_back(RANGE::set_chi2);
-   set_hist.push_back(RANGE::set_MVA);
+   set_hist.push_back(RANGE::set_MVA);*/
    
    std::string titl;
 
-   for(int j=0;j<jets_n;j++)
-     {	
-	for(int s=0;s<sel_n;s++)
+   for(int s=0;s<sel_n;s++)
+     {
+	for(int t=0;t<type_n;t++)
 	  {
-	     for(int t=0;t<type_n;t++)
+	     for(int c=0;c<chan_n;c++)
 	       {
-		  for(int c=0;c<chan_n;c++)
+		  for(int h=0;h<histname_n;h++)
 		    {
-		       for(int h=0;h<histname_n;h++)
+		       std::string hn = histname[h]+chan[c]+"_"+sel[s]+"_"+type[t];
+		       hname.push_back(hn);
+				 
+		       for(int s=0;s<sys_n;s++)
 			 {
-			    std::string hn = histname[h]+chan[c]+"_"+jets[j]+"_"+sel[s]+"_"+type[t];
-			    hname.push_back(hn);
-				 
-			    for(int s=0;s<sys_n;s++)
-			      {
-				 titl = hn+sys[s];
-				 std::vector<std::string> names;
-				 names.clear();
-				 names.push_back(titl);
-				 names.push_back(sys[s]);
-				 
-				 _s_Hist->push_back(std::make_pair(names,set_hist.at(h)));
-			      }
+			    titl = hn+sys[s];
+			    std::vector<std::string> names;
+			    names.clear();
+			    names.push_back(titl);
+			    names.push_back(sys[s]);
+			    
+			    _s_Hist->push_back(std::make_pair(names,set_hist.at(h)));
 			 }
 		    }		  
 	       }
@@ -305,21 +246,18 @@ void Hist::init()
 	_m1d_Hist->insert(std::pair<std::string,TH1D*>(_s_Hist->at(i).first.at(0),_h1d));
      }
 
-   for(int j=0;j<jets_n;j++)
-     {	
-	for(int ss=0;ss<sel_n;ss++)
+   for(int ss=0;ss<sel_n;ss++)
+     {
+	for(int t=0;t<type_n;t++)
 	  {
-	     for(int t=0;t<type_n;t++)
+	     for(int c=0;c<chan_n;c++)
 	       {
-		  for(int c=0;c<chan_n;c++)
+		  for(int s=0;s<sys_n;s++)
 		    {
-		       for(int s=0;s<sys_n;s++)
+		       for(int h=0;h<histname_n;h++)
 			 {
-			    for(int h=0;h<histname_n;h++)
-			      {
-				 histNAMES[j][c][t][ss][h][s] =
-				   histname[h]+chan[c]+"_"+jets[j]+"_"+sel[ss]+"_"+type[t]+sys[s];
-			      }
+			    histNAMES[c][t][ss][h][s] =
+			      histname[h]+chan[c]+"_"+sel[ss]+"_"+type[t]+sys[s];
 			 }		       
 		    }		  
 	       }
@@ -331,8 +269,6 @@ void Hist::init()
 
 void Hist::fill()
 {
-   _resTop = 0;
-   
    float w = _v_Event->at(0).mc_weight();
    
    bool isTrigElec = _v_Event->at(0).isTrigElec();
@@ -372,7 +308,7 @@ void Hist::fill()
    
    for(int i=0;i<_v_Electron->size();i++)
      {
-	if( fabs(_v_Electron->at(i).eta()) > 2.1 ) continue;
+	if( fabs(_v_Electron->at(i).eta()) > 2.4 ) continue;
 
 	if( _v_Electron->at(i).isTight() )
 	  {		 		 
@@ -386,7 +322,7 @@ void Hist::fill()
 
    for(int i=0;i<_v_Muon->size();i++)
      {
-	if( fabs(_v_Muon->at(i).eta()) > 2.1 ) continue;
+	if( fabs(_v_Muon->at(i).eta()) > 2.4 ) continue;
 
 	if( _v_Muon->at(i).isTight() )
 	  {	     
@@ -398,7 +334,7 @@ void Hist::fill()
 	  }	
      }      
 
-   std::sort(_v_Jet->begin(),_v_Jet->end(),Jet::sortBTagPredicate);
+//   std::sort(_v_Jet->begin(),_v_Jet->end(),Jet::sortBTagPredicate);
    
    for(int i=0;i<_v_Jet->size();i++)
      {
@@ -410,17 +346,11 @@ void Hist::fill()
 	     
 	     //	if( _v_Jet->at(i).CSVv2() >= 0.605 ) _v_BJetTight->push_back(_v_Jet->at(i));
 	     //	if( i < 2 && _v_Jet->at(i).CSVv2() >= 0.890 ) _v_BJetTight->push_back(_v_Jet->at(i));
-	     if( _v_Jet->at(i).CSVv2() >= 0.800 && _v_BJetTight->size() < 3 ) _v_BJetTight->push_back(_v_Jet->at(i));
-	     else _v_NonBJetTight->push_back(_v_Jet->at(i)); 
+	     if( _v_Jet->at(i).CSVv2() >= 0.800 ) _v_BJetTight->push_back(_v_Jet->at(i));
+	     else _v_NonBJetTight->push_back(_v_Jet->at(i));
 	     //	if( _v_Jet->at(i).CSVv2() >= 0.970 ) _v_BJetTight->push_back(_v_Jet->at(i));
 	  }	
      }      
-   
-   std::vector<Lepton> res = help->filterPt(30,30,20,
-					    _v_ElectronTight,
-					    _v_MuonTight);
-
-   _v_Lepton = &res;
    
    int id = _v_Event->at(0).id();
    int run = _v_Event->at(0).run();
@@ -432,33 +362,25 @@ void Hist::fill()
    int njets = _v_JetTight->size();
    int nbjets = _v_BJetTight->size();
    
-   int nLep = _v_Lepton->size();
    int nElecLoose = _v_ElectronLoose->size();
    int nMuonLoose = _v_MuonLoose->size();
-   
-   // 1L
-   bool is1L = (nLep == 1);
-   bool is1L_looseVETO = (is1L && nElecLoose == 0 && nMuonLoose == 0);
-   bool is1E = (is1L_looseVETO && _v_Lepton->at(0).isElectron());
-   bool is1M = (is1L_looseVETO && !_v_Lepton->at(0).isElectron());
 
-   // 2L
-   bool is2L = (nLep == 2);
-   bool is2LM = (nLep >= 2);
+   int nElecTight = _v_ElectronTight->size();
+   int nMuonTight = _v_MuonTight->size();
    
-   bool pass_met = (metpt > 30);
+   bool is1L = (nElecTight+nMuonTight == 1);
+   bool is1L_looseVETO = (is1L && nElecLoose == 0 && nMuonLoose == 0);
+   bool is1E = (nElecTight == 1 && is1L_looseVETO);
+   bool is1M = (nMuonTight == 1 && is1L_looseVETO);
    
    passSel_all = 0x0;
-   passSel_all |= (is1L && njets >= 3)   << 0;
-   passSel_all |= (is1L_looseVETO && njets >= 3)   << 1;
-   passSel_all |= (is1L_looseVETO && njets >= 4)   << 2;
-   passSel_all |= (is1L_looseVETO && njets >= 4 && nbjets >= 2)   << 3;
-   passSel_all |= (is1L_looseVETO && njets >= 4 && nbjets >= 3)   << 4;
-   passSel_all |= (is1L_looseVETO && njets >= 4 && nbjets >= 3 && pass_met)   << 5;
+   passSel_all |= (is1L_looseVETO && njets >= 3 && nbjets == 2)   << 0;
+   passSel_all |= (is1L_looseVETO && njets == 3 && nbjets == 3)   << 1;
+   passSel_all |= (is1L_looseVETO && njets >= 4 && nbjets == 3)   << 2;
 
    passSel_e = 0x0;
    passSel_m = 0x0;
-   for(int i=0;i<=5;i++)
+   for(int i=0;i<=3;i++)
      {	
 	passSel_e |= (CHECK_BIT(passSel_all,i) && is1E) << i;
 	passSel_m |= (CHECK_BIT(passSel_all,i) && is1M) << i;
@@ -474,21 +396,9 @@ void Hist::fill()
 	  )
 	  chan_pass[c] = 1;
      }   
-
-   bool jets_pass[jets_n];
-   for(int c=0;c<jets_n;c++)
-     {	
-	jets_pass[c] = 0;
-	if(
-	   ( jets[c] == "NjetsGE3" && njets >= 3 ) ||
-	   ( jets[c] == "NBjetsGE3" && nbjets >= 3 ) ||
-	   ( jets[c] == "NBjetsGE2" && nbjets >= 2 )
-	  )
-	  jets_pass[c] = 1;
-     }   
    
    // Selection crtieria for plots
-   bool pass = CHECK_BIT(passSel_all,4);
+   bool pass = CHECK_BIT(passSel_all,2);
    
    if( pass )
      {
@@ -498,34 +408,21 @@ void Hist::fill()
 	_trec->setBJet(_v_BJetTight);
 	_trec->setNonBJet(_v_NonBJetTight);
 	_trec->setEvent(_v_Event);
-	_trec->setTruth(_v_Truth);
 	_trec->setLepton(_v_Lepton);
-	
-	// top reconstruction
-	_resTop = _trec->run();
-	
-	_Hb1_p4 = _trec->Hb1_Top_p4();
-	_Hb2_p4 = _trec->Hb2_Top_p4();
-	_topb_p4 = _trec->topb_Top_p4();
-	_l_p4 = _trec->l_Top_p4();
-	_nu_p4 = _trec->nu_Top_p4();
-	_top_p4 = _trec->top_Top_p4();
-	_H_p4 = _trec->H_Top_p4();
-	_W_p4 = _trec->W_Top_p4();
-	
-	_topLep_TTbar_p4 = _trec->topLep_TTbar_p4();
-	_topHad_TTbar_p4 = _trec->topHad_TTbar_p4();
-	_topbLep_TTbar_p4 = _trec->topbLep_TTbar_p4();
-	_topbHad_TTbar_p4 = _trec->topbHad_TTbar_p4();
-	_topWj1_TTbar_p4 = _trec->topWj1_TTbar_p4();
-	_topWj2_TTbar_p4 = _trec->topWj2_TTbar_p4();
-	_l_TTbar_p4 = _trec->l_TTbar_p4();
-	_nu_TTbar_p4 = _trec->nu_TTbar_p4();
-	_WLep_TTbar_p4 = _trec->WLep_TTbar_p4();
-	_WHad_TTbar_p4 = _trec->WHad_TTbar_p4();
 
-	if( _resTop )
-	  {
+	// top reconstruction
+	_trec->run();	
+	
+//	_Hb1_p4 = _trec->HiggsBJet1_TOPTOPLEPHBB_p4();
+//	_Hb2_p4 = _trec->HiggsBJet2_TOPTOPLEPHBB_p4();
+//	_topb_p4 = _trec->TopLepBJet_TOPTOPLEPHBB_p4();
+//	_l_p4 = _trec->TopLepWLep_TOPTOPLEPHBB_p4();
+//	_nu_p4 = _trec->TopLepWNu_TOPTOPLEPHBB_p4();
+//	_top_p4 = _trec->TopLep_TOPTOPLEPHBB_p4();
+//	_H_p4 = _trec->Higgs_TOPTOPLEPHBB_p4();
+//	_W_p4 = _trec->TopLepW_TOPTOPLEPHBB_p4();
+	
+/*	  {	     
 	     _mva->setVariable_H_m(_H_p4.M());
 	     _mva->setVariable_H_eta(_H_p4.PseudoRapidity());
 	     _mva->setVariable_top_m(_top_p4.M());
@@ -544,15 +441,13 @@ void Hist::fill()
 	
 	     // Evaluate MVA discriminator
 	     _mva->run();
-	  }	
+	  }*/
 	
 	bool sel_pass[sel_n];
 	for(int c=0;c<sel_n;c++)
 	  {	
-	     sel_pass[c] = 0;
-	     if(
-		(sel[c] == "nosel")
-	       )
+//	     sel_pass[c] = 0;
+//	     if( sel[c] == "TopTopLepHbb" && )
 	       sel_pass[c] = 1;
 	  }   
 	     
@@ -574,21 +469,16 @@ void Hist::fill()
 		       for(int is=0;is<sel_n;is++)
 			 {
 			    if( !sel_pass[is] ) continue;
-			    
-			    for(int ij=0;ij<jets_n;ij++)
-			      {
-				 if( !jets_pass[ij] ) continue;
 
-				 if( ih == 0 && is == 0 && ij == 0 && isys == 0 )
-				   {
-				      fillTree(ic);
-				   }				 
+			    if( ih == 0 && is == 0 && isys == 0 )
+			      {
+				 fillTree(ic);
+			      }				 
 				 
-				 // [JETS][CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
-				 histNAMESSEL.push_back(histNAMES[ij][ic][0][is][ih][isys]);
-				 histSYS.push_back(isys);
-				 histVAR.push_back(ih);
-			      }
+			    // [CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
+			    histNAMESSEL.push_back(histNAMES[ic][0][is][ih][isys]);
+			    histSYS.push_back(isys);
+			    histVAR.push_back(ih);
 			 }		       
 		    }		       
 	       }
@@ -620,7 +510,7 @@ void Hist::close()
 
 void Hist::fillTree(int ic)
 {
-   m_H_m = (_resTop) ? _H_p4.M() : -666.;
+/*   m_H_m = _H_p4.M();
    m_H_pt = (_resTop) ? _H_p4.Pt() : -666.;
    m_top_pt = (_resTop) ? _top_p4.Pt() : -666.;
    m_H_eta = (_resTop) ? _H_p4.PseudoRapidity() : -666.;
@@ -660,7 +550,7 @@ void Hist::fillTree(int ic)
    m_TTbar_tWj1_tWj2_Dr = (_resTop) ? _topWj1_TTbar_p4.DeltaR(_topWj2_TTbar_p4) : -666.;
    m_TTbar_chi2 = (_resTop) ? _trec->chi2TTbar() : -666.;
    
-   _trout[ic]->Fill();
+   _trout[ic]->Fill();*/
 }
 
 bool Hist::printout(bool doPrint)
@@ -684,7 +574,7 @@ bool Hist::printout(bool doPrint)
 
 void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string varName)
 {
-   if( strcmp(varName.c_str(),"h_H_m_") == 0 )
+/*   if( strcmp(varName.c_str(),"h_H_m_") == 0 )
      {	
 	float H_m = (_resTop) ? _H_p4.M() : -666.;
 	h->Fill(H_m,sfj);
@@ -850,12 +740,12 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
      {	
 	float H_l_dr = (_resTop) ? _H_p4.DeltaR(_l_p4) : -666.;
 	h->Fill(H_l_dr,sfj);
-     }   
-   else if( strcmp(varName.c_str(),"h_chi2_") == 0 )
+     }*/
+   if( strcmp(varName.c_str(),"h_chi2_") == 0 )
      {	
 	h->Fill(_trec->chi2(),sfj);
      }
-   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
+/*   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
      {	
 	h->Fill(_v_Lepton->at(0).charge(),sfj);
      }
@@ -945,57 +835,7 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
      {	
 	float mvaDisc = (_resTop) ? _mva->disc() : -666.;
 	h->Fill(mvaDisc,sfj);
-     }
-}
-
-float Hist::getWmassBW(float mWmean,float GammaW)
-{
-   float mW = 0.;
-   
-   float max = BW(mWmean,mWmean,GammaW);
-   
-   while(1)
-     {
-	float r1 = rnd->Rndm();
-	float r2 = rnd->Rndm();
-
-	mW = mWmean - 3*GammaW + 6*GammaW*r1;
-	if( BW(mW,mWmean,GammaW) > max*r2 ) break;
-     }
-   
-   return mW;      
-}
-
-float Hist::BW(float mW,float mWmean,float GammaW)
-{
-   float f = mW*mW/sqrt(pow(mW*mW-mWmean*mWmean,2)+mW*mW*GammaW*GammaW);
-   
-   return f;
-}
-
-bool Hist::getNuMom(float Wmass,float px_l,float py_l,float pz_l,float E_l,
-		    float px_nu,float py_nu,float &pz_nu1,float &pz_nu2)
-{
-   bool hasSolution = 0.;
-   
-   float a = sqrt(px_l*px_l+py_l*py_l);
-   float b = pz_l;
-   float d = sqrt(px_nu*px_nu+py_nu*py_nu);
-   float f = E_l;
-   
-   float c = Wmass*Wmass/2+px_l*px_nu+py_l*py_nu;
-   
-   float racine = c*c*b*b-a*a*(d*d*f*f-c*c);
-   
-   if(racine >= 0) 
-     {
-	hasSolution = 1;
-	pz_nu1 = (c*b+sqrt(racine))/a/a;
-	pz_nu2 = (c*b-sqrt(racine))/a/a;
-//	std::cout << "pz1=" << pz_nu1 << " pz2=" << pz_nu2 << std::endl;
-     }   
-   
-   return hasSolution;
+     }*/
 }
 
 void Hist::fillPassSel(TH1D *h,TH1D *he,TH1D *hm,float w)

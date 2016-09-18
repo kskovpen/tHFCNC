@@ -1,6 +1,4 @@
 #include "../include/Hist.h"
-#include "../include/TopReco.h"
-#include "../include/JetAssign.h"
 #include "../include/ApplyMVA.h"
 //#include "ChargeMisid.h"
 //#include "RealEff.h"
@@ -124,52 +122,6 @@ int main(int argc, char *argv[])
 	
 	hist.close();
      }
-   else if( strcmp(tool,"topreco") == 0 )
-     {
-	TopReco topr(home,1,NULL);
-	
-	topr.init();
-	topr.setElectron(v_Electron);
-	topr.setMuon(v_Muon);
-	topr.setEvent(v_Event);
-	topr.setJet(v_Jet);
-	topr.setTruth(v_Truth);
-	
-	for(int i=0;i<nent;i++)
-	  {
-	     if( nmax >= 0 && i > nmax ) break;
-	     
-	     f.GetEntry(i);
-	     
-	     std::string fcur = f.GetCurrentFile()->GetName();
-	     bool res = topr.run();
-	  }   
-	
-	topr.close();
-     }
-   else if( strcmp(tool,"jetassign") == 0 )
-     {
-	JetAssign jeta(home,1,NULL);
-	
-	jeta.init();
-	jeta.setElectron(v_Electron);
-	jeta.setMuon(v_Muon);
-	jeta.setEvent(v_Event);
-	jeta.setJet(v_Jet);
-	jeta.setTruth(v_Truth);
-	
-	for(int i=0;i<nent;i++)
-	  {
-	     if( nmax >= 0 && i > nmax ) break;
-	     
-	     f.GetEntry(i);
-	     
-	     std::string fcur = f.GetCurrentFile()->GetName();
-	     bool res = jeta.run();
-	  }   
-	
-	jeta.close();
-     }   
 /*   else if( strcmp(tool,"misid") == 0 )
      {		
 	SKYPLOT::ChargeMisid misid;

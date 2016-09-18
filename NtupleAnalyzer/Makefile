@@ -27,14 +27,14 @@ ADDINC = $(NTUPLEINC) $(KINFITINC)
 
 SRC = src/Analyzer.cxx src/Hist.cxx src/Lepton.cxx \
 src/TopReco.cxx src/Helper.cxx src/Ranges.cxx \
-src/JetAssign.cxx src/ApplyMVA.cxx
+src/ApplyMVA.cxx
 
 INC = include/Hist.h include/Ranges.h include/Analyzer.h \
 include/Lepton.h include/TopReco.h include/Helper.h \
-include/JetAssign.h include/ApplyMVA.h
+include/ApplyMVA.h
 
 OBJ = Analyzer.o Hist.o Lepton.o TopReco.o \
-Helper.o Ranges.o JetAssign.o ApplyMVA.o
+Helper.o Ranges.o ApplyMVA.o
 
 EXE = Analyzer
 
