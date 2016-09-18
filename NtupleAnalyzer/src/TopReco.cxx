@@ -159,20 +159,20 @@ void TopReco::run()
    _chi2_TOPTOPLEPHBB = 10E+10;
    _chi2_TOPHLEPBB = 10E+10;
    _chi2_TOPTOPLEPHAD = 10E+10;
+
+   _TopLepBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _HiggsBJet1_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _HiggsBJet2_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _TopLepWNu_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _TopLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _Higgs_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _TopLepW_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
+   _TopHadNonBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
    
    // tH ttbar
    if( nLep == 1 && nbjets >= 3 && nnonbjets >= 1 )
      {		
-	_TopLepBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_HiggsBJet1_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_HiggsBJet2_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-        _TopLepWNu_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_TopLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_Higgs_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_TopLepW_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	_TopHadNonBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
-	
 	kfTopTopLepHbb->Init(TOPTOPLEPHBB);
 	
 	std::vector<float> BJetPt;
@@ -255,61 +255,71 @@ void TopReco::run()
 	     float NuPz = kfTopTopLepHbb->GetNuPz(ip,0);
 	     float NuE = sqrt(NuPx*NuPx+NuPy*NuPy+NuPz*NuPz);
 
-	     _TopLepWNu_TOPTOPLEPHBB_p4.SetPxPyPzE(NuPx,NuPy,NuPz,NuE);
+	     TLorentzVector *TopLepWNu_p4 = new TLorentzVector();
+	     TopLepWNu_p4->SetPxPyPzE(NuPx,NuPy,NuPz,NuE);
 	     
-	     _HiggsBJet1_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJET1_TOPTOPLEPHBB],
-						      BJetEta[idx_BJET1_TOPTOPLEPHBB],
-						      BJetPhi[idx_BJET1_TOPTOPLEPHBB],
-						      BJetE[idx_BJET1_TOPTOPLEPHBB]);
+	     TLorentzVector *HiggsBJet1_p4 = new TLorentzVector();
+	     HiggsBJet1_p4->SetPtEtaPhiE(BJetPt[idx_BJET1_TOPTOPLEPHBB],
+					 BJetEta[idx_BJET1_TOPTOPLEPHBB],
+					 BJetPhi[idx_BJET1_TOPTOPLEPHBB],
+					 BJetE[idx_BJET1_TOPTOPLEPHBB]);
 	     
-	     _HiggsBJet2_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJET2_TOPTOPLEPHBB],
-						      BJetEta[idx_BJET2_TOPTOPLEPHBB],
-						      BJetPhi[idx_BJET2_TOPTOPLEPHBB],
-						      BJetE[idx_BJET2_TOPTOPLEPHBB]);
+	     TLorentzVector *HiggsBJet2_p4 = new TLorentzVector();
+	     HiggsBJet2_p4->SetPtEtaPhiE(BJetPt[idx_BJET2_TOPTOPLEPHBB],
+					BJetEta[idx_BJET2_TOPTOPLEPHBB],
+					BJetPhi[idx_BJET2_TOPTOPLEPHBB],
+					BJetE[idx_BJET2_TOPTOPLEPHBB]);
 	     
-	     _TopLepBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJETLEP_TOPTOPLEPHBB],
-						      BJetEta[idx_BJETLEP_TOPTOPLEPHBB],
-						      BJetPhi[idx_BJETLEP_TOPTOPLEPHBB],
-						      BJetE[idx_BJETLEP_TOPTOPLEPHBB]);
+	     TLorentzVector *TopLepBJet_p4 = new TLorentzVector();
+	     TopLepBJet_p4->SetPtEtaPhiE(BJetPt[idx_BJETLEP_TOPTOPLEPHBB],
+					 BJetEta[idx_BJETLEP_TOPTOPLEPHBB],
+					 BJetPhi[idx_BJETLEP_TOPTOPLEPHBB],
+					 BJetE[idx_BJETLEP_TOPTOPLEPHBB]);
 	     
-	     _TopHadNonBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(NonBJetPt[idx_NONBJETHAD_TOPTOPLEPHBB],
-							 NonBJetEta[idx_NONBJETHAD_TOPTOPLEPHBB],
-							 NonBJetPhi[idx_NONBJETHAD_TOPTOPLEPHBB],
-							 NonBJetE[idx_NONBJETHAD_TOPTOPLEPHBB]);
+	     TLorentzVector *TopHadNonBJet_p4 = new TLorentzVector();
+	     TopHadNonBJet_p4->SetPtEtaPhiE(NonBJetPt[idx_NONBJETHAD_TOPTOPLEPHBB],
+					    NonBJetEta[idx_NONBJETHAD_TOPTOPLEPHBB],
+					    NonBJetPhi[idx_NONBJETHAD_TOPTOPLEPHBB],
+					    NonBJetE[idx_NONBJETHAD_TOPTOPLEPHBB]);
 	     
+	     TLorentzVector *TopLepWLep_p4 = new TLorentzVector();
 	     if( idx_ELECTRON_TOPTOPLEPHBB >= 0 )
-	       _TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(ElectronPt[idx_ELECTRON_TOPTOPLEPHBB],
-							ElectronEta[idx_ELECTRON_TOPTOPLEPHBB],
-							ElectronPhi[idx_ELECTRON_TOPTOPLEPHBB],
-							ElectronE[idx_ELECTRON_TOPTOPLEPHBB]);
+	       TopLepWLep_p4->SetPtEtaPhiE(ElectronPt[idx_ELECTRON_TOPTOPLEPHBB],
+					   ElectronEta[idx_ELECTRON_TOPTOPLEPHBB],
+					   ElectronPhi[idx_ELECTRON_TOPTOPLEPHBB],
+					   ElectronE[idx_ELECTRON_TOPTOPLEPHBB]);
 	     else
-	       _TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(MuonPt[idx_MUON_TOPTOPLEPHBB],
-							MuonEta[idx_MUON_TOPTOPLEPHBB],
-							MuonPhi[idx_MUON_TOPTOPLEPHBB],
-							MuonE[idx_MUON_TOPTOPLEPHBB]);
+	       TopLepWLep_p4->SetPtEtaPhiE(MuonPt[idx_MUON_TOPTOPLEPHBB],
+					   MuonEta[idx_MUON_TOPTOPLEPHBB],
+					   MuonPhi[idx_MUON_TOPTOPLEPHBB],
+					   MuonE[idx_MUON_TOPTOPLEPHBB]);
 	     
-	     _Higgs_TOPTOPLEPHBB_p4 = _HiggsBJet1_TOPTOPLEPHBB_p4+_HiggsBJet2_TOPTOPLEPHBB_p4;
-	     _TopLepW_TOPTOPLEPHBB_p4 = _TopLepWLep_TOPTOPLEPHBB_p4+_TopLepWNu_TOPTOPLEPHBB_p4;
-	     _TopLep_TOPTOPLEPHBB_p4 = _TopLepW_TOPTOPLEPHBB_p4+_TopLepBJet_TOPTOPLEPHBB_p4;
+	     TLorentzVector Higgs_p4 = *HiggsBJet1_p4+*HiggsBJet2_p4;
+	     TLorentzVector TopLepW_p4 = *TopLepWLep_p4+*TopLepWNu_p4;
+	     TLorentzVector TopLep_p4 = TopLepW_p4+*TopLepBJet_p4;
 
-	     float VarHiggsRecM = _Higgs_TOPTOPLEPHBB_p4.M();
-	     float VarTopLepRecM = _TopLep_TOPTOPLEPHBB_p4.M();
-	     float VarHiggsTopLepRecDr = _Higgs_TOPTOPLEPHBB_p4.DeltaR(_TopLep_TOPTOPLEPHBB_p4);
-	     float VarTopLepRecPt = _TopLep_TOPTOPLEPHBB_p4.Pt();
+	     float VarHiggsRecM = Higgs_p4.M();
+	     float VarTopLepRecM = TopLep_p4.M();
+	     float VarHiggsTopLepRecDr = Higgs_p4.DeltaR(TopLep_p4);
+	     float VarTopLepRecPt = TopLep_p4.Pt();
 	     
-	     _HiggsT_TOPTOPLEPHBB_p4.SetPxPyPzE(_Higgs_TOPTOPLEPHBB_p4.Px(),_Higgs_TOPTOPLEPHBB_p4.Py(),0.,_Higgs_TOPTOPLEPHBB_p4.Et());
+	     TLorentzVector *HiggsT_p4 = new TLorentzVector();
+	     HiggsT_p4->SetPxPyPzE(Higgs_p4.Px(),Higgs_p4.Py(),0.,Higgs_p4.Et());
 	     
-	     _TopLepWLepT_TOPTOPLEPHBB_p4.SetPxPyPzE(_TopLepWLep_TOPTOPLEPHBB_p4.Px(),_TopLepWLep_TOPTOPLEPHBB_p4.Py(),0.,_TopLepWLep_TOPTOPLEPHBB_p4.Et());
+	     TLorentzVector *TopLepWLepT_p4 = new TLorentzVector();
+	     TopLepWLepT_p4->SetPxPyPzE(TopLepWLep_p4->Px(),TopLepWLep_p4->Py(),0.,TopLepWLep_p4->Et());
 	     
-	     _TopLepWNuT_TOPTOPLEPHBB_p4.SetPxPyPzE(_TopLepWNu_TOPTOPLEPHBB_p4.Px(),_TopLepWNu_TOPTOPLEPHBB_p4.Py(),0.,_TopLepWNu_TOPTOPLEPHBB_p4.Et());
+	     TLorentzVector *TopLepWNuT_p4 = new TLorentzVector();
+	     TopLepWNuT_p4->SetPxPyPzE(TopLepWNu_p4->Px(),TopLepWNu_p4->Py(),0.,TopLepWNu_p4->Et());
 	     
-	     _TopLepBJetT_TOPTOPLEPHBB_p4.SetPxPyPzE(_TopLepBJet_TOPTOPLEPHBB_p4.Px(),_TopLepBJet_TOPTOPLEPHBB_p4.Py(),0.,_TopLepBJet_TOPTOPLEPHBB_p4.Et());
+	     TLorentzVector *TopLepBJetT_p4 = new TLorentzVector();
+	     TopLepBJetT_p4->SetPxPyPzE(TopLepBJet_p4->Px(),TopLepBJet_p4->Py(),0.,TopLepBJet_p4->Et());
 	     
-	     _TopLepT_TOPTOPLEPHBB_p4 = _TopLepWLepT_TOPTOPLEPHBB_p4+_TopLepWNuT_TOPTOPLEPHBB_p4+_TopLepBJetT_TOPTOPLEPHBB_p4;
+	     TLorentzVector TopLepT_p4 = *TopLepWLepT_p4+*TopLepWNuT_p4+*TopLepBJetT_p4;
 	     
-	     float VarTopLepRecMT = _TopLepT_TOPTOPLEPHBB_p4.M();
-	     float VarHiggsTopLepRecDphiT = _HiggsT_TOPTOPLEPHBB_p4.DeltaPhi(_TopLepT_TOPTOPLEPHBB_p4);
-	     float VarTopLepRecPtT = _TopLepT_TOPTOPLEPHBB_p4.Pt();
+	     float VarTopLepRecMT = TopLepT_p4.M();
+	     float VarHiggsTopLepRecDphiT = HiggsT_p4->DeltaPhi(TopLepT_p4);
+	     float VarTopLepRecPtT = TopLepT_p4.Pt();
 	     
 	     if( disc < 10E+8 )
 	       {
@@ -329,11 +339,71 @@ void TopReco::run()
 		  
 		  MVADisc.push_back(std::make_pair(MVAPartRecoReaderTOPTOPLEPHBB->EvaluateMVA("BDTG method"),ip));
 	       }	     
+
+	     delete TopLepWNu_p4;
+	     delete HiggsBJet1_p4;
+	     delete HiggsBJet2_p4;
+	     delete TopLepBJet_p4;
+	     delete TopHadNonBJet_p4;
+	     delete TopLepWLep_p4;
+	     delete HiggsT_p4;
+	     delete TopLepWLepT_p4;
+	     delete TopLepWNuT_p4;
+	     delete TopLepBJetT_p4;
 	  }
 	
 	std::sort(MVADisc.begin(),MVADisc.end(),sortFunc());
 	int IdxPerm = MVADisc.at(0).second;
 	
 	_chi2_TOPTOPLEPHBB = kfTopTopLepHbb->GetDisc(IdxPerm);
+
+	int idx_ELECTRON_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(ELECTRON_TOPTOPLEPHBB,IdxPerm);
+	int idx_MUON_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(MUON_TOPTOPLEPHBB,IdxPerm);
+	int idx_BJETLEP_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(BJETLEP_TOPTOPLEPHBB,IdxPerm);
+	int idx_NONBJETHAD_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(NONBJETHAD_TOPTOPLEPHBB,IdxPerm);
+	int idx_BJET1_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(BJET1_TOPTOPLEPHBB,IdxPerm);
+	int idx_BJET2_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(BJET2_TOPTOPLEPHBB,IdxPerm);
+
+	float NuPx = kfTopTopLepHbb->GetNuPx(IdxPerm,0);
+	float NuPy = kfTopTopLepHbb->GetNuPy(IdxPerm,0);
+	float NuPz = kfTopTopLepHbb->GetNuPz(IdxPerm,0);
+	float NuE = sqrt(NuPx*NuPx+NuPy*NuPy+NuPz*NuPz);
+
+	_TopLepWNu_TOPTOPLEPHBB_p4.SetPxPyPzE(NuPx,NuPy,NuPz,NuE);
+	
+	_HiggsBJet1_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJET1_TOPTOPLEPHBB],
+						 BJetEta[idx_BJET1_TOPTOPLEPHBB],
+						 BJetPhi[idx_BJET1_TOPTOPLEPHBB],
+						 BJetE[idx_BJET1_TOPTOPLEPHBB]);
+	
+	_HiggsBJet2_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJET2_TOPTOPLEPHBB],
+						 BJetEta[idx_BJET2_TOPTOPLEPHBB],
+						 BJetPhi[idx_BJET2_TOPTOPLEPHBB],
+						 BJetE[idx_BJET2_TOPTOPLEPHBB]);
+	
+	_TopLepBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(BJetPt[idx_BJETLEP_TOPTOPLEPHBB],
+						 BJetEta[idx_BJETLEP_TOPTOPLEPHBB],
+						 BJetPhi[idx_BJETLEP_TOPTOPLEPHBB],
+						 BJetE[idx_BJETLEP_TOPTOPLEPHBB]);
+	
+	_TopHadNonBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(NonBJetPt[idx_NONBJETHAD_TOPTOPLEPHBB],
+						    NonBJetEta[idx_NONBJETHAD_TOPTOPLEPHBB],
+						    NonBJetPhi[idx_NONBJETHAD_TOPTOPLEPHBB],
+						    NonBJetE[idx_NONBJETHAD_TOPTOPLEPHBB]);
+	
+	if( idx_ELECTRON_TOPTOPLEPHBB >= 0 )
+	  _TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(ElectronPt[idx_ELECTRON_TOPTOPLEPHBB],
+						   ElectronEta[idx_ELECTRON_TOPTOPLEPHBB],
+						   ElectronPhi[idx_ELECTRON_TOPTOPLEPHBB],
+						   ElectronE[idx_ELECTRON_TOPTOPLEPHBB]);
+	else
+	  _TopLepWLep_TOPTOPLEPHBB_p4.SetPtEtaPhiE(MuonPt[idx_MUON_TOPTOPLEPHBB],
+						   MuonEta[idx_MUON_TOPTOPLEPHBB],
+						   MuonPhi[idx_MUON_TOPTOPLEPHBB],
+						   MuonE[idx_MUON_TOPTOPLEPHBB]);
+		
+	_Higgs_TOPTOPLEPHBB_p4 = _HiggsBJet1_TOPTOPLEPHBB_p4+_HiggsBJet2_TOPTOPLEPHBB_p4;
+	_TopLepW_TOPTOPLEPHBB_p4 = _TopLepWLep_TOPTOPLEPHBB_p4+_TopLepWNu_TOPTOPLEPHBB_p4;
+	_TopLep_TOPTOPLEPHBB_p4 = _TopLepW_TOPTOPLEPHBB_p4+_TopLepBJet_TOPTOPLEPHBB_p4;
      }
 }

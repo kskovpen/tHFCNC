@@ -415,15 +415,6 @@ void Hist::fill()
 	// top reconstruction
 	_trec->run();	
 	
-//	_Hb1_p4 = _trec->HiggsBJet1_TOPTOPLEPHBB_p4();
-//	_Hb2_p4 = _trec->HiggsBJet2_TOPTOPLEPHBB_p4();
-//	_topb_p4 = _trec->TopLepBJet_TOPTOPLEPHBB_p4();
-//	_l_p4 = _trec->TopLepWLep_TOPTOPLEPHBB_p4();
-//	_nu_p4 = _trec->TopLepWNu_TOPTOPLEPHBB_p4();
-//	_top_p4 = _trec->TopLep_TOPTOPLEPHBB_p4();
-//	_H_p4 = _trec->Higgs_TOPTOPLEPHBB_p4();
-//	_W_p4 = _trec->TopLepW_TOPTOPLEPHBB_p4();
-	
 /*	  {	     
 	     _mva->setVariable_H_m(_H_p4.M());
 	     _mva->setVariable_H_eta(_H_p4.PseudoRapidity());

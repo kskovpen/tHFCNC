@@ -40,12 +40,6 @@ class TopReco
    TLorentzVector Higgs_TOPTOPLEPHBB_p4()           {return _Higgs_TOPTOPLEPHBB_p4;};
    TLorentzVector TopLepW_TOPTOPLEPHBB_p4()         {return _TopLepW_TOPTOPLEPHBB_p4;};
    TLorentzVector TopHadNonBJet_TOPTOPLEPHBB_p4()   {return _TopHadNonBJet_TOPTOPLEPHBB_p4;};
-
-   TLorentzVector TopLepBJetT_TOPTOPLEPHBB_p4()      {return _TopLepBJetT_TOPTOPLEPHBB_p4;};
-   TLorentzVector TopLepWLepT_TOPTOPLEPHBB_p4()      {return _TopLepWLepT_TOPTOPLEPHBB_p4;};
-   TLorentzVector TopLepWNuT_TOPTOPLEPHBB_p4()       {return _TopLepWNuT_TOPTOPLEPHBB_p4;};
-   TLorentzVector TopLepT_TOPTOPLEPHBB_p4()   {return _TopLepT_TOPTOPLEPHBB_p4;};
-   TLorentzVector HiggsT_TOPTOPLEPHBB_p4()   {return _HiggsT_TOPTOPLEPHBB_p4;};
    
    double chi2_TOPTOPLEPHBB()       {return _chi2_TOPTOPLEPHBB;};
    double chi2_TOPHLEPBB()          {return _chi2_TOPHLEPBB;};
@@ -81,12 +75,6 @@ class TopReco
    TLorentzVector _Higgs_TOPTOPLEPHBB_p4;
    TLorentzVector _TopLepW_TOPTOPLEPHBB_p4;
    TLorentzVector _TopHadNonBJet_TOPTOPLEPHBB_p4;
-   
-   TLorentzVector _TopLepBJetT_TOPTOPLEPHBB_p4;
-   TLorentzVector _TopLepWLepT_TOPTOPLEPHBB_p4;
-   TLorentzVector _TopLepWNuT_TOPTOPLEPHBB_p4;
-   TLorentzVector _TopLepT_TOPTOPLEPHBB_p4;
-   TLorentzVector _HiggsT_TOPTOPLEPHBB_p4;
    
    double _chi2_TOPTOPLEPHBB;
    double _chi2_TOPHLEPBB;
