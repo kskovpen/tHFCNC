@@ -47,7 +47,9 @@ class TopReco
    TLorentzVector TopLepT_TOPTOPLEPHBB_p4()   {return _TopLepT_TOPTOPLEPHBB_p4;};
    TLorentzVector HiggsT_TOPTOPLEPHBB_p4()   {return _HiggsT_TOPTOPLEPHBB_p4;};
    
-   double chi2()       {return _chi2;};
+   double chi2_TOPTOPLEPHBB()       {return _chi2_TOPTOPLEPHBB;};
+   double chi2_TOPHLEPBB()          {return _chi2_TOPHLEPBB;};
+   double chi2_TOPTOPLEPHAD()       {return _chi2_TOPTOPLEPHAD;};
    
  protected:
 
@@ -86,7 +88,9 @@ class TopReco
    TLorentzVector _TopLepT_TOPTOPLEPHBB_p4;
    TLorentzVector _HiggsT_TOPTOPLEPHBB_p4;
    
-   double _chi2;
+   double _chi2_TOPTOPLEPHBB;
+   double _chi2_TOPHLEPBB;
+   double _chi2_TOPTOPLEPHAD;
    
    TRandom3 *rnd;
 

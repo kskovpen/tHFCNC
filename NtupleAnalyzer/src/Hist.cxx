@@ -65,8 +65,9 @@ void Hist::init()
 
    hname.clear(); 
 
-   histname_n = 1;
-   histname[0] = "h_chi2_";
+   histname_n = 2;
+   histname[0] = "h_chi2_TOPTOPLEPHBB_";
+   histname[1] = "h_HiggsMass_TOPTOPLEPHBB_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
@@ -185,6 +186,7 @@ void Hist::init()
    set_hist.push_back(RANGE::set_H_nu_dr);
    set_hist.push_back(RANGE::set_H_l_dr);*/
    set_hist.push_back(RANGE::set_chi2);
+   set_hist.push_back(RANGE::set_H_m);
 //   set_hist.push_back(RANGE::set_l_charge);
    
 /*   set_hist.push_back(RANGE::set_top_m);
@@ -741,10 +743,14 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
 	float H_l_dr = (_resTop) ? _H_p4.DeltaR(_l_p4) : -666.;
 	h->Fill(H_l_dr,sfj);
      }*/
-   if( strcmp(varName.c_str(),"h_chi2_") == 0 )
+   if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHBB_") == 0 )
      {	
-	h->Fill(_trec->chi2(),sfj);
+	h->Fill(_trec->chi2_TOPTOPLEPHBB(),sfj);
      }
+   else if( strcmp(varName.c_str(),"h_HiggsMass_TOPTOPLEPHBB_") == 0 )
+     {	
+	h->Fill(_trec->Higgs_TOPTOPLEPHBB_p4().M(),sfj);
+     }	     
 /*   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
      {	
 	h->Fill(_v_Lepton->at(0).charge(),sfj);

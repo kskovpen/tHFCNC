@@ -156,6 +156,10 @@ void TopReco::run()
    
    int nLep = _v_ElectronTight->size()+_v_MuonTight->size();
 
+   _chi2_TOPTOPLEPHBB = 10E+10;
+   _chi2_TOPHLEPBB = 10E+10;
+   _chi2_TOPTOPLEPHAD = 10E+10;
+   
    // tH ttbar
    if( nLep == 1 && nbjets >= 3 && nnonbjets >= 1 )
      {		
@@ -330,6 +334,6 @@ void TopReco::run()
 	std::sort(MVADisc.begin(),MVADisc.end(),sortFunc());
 	int IdxPerm = MVADisc.at(0).second;
 	
-	_chi2 = kfTopTopLepHbb->GetDisc(IdxPerm);
+	_chi2_TOPTOPLEPHBB = kfTopTopLepHbb->GetDisc(IdxPerm);
      }
 }
