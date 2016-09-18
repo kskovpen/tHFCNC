@@ -76,6 +76,7 @@ int main(int argc, char *argv[])
    std::cout << "--stream=" << dataStream << std::endl;
    std::cout << "--issig=" << issig << std::endl;
 
+   std::cout << fname << std::endl;
    Tree tree(0,const_cast<char*>(fname),stream);
    ntP = &tree;
    
@@ -95,7 +96,7 @@ int main(int argc, char *argv[])
    Event ev;
    Truth truth;
 
-   calib = new BTagCalibration("csvv2","/home-pbs/kskovpen/tHFCNC2016/CMSSW_8_0_12/src/NtupleProducer/test/CSVv2_ichep.csv");
+   calib = new BTagCalibration("csvv2","/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/CSVv2_ichep.csv");
    reader_iterativefit = new BTagCalibrationReader(BTagEntry::OP_RESHAPING,"central",
 						   {"up_jes","down_jes","up_lf","down_lf",
 							"up_hfstats1","down_hfstats1",
@@ -168,11 +169,14 @@ int main(int argc, char *argv[])
 	     if( jet.isTight() && jet.isBTag() ) nt->NtBJetTight->push_back(jet);
 	  }
 
-	// truth
-	truth.init();
-	truth.read();
-	
-	nt->NtTruth->push_back(truth);
+	if( !_isdata )
+	  {	     
+	     // truth
+	     truth.init();
+	     truth.read();
+	     
+	     nt->NtTruth->push_back(truth);
+	  }	
 
 	int nElecLoose = nt->NtElectronLoose->size();
 	int nMuonLoose = nt->NtMuonLoose->size();

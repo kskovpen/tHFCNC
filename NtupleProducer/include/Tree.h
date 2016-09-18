@@ -101,9 +101,6 @@ public :
    Float_t         metNoHF_pt;
    Float_t         metNoHF_phi;
    Float_t         metNoHF_sumet;
-   Float_t         metPuppi_pt;
-   Float_t         metPuppi_phi;
-   Float_t         metPuppi_sumet;
    Float_t         pv_x;
    Float_t         pv_y;
    Float_t         pv_z;
@@ -229,8 +226,6 @@ public :
    vector<float>   *el_pfIso_sumNeutralHadronEt;
    vector<float>   *el_pfIso_sumPhotonEt;
    vector<float>   *el_pfIso_sumPUPt;
-   vector<float>   *el_miniIso;
-   vector<float>   *el_miniIsoTTH;
    vector<float>   *el_vx;
    vector<float>   *el_vy;
    vector<float>   *el_vz;
@@ -291,25 +286,8 @@ public :
    vector<bool>    *el_mediumCBId;
    vector<bool>    *el_tightCBId;
    vector<bool>    *el_heepCBId;
-   vector<bool>    *el_vetoStopID;
-   vector<bool>    *el_mediumStopID;
    vector<bool>    *el_mediumMVAId;
    vector<bool>    *el_tightMVAId;
-   vector<float>   *el_lepMVA;
-   vector<float>   *el_lepMVA_Moriond16;
-   vector<float>   *el_lepMVA_pt;
-   vector<float>   *el_lepMVA_eta;
-   vector<float>   *el_lepMVA_miniRelIsoCharged;
-   vector<float>   *el_lepMVA_miniRelIsoNeutral;
-   vector<float>   *el_lepMVA_jetPtRatio;
-   vector<float>   *el_lepMVA_jetPtRelv2;
-   vector<float>   *el_lepMVA_jetBTagCSV;
-   vector<float>   *el_lepMVA_sip3d;
-   vector<float>   *el_lepMVA_dxy;
-   vector<float>   *el_lepMVA_dz;
-   vector<float>   *el_lepMVA_mvaId;
-   vector<float>   *el_lepMVA_jetNDauChargedMVASel;
-   vector<float>   *el_jetConePt_ttH;
    vector<int>     *el_hasMCMatch;
    vector<float>   *el_gen_pt;
    vector<float>   *el_gen_eta;
@@ -364,8 +342,6 @@ public :
    vector<float>   *mu_pfIso04_sumPhotonEt;
    vector<float>   *mu_pfIso04_sumPhotonEtHighThreshold;
    vector<float>   *mu_pfIso04_sumPUPt;
-   vector<float>   *mu_miniIso;
-   vector<float>   *mu_miniIsoTTH;
    vector<int>     *mu_isGlobalMuon;
    vector<int>     *mu_isTrackerMuon;
    vector<int>     *mu_isStandAloneMuon;
@@ -467,21 +443,6 @@ public :
    vector<int>     *mu_innerTrack_numberOfLostPixelHits;
    vector<float>   *mu_innerTrack_validFraction;
    vector<int>     *mu_type;
-   vector<float>   *mu_lepMVA;
-   vector<float>   *mu_lepMVA_Moriond16;
-   vector<float>   *mu_lepMVA_pt;
-   vector<float>   *mu_lepMVA_eta;
-   vector<float>   *mu_lepMVA_miniRelIsoCharged;
-   vector<float>   *mu_lepMVA_miniRelIsoNeutral;
-   vector<float>   *mu_lepMVA_jetPtRatio;
-   vector<float>   *mu_lepMVA_jetPtRelv2;
-   vector<float>   *mu_lepMVA_jetBTagCSV;
-   vector<float>   *mu_lepMVA_sip3d;
-   vector<float>   *mu_lepMVA_dxy;
-   vector<float>   *mu_lepMVA_dz;
-   vector<float>   *mu_lepMVA_mvaId;
-   vector<float>   *mu_lepMVA_jetNDauChargedMVASel;
-   vector<float>   *mu_jetConePt_ttH;
    vector<int>     *mu_hasMCMatch;
    vector<float>   *mu_gen_pt;
    vector<float>   *mu_gen_eta;
@@ -587,7 +548,6 @@ public :
    vector<float>   *jet_pileupJetId;
    vector<bool>    *jet_looseJetID;
    vector<bool>    *jet_tightJetID;
-   vector<float>   *jet_qgtag;
    vector<bool>    *jet_hasGenJet;
    vector<float>   *jet_genJet_pt;
    vector<float>   *jet_genJet_eta;
@@ -615,15 +575,6 @@ public :
    vector<float>   *genJet_invisibleEnergy;
    vector<float>   *genJet_auxiliaryEnergy;
    vector<int>     *genJet_flavour;
-   Int_t           pfcand_n;
-   vector<float>   *pfcand_pt;
-   vector<float>   *pfcand_eta;
-   vector<float>   *pfcand_phi;
-   vector<float>   *pfcand_E;
-   vector<float>   *pfcand_charge;
-   vector<int>     *pfcand_id;
-   vector<float>   *pfcand_dz;
-   vector<float>   *pfcand_trackIso;
    Int_t           gen_n;
    vector<float>   *gen_pt;
    vector<float>   *gen_eta;
@@ -637,255 +588,6 @@ public :
    vector<int>     *gen_mother_index;
    vector<int>     *gen_daughter_n;
    vector<vector<int> > *gen_daughter_index;
-   
-   Int_t     mc_truth_h0_id;
-   Int_t     mc_truth_h0W1_id;
-   Int_t     mc_truth_h0Wl1_id;
-   Int_t     mc_truth_h0Wq11_id;
-   Int_t     mc_truth_h0Wq21_id;
-   Int_t     mc_truth_h0W2_id;
-   Int_t     mc_truth_h0Wl2_id;
-   Int_t     mc_truth_h0Wq12_id;
-   Int_t     mc_truth_h0Wq22_id;
-   Int_t     mc_truth_h0Z1_id;
-   Int_t     mc_truth_h0Zl11_id;
-   Int_t     mc_truth_h0Zl21_id;
-   Int_t     mc_truth_h0Zq11_id;
-   Int_t     mc_truth_h0Zq21_id;
-   Int_t     mc_truth_h0Z2_id;
-   Int_t     mc_truth_h0Zl12_id;
-   Int_t     mc_truth_h0Zl22_id;
-   Int_t     mc_truth_h0Zq12_id;
-   Int_t     mc_truth_h0Zq22_id;
-   Int_t     mc_truth_h0tau1_id;
-   Int_t     mc_truth_h0tau2_id;
-   Int_t     mc_truth_h0b1_id;
-   Int_t     mc_truth_h0b2_id;
-   Int_t     mc_truth_h0b1_IS_id;
-   Int_t     mc_truth_h0b2_IS_id;
-   
-   Int_t     mc_truth_t1_id;
-   Int_t     mc_truth_t2_id;
-   Int_t     mc_truth_tb1_id;
-   Int_t     mc_truth_tb2_id;
-   Int_t     mc_truth_tW1_id;
-   Int_t     mc_truth_tW2_id;
-   Int_t     mc_truth_tWl1_id;
-   Int_t     mc_truth_tWl2_id;
-   Int_t     mc_truth_tWq11_id;
-   Int_t     mc_truth_tWq21_id;
-   Int_t     mc_truth_tWq12_id;
-   Int_t     mc_truth_tWq22_id;
-
-   Int_t     mc_truth_t_id;
-   Int_t     mc_truth_tb_id;
-   Int_t     mc_truth_tb_IS_id;
-   Int_t     mc_truth_tW_id;
-   Int_t     mc_truth_tWl_id;
-   Int_t     mc_truth_tWnu_id;
-   Int_t     mc_truth_tWnutau_id;
-   Int_t     mc_truth_tWq1_id;
-   Int_t     mc_truth_tWq2_id;
-
-   // pt
-   Float_t     mc_truth_t1_pt;
-   Float_t     mc_truth_t2_pt;
-   Float_t     mc_truth_tb1_pt;
-   Float_t     mc_truth_tb2_pt;
-   Float_t     mc_truth_tW1_pt;
-   Float_t     mc_truth_tW2_pt;
-   Float_t     mc_truth_tWl1_pt;
-   Float_t     mc_truth_tWl2_pt;
-   Float_t     mc_truth_tWq11_pt;
-   Float_t     mc_truth_tWq21_pt;
-   Float_t     mc_truth_tWq12_pt;
-   Float_t     mc_truth_tWq22_pt;
-
-   Float_t     mc_truth_t_pt;
-   Float_t     mc_truth_tb_pt;
-   Float_t     mc_truth_tb_IS_pt;
-   Float_t     mc_truth_tW_pt;
-   Float_t     mc_truth_tWl_pt;
-   Float_t     mc_truth_tWnu_pt;
-   Float_t     mc_truth_tWnutau_pt;
-   Float_t     mc_truth_tWq1_pt;
-   Float_t     mc_truth_tWq2_pt;
-   
-   Float_t     mc_truth_h0_pt;
-   Float_t     mc_truth_h0W1_pt;
-   Float_t     mc_truth_h0Wl1_pt;
-   Float_t     mc_truth_h0Wq11_pt;
-   Float_t     mc_truth_h0Wq21_pt;
-   Float_t     mc_truth_h0W2_pt;
-   Float_t     mc_truth_h0Wl2_pt;
-   Float_t     mc_truth_h0Wq12_pt;
-   Float_t     mc_truth_h0Wq22_pt;
-   Float_t     mc_truth_h0Z1_pt;
-   Float_t     mc_truth_h0Zl11_pt;
-   Float_t     mc_truth_h0Zl21_pt;
-   Float_t     mc_truth_h0Zq11_pt;
-   Float_t     mc_truth_h0Zq21_pt;
-   Float_t     mc_truth_h0Z2_pt;
-   Float_t     mc_truth_h0Zl12_pt;
-   Float_t     mc_truth_h0Zl22_pt;
-   Float_t     mc_truth_h0Zq12_pt;
-   Float_t     mc_truth_h0Zq22_pt;
-   Float_t     mc_truth_h0tau1_pt;
-   Float_t     mc_truth_h0tau2_pt;
-   Float_t     mc_truth_h0b1_pt;
-   Float_t     mc_truth_h0b2_pt;
-   Float_t     mc_truth_h0b1_IS_pt;
-   Float_t     mc_truth_h0b2_IS_pt;
-
-   // eta
-   Float_t     mc_truth_t1_eta;
-   Float_t     mc_truth_t2_eta;
-   Float_t     mc_truth_tb1_eta;
-   Float_t     mc_truth_tb2_eta;
-   Float_t     mc_truth_tW1_eta;
-   Float_t     mc_truth_tW2_eta;
-   Float_t     mc_truth_tWl1_eta;
-   Float_t     mc_truth_tWl2_eta;
-   Float_t     mc_truth_tWq11_eta;
-   Float_t     mc_truth_tWq21_eta;
-   Float_t     mc_truth_tWq12_eta;
-   Float_t     mc_truth_tWq22_eta;
-
-   Float_t     mc_truth_t_eta;
-   Float_t     mc_truth_tb_eta;
-   Float_t     mc_truth_tb_IS_eta;
-   Float_t     mc_truth_tW_eta;
-   Float_t     mc_truth_tWl_eta;
-   Float_t     mc_truth_tWnu_eta;
-   Float_t     mc_truth_tWnutau_eta;
-   Float_t     mc_truth_tWq1_eta;
-   Float_t     mc_truth_tWq2_eta;
-   
-   Float_t     mc_truth_h0_eta;
-   Float_t     mc_truth_h0W1_eta;
-   Float_t     mc_truth_h0Wl1_eta;
-   Float_t     mc_truth_h0Wq11_eta;
-   Float_t     mc_truth_h0Wq21_eta;
-   Float_t     mc_truth_h0W2_eta;
-   Float_t     mc_truth_h0Wl2_eta;
-   Float_t     mc_truth_h0Wq12_eta;
-   Float_t     mc_truth_h0Wq22_eta;
-   Float_t     mc_truth_h0Z1_eta;
-   Float_t     mc_truth_h0Zl11_eta;
-   Float_t     mc_truth_h0Zl21_eta;
-   Float_t     mc_truth_h0Zq11_eta;
-   Float_t     mc_truth_h0Zq21_eta;
-   Float_t     mc_truth_h0Z2_eta;
-   Float_t     mc_truth_h0Zl12_eta;
-   Float_t     mc_truth_h0Zl22_eta;
-   Float_t     mc_truth_h0Zq12_eta;
-   Float_t     mc_truth_h0Zq22_eta;
-   Float_t     mc_truth_h0tau1_eta;
-   Float_t     mc_truth_h0tau2_eta;
-   Float_t     mc_truth_h0b1_eta;
-   Float_t     mc_truth_h0b2_eta;
-   Float_t     mc_truth_h0b1_IS_eta;
-   Float_t     mc_truth_h0b2_IS_eta;
-
-   // phi
-   Float_t     mc_truth_t1_phi;
-   Float_t     mc_truth_t2_phi;
-   Float_t     mc_truth_tb1_phi;
-   Float_t     mc_truth_tb2_phi;
-   Float_t     mc_truth_tW1_phi;
-   Float_t     mc_truth_tW2_phi;
-   Float_t     mc_truth_tWl1_phi;
-   Float_t     mc_truth_tWl2_phi;
-   Float_t     mc_truth_tWq11_phi;
-   Float_t     mc_truth_tWq21_phi;
-   Float_t     mc_truth_tWq12_phi;
-   Float_t     mc_truth_tWq22_phi;
-
-   Float_t     mc_truth_t_phi;
-   Float_t     mc_truth_tb_phi;
-   Float_t     mc_truth_tb_IS_phi;
-   Float_t     mc_truth_tW_phi;
-   Float_t     mc_truth_tWl_phi;
-   Float_t     mc_truth_tWnu_phi;
-   Float_t     mc_truth_tWnutau_phi;
-   Float_t     mc_truth_tWq1_phi;
-   Float_t     mc_truth_tWq2_phi;
-   
-   Float_t     mc_truth_h0_phi;
-   Float_t     mc_truth_h0W1_phi;
-   Float_t     mc_truth_h0Wl1_phi;
-   Float_t     mc_truth_h0Wq11_phi;
-   Float_t     mc_truth_h0Wq21_phi;
-   Float_t     mc_truth_h0W2_phi;
-   Float_t     mc_truth_h0Wl2_phi;
-   Float_t     mc_truth_h0Wq12_phi;
-   Float_t     mc_truth_h0Wq22_phi;
-   Float_t     mc_truth_h0Z1_phi;
-   Float_t     mc_truth_h0Zl11_phi;
-   Float_t     mc_truth_h0Zl21_phi;
-   Float_t     mc_truth_h0Zq11_phi;
-   Float_t     mc_truth_h0Zq21_phi;
-   Float_t     mc_truth_h0Z2_phi;
-   Float_t     mc_truth_h0Zl12_phi;
-   Float_t     mc_truth_h0Zl22_phi;
-   Float_t     mc_truth_h0Zq12_phi;
-   Float_t     mc_truth_h0Zq22_phi;
-   Float_t     mc_truth_h0tau1_phi;
-   Float_t     mc_truth_h0tau2_phi;
-   Float_t     mc_truth_h0b1_phi;
-   Float_t     mc_truth_h0b2_phi;
-   Float_t     mc_truth_h0b1_IS_phi;
-   Float_t     mc_truth_h0b2_IS_phi;
-
-   // E
-   Float_t     mc_truth_t1_E;
-   Float_t     mc_truth_t2_E;
-   Float_t     mc_truth_tb1_E;
-   Float_t     mc_truth_tb2_E;
-   Float_t     mc_truth_tW1_E;
-   Float_t     mc_truth_tW2_E;
-   Float_t     mc_truth_tWl1_E;
-   Float_t     mc_truth_tWl2_E;
-   Float_t     mc_truth_tWq11_E;
-   Float_t     mc_truth_tWq21_E;
-   Float_t     mc_truth_tWq12_E;
-   Float_t     mc_truth_tWq22_E;
-
-   Float_t     mc_truth_t_E;
-   Float_t     mc_truth_tb_E;
-   Float_t     mc_truth_tb_IS_E;
-   Float_t     mc_truth_tW_E;
-   Float_t     mc_truth_tWl_E;
-   Float_t     mc_truth_tWnu_E;
-   Float_t     mc_truth_tWnutau_E;
-   Float_t     mc_truth_tWq1_E;
-   Float_t     mc_truth_tWq2_E;
-   
-   Float_t     mc_truth_h0_E;
-   Float_t     mc_truth_h0W1_E;
-   Float_t     mc_truth_h0Wl1_E;
-   Float_t     mc_truth_h0Wq11_E;
-   Float_t     mc_truth_h0Wq21_E;
-   Float_t     mc_truth_h0W2_E;
-   Float_t     mc_truth_h0Wl2_E;
-   Float_t     mc_truth_h0Wq12_E;
-   Float_t     mc_truth_h0Wq22_E;
-   Float_t     mc_truth_h0Z1_E;
-   Float_t     mc_truth_h0Zl11_E;
-   Float_t     mc_truth_h0Zl21_E;
-   Float_t     mc_truth_h0Zq11_E;
-   Float_t     mc_truth_h0Zq21_E;
-   Float_t     mc_truth_h0Z2_E;
-   Float_t     mc_truth_h0Zl12_E;
-   Float_t     mc_truth_h0Zl22_E;
-   Float_t     mc_truth_h0Zq12_E;
-   Float_t     mc_truth_h0Zq22_E;
-   Float_t     mc_truth_h0tau1_E;
-   Float_t     mc_truth_h0tau2_E;
-   Float_t     mc_truth_h0b1_E;
-   Float_t     mc_truth_h0b2_E;
-   Float_t     mc_truth_h0b1_IS_E;
-   Float_t     mc_truth_h0b2_IS_E;
    
    // List of branches
    TBranch        *b_ev_run;   //!
@@ -971,9 +673,6 @@ public :
    TBranch        *b_metNoHF_pt;   //!
    TBranch        *b_metNoHF_phi;   //!
    TBranch        *b_metNoHF_sumet;   //!
-   TBranch        *b_metPuppi_pt;   //!
-   TBranch        *b_metPuppi_phi;   //!
-   TBranch        *b_metPuppi_sumet;   //!
    TBranch        *b_pv_x;   //!
    TBranch        *b_pv_y;   //!
    TBranch        *b_pv_z;   //!
@@ -1161,25 +860,8 @@ public :
    TBranch        *b_el_mediumCBId;   //!
    TBranch        *b_el_tightCBId;   //!
    TBranch        *b_el_heepCBId;   //!
-   TBranch        *b_el_vetoStopID;   //!
-   TBranch        *b_el_mediumStopID;   //!
    TBranch        *b_el_mediumMVAId;   //!
    TBranch        *b_el_tightMVAId;   //!
-   TBranch        *b_el_lepMVA;   //!
-   TBranch        *b_el_lepMVA_Moriond16;   //!
-   TBranch        *b_el_lepMVA_pt;   //!
-   TBranch        *b_el_lepMVA_eta;   //!
-   TBranch        *b_el_lepMVA_miniRelIsoCharged;   //!
-   TBranch        *b_el_lepMVA_miniRelIsoNeutral;   //!
-   TBranch        *b_el_lepMVA_jetPtRatio;   //!
-   TBranch        *b_el_lepMVA_jetPtRelv2;   //!
-   TBranch        *b_el_lepMVA_jetBTagCSV;   //!
-   TBranch        *b_el_lepMVA_sip3d;   //!
-   TBranch        *b_el_lepMVA_dxy;   //!
-   TBranch        *b_el_lepMVA_dz;   //!
-   TBranch        *b_el_lepMVA_mvaId;   //!
-   TBranch        *b_el_lepMVA_jetNDauChargedMVASel;   //!
-   TBranch        *b_el_jetConePt_ttH;   //!
    TBranch        *b_el_hasMCMatch;   //!
    TBranch        *b_el_gen_pt;   //!
    TBranch        *b_el_gen_eta;   //!
@@ -1337,21 +1019,6 @@ public :
    TBranch        *b_mu_innerTrack_numberOfLostPixelHits;   //!
    TBranch        *b_mu_innerTrack_validFraction;   //!
    TBranch        *b_mu_type;   //!
-   TBranch        *b_mu_lepMVA;   //!
-   TBranch        *b_mu_lepMVA_Moriond16;   //!
-   TBranch        *b_mu_lepMVA_pt;   //!
-   TBranch        *b_mu_lepMVA_eta;   //!
-   TBranch        *b_mu_lepMVA_miniRelIsoCharged;   //!
-   TBranch        *b_mu_lepMVA_miniRelIsoNeutral;   //!
-   TBranch        *b_mu_lepMVA_jetPtRatio;   //!
-   TBranch        *b_mu_lepMVA_jetPtRelv2;   //!
-   TBranch        *b_mu_lepMVA_jetBTagCSV;   //!
-   TBranch        *b_mu_lepMVA_sip3d;   //!
-   TBranch        *b_mu_lepMVA_dxy;   //!
-   TBranch        *b_mu_lepMVA_dz;   //!
-   TBranch        *b_mu_lepMVA_mvaId;   //!
-   TBranch        *b_mu_lepMVA_jetNDauChargedMVASel;   //!
-   TBranch        *b_mu_jetConePt_ttH;   //!
    TBranch        *b_mu_hasMCMatch;   //!
    TBranch        *b_mu_gen_pt;   //!
    TBranch        *b_mu_gen_eta;   //!
@@ -1457,7 +1124,6 @@ public :
    TBranch        *b_jet_pileupJetId;   //!
    TBranch        *b_jet_looseJetID;   //!
    TBranch        *b_jet_tightJetID;   //!
-   TBranch        *b_jet_qgtag;   //!
    TBranch        *b_jet_hasGenJet;   //!
    TBranch        *b_jet_genJet_pt;   //!
    TBranch        *b_jet_genJet_eta;   //!
@@ -1485,15 +1151,6 @@ public :
    TBranch        *b_genJet_invisibleEnergy;   //!
    TBranch        *b_genJet_auxiliaryEnergy;   //!
    TBranch        *b_genJet_flavour;   //!
-   TBranch        *b_pfcand_n;   //!
-   TBranch        *b_pfcand_pt;   //!
-   TBranch        *b_pfcand_eta;   //!
-   TBranch        *b_pfcand_phi;   //!
-   TBranch        *b_pfcand_E;   //!
-   TBranch        *b_pfcand_charge;   //!
-   TBranch        *b_pfcand_id;   //!
-   TBranch        *b_pfcand_dz;   //!
-   TBranch        *b_pfcand_trackIso;   //!
    TBranch        *b_gen_n;   //!
    TBranch        *b_gen_pt;   //!
    TBranch        *b_gen_eta;   //!
@@ -1507,55 +1164,6 @@ public :
    TBranch        *b_gen_mother_index;   //!
    TBranch        *b_gen_daughter_n;   //!
    TBranch        *b_gen_daughter_index;   //!
-   
-   TBranch        *b_mc_truth_h0_id;
-   TBranch        *b_mc_truth_h0W1_id;
-   TBranch        *b_mc_truth_h0Wl1_id;
-   TBranch        *b_mc_truth_h0Wq11_id;
-   TBranch        *b_mc_truth_h0Wq21_id;
-   TBranch        *b_mc_truth_h0W2_id;
-   TBranch        *b_mc_truth_h0Wl2_id;
-   TBranch        *b_mc_truth_h0Wq12_id;
-   TBranch        *b_mc_truth_h0Wq22_id;
-   TBranch        *b_mc_truth_h0Z1_id;
-   TBranch        *b_mc_truth_h0Zl11_id;
-   TBranch        *b_mc_truth_h0Zl21_id;
-   TBranch        *b_mc_truth_h0Zq11_id;
-   TBranch        *b_mc_truth_h0Zq21_id;
-   TBranch        *b_mc_truth_h0Z2_id;
-   TBranch        *b_mc_truth_h0Zl12_id;
-   TBranch        *b_mc_truth_h0Zl22_id;
-   TBranch        *b_mc_truth_h0Zq12_id;
-   TBranch        *b_mc_truth_h0Zq22_id;
-   TBranch        *b_mc_truth_h0tau1_id;
-   TBranch        *b_mc_truth_h0tau2_id;
-   TBranch        *b_mc_truth_h0b1_id;
-   TBranch        *b_mc_truth_h0b2_id;
-   TBranch        *b_mc_truth_h0b1_IS_id;
-   TBranch        *b_mc_truth_h0b2_IS_id;
-   
-   TBranch           *b_mc_truth_t1_id;
-   TBranch           *b_mc_truth_t2_id;
-   TBranch           *b_mc_truth_tb1_id;
-   TBranch           *b_mc_truth_tb2_id;
-   TBranch           *b_mc_truth_tW1_id;
-   TBranch           *b_mc_truth_tW2_id;
-   TBranch           *b_mc_truth_tWl1_id;
-   TBranch           *b_mc_truth_tWl2_id;
-   TBranch           *b_mc_truth_tWq11_id;
-   TBranch           *b_mc_truth_tWq21_id;
-   TBranch           *b_mc_truth_tWq12_id;
-   TBranch           *b_mc_truth_tWq22_id;
-
-   TBranch           *b_mc_truth_t_id;
-   TBranch           *b_mc_truth_tb_id;
-   TBranch           *b_mc_truth_tb_IS_id;
-   TBranch           *b_mc_truth_tW_id;
-   TBranch           *b_mc_truth_tWl_id;
-   TBranch           *b_mc_truth_tWnu_id;
-   TBranch           *b_mc_truth_tWnutau_id;
-   TBranch           *b_mc_truth_tWq1_id;
-   TBranch           *b_mc_truth_tWq2_id;
    
    Tree(TChain *tree=0,std::string fname="output.root",std::string treename="FlatTree/tree");
    virtual ~Tree();

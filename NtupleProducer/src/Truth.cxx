@@ -41,8 +41,6 @@ void Truth::read()
 	  {
 	     foundHiggs = 1;
 	     
-	     if( verbose ) std::cout << "Higgs " << std::endl;
-	     
 	     float pt_c = ntP->gen_pt->at(c);
 	     float eta_c = ntP->gen_eta->at(c);
 	     float phi_c = ntP->gen_phi->at(c);
@@ -309,7 +307,7 @@ void Truth::read()
 		    }		  
 	       }
 	  }	
-     }
+     }   
    
    _mc_truth_n = _mc_truth_id.size();
    
