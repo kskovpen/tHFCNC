@@ -336,7 +336,7 @@ void Hist::fill()
 	  }	
      }      
 
-//   std::sort(_v_Jet->begin(),_v_Jet->end(),Jet::sortBTagPredicate);
+   std::sort(_v_Jet->begin(),_v_Jet->end(),Jet::sortCSVv2Predicate);
    
    for(int i=0;i<_v_Jet->size();i++)
      {

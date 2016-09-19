@@ -40,6 +40,26 @@ class TopReco
    TLorentzVector Higgs_TOPTOPLEPHBB_p4()           {return _Higgs_TOPTOPLEPHBB_p4;};
    TLorentzVector TopLepW_TOPTOPLEPHBB_p4()         {return _TopLepW_TOPTOPLEPHBB_p4;};
    TLorentzVector TopHadNonBJet_TOPTOPLEPHBB_p4()   {return _TopHadNonBJet_TOPTOPLEPHBB_p4;};
+
+   TLorentzVector TopLepBJet_TOPHLEPBB_p4()      {return _TopLepBJet_TOPHLEPBB_p4;};
+   TLorentzVector HiggsBJet1_TOPHLEPBB_p4()      {return _HiggsBJet1_TOPHLEPBB_p4;};
+   TLorentzVector HiggsBJet2_TOPHLEPBB_p4()      {return _HiggsBJet2_TOPHLEPBB_p4;};
+   TLorentzVector TopLepWLep_TOPHLEPBB_p4()      {return _TopLepWLep_TOPHLEPBB_p4;};
+   TLorentzVector TopLepWNu_TOPHLEPBB_p4()       {return _TopLepWNu_TOPHLEPBB_p4;};
+   TLorentzVector TopLep_TOPHLEPBB_p4()          {return _TopLep_TOPHLEPBB_p4;};
+   TLorentzVector Higgs_TOPHLEPBB_p4()           {return _Higgs_TOPHLEPBB_p4;};
+   TLorentzVector TopLepW_TOPHLEPBB_p4()         {return _TopLepW_TOPHLEPBB_p4;};
+
+   TLorentzVector TopLepBJet_TOPTOPLEPHAD_p4()        {return _TopLepBJet_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopHadWNonBJet1_TOPTOPLEPHAD_p4()   {return _TopHadWNonBJet1_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopHadWNonBJet2_TOPTOPLEPHAD_p4()   {return _TopHadWNonBJet2_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopLepWLep_TOPTOPLEPHAD_p4()        {return _TopLepWLep_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopLepWNu_TOPTOPLEPHAD_p4()         {return _TopLepWNu_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopLep_TOPTOPLEPHAD_p4()            {return _TopLep_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopHad_TOPTOPLEPHAD_p4()            {return _TopHad_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopHadW_TOPTOPLEPHAD_p4()           {return _TopHadW_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopLepW_TOPTOPLEPHAD_p4()           {return _TopLepW_TOPTOPLEPHAD_p4;};
+   TLorentzVector TopHadBJet_TOPTOPLEPHAD_p4()        {return _TopHadBJet_TOPTOPLEPHAD_p4;};
    
    double chi2_TOPTOPLEPHBB()       {return _chi2_TOPTOPLEPHBB;};
    double chi2_TOPHLEPBB()          {return _chi2_TOPHLEPBB;};
@@ -75,6 +95,26 @@ class TopReco
    TLorentzVector _Higgs_TOPTOPLEPHBB_p4;
    TLorentzVector _TopLepW_TOPTOPLEPHBB_p4;
    TLorentzVector _TopHadNonBJet_TOPTOPLEPHBB_p4;
+
+   TLorentzVector _TopLepBJet_TOPHLEPBB_p4;
+   TLorentzVector _HiggsBJet1_TOPHLEPBB_p4;
+   TLorentzVector _HiggsBJet2_TOPHLEPBB_p4;
+   TLorentzVector _TopLepWLep_TOPHLEPBB_p4;
+   TLorentzVector _TopLepWNu_TOPHLEPBB_p4;
+   TLorentzVector _TopLep_TOPHLEPBB_p4;
+   TLorentzVector _Higgs_TOPHLEPBB_p4;
+   TLorentzVector _TopLepW_TOPHLEPBB_p4;
+
+   TLorentzVector _TopLepBJet_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopHadWNonBJet1_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopHadWNonBJet2_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopLepWLep_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopLepWNu_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopLep_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopHad_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopHadW_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopLepW_TOPTOPLEPHAD_p4;
+   TLorentzVector _TopHadBJet_TOPTOPLEPHAD_p4;
    
    double _chi2_TOPTOPLEPHBB;
    double _chi2_TOPHLEPBB;
@@ -98,6 +138,32 @@ class TopReco
    float MVAPartReco_TopLepRecMT_TOPTOPLEPHBB;
    float MVAPartReco_HiggsTopLepRecDphiT_TOPTOPLEPHBB;
    float MVAPartReco_TopLepRecPtT_TOPTOPLEPHBB;
+
+   TMVA::Reader* MVAFullRecoReaderTOPHLEPBB;
+   TMVA::Reader* MVAPartRecoReaderTOPHLEPBB;
+
+   float MVAFullReco_HiggsRecM_TOPHLEPBB;
+   float MVAFullReco_TopLepRecM_TOPHLEPBB;
+   float MVAFullReco_HiggsTopLepRecDr_TOPHLEPBB;
+   float MVAFullReco_TopLepRecPt_TOPHLEPBB;
+   
+   float MVAPartReco_HiggsRecM_TOPHLEPBB;
+   float MVAPartReco_TopLepRecMT_TOPHLEPBB;
+   float MVAPartReco_HiggsTopLepRecDphiT_TOPHLEPBB;
+   float MVAPartReco_TopLepRecPtT_TOPHLEPBB;
+
+   TMVA::Reader* MVAFullRecoReaderTOPTOPLEPHAD;
+   TMVA::Reader* MVAPartRecoReaderTOPTOPLEPHAD;
+
+   float MVAFullReco_TopHadRecM_TOPTOPLEPHAD;
+   float MVAFullReco_TopLepRecM_TOPTOPLEPHAD;
+   float MVAFullReco_TopLepTopHadRecDr_TOPTOPLEPHAD;
+   float MVAFullReco_TopLepRecPt_TOPTOPLEPHAD;
+   
+   float MVAPartReco_TopHadRecM_TOPTOPLEPHAD;
+   float MVAPartReco_TopLepRecMT_TOPTOPLEPHAD;
+   float MVAPartReco_TopLepTopHadRecDphiT_TOPTOPLEPHAD;
+   float MVAPartReco_TopLepRecPtT_TOPTOPLEPHAD;
 };
 
 #endif
