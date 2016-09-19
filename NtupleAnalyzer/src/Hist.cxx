@@ -65,18 +65,22 @@ void Hist::init()
 
    hname.clear(); 
 
-   histname_n = 2;
+   histname_n = 6;
    histname[0] = "h_chi2_TOPTOPLEPHBB_";
-   histname[1] = "h_HiggsMass_TOPTOPLEPHBB_";
+   histname[1] = "h_chi2_TOPHLEPBB_";
+   histname[2] = "h_chi2_TOPTOPLEPHAD_";
+   histname[3] = "h_HiggsMass_TOPTOPLEPHBB_";
+   histname[4] = "h_HiggsMass_TOPHLEPBB_";
+   histname[5] = "h_TopHadMass_TOPTOPLEPHAD_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
 //   type[1] = "QCD";
    type[0] = "ALL";
 
-   sel_n = 1;
-   sel[0] = "TopTopLepHbb";
-//   sel[2] = "bjge2";
+   sel_n = 2;
+   sel[0] = "b3j0";
+   sel[1] = "b3j1";
 //   sel[0] = "bjge3";
 //   sel[0] = "bjge3";
 //   sel[5] = "bjge3_mH";
@@ -185,8 +189,14 @@ void Hist::init()
    set_hist.push_back(RANGE::set_phi);
    set_hist.push_back(RANGE::set_H_nu_dr);
    set_hist.push_back(RANGE::set_H_l_dr);*/
+  
+   set_hist.push_back(RANGE::set_chi2);
+   set_hist.push_back(RANGE::set_chi2);
    set_hist.push_back(RANGE::set_chi2);
    set_hist.push_back(RANGE::set_H_m);
+   set_hist.push_back(RANGE::set_H_m);
+   set_hist.push_back(RANGE::set_top_m);
+   
 //   set_hist.push_back(RANGE::set_l_charge);
    
 /*   set_hist.push_back(RANGE::set_top_m);
@@ -400,7 +410,7 @@ void Hist::fill()
      }   
    
    // Selection crtieria for plots
-   bool pass = CHECK_BIT(passSel_all,2);
+   bool pass = (CHECK_BIT(passSel_all,1) || CHECK_BIT(passSel_all,2));
    
    if( pass )
      {
@@ -439,8 +449,11 @@ void Hist::fill()
 	bool sel_pass[sel_n];
 	for(int c=0;c<sel_n;c++)
 	  {	
-//	     sel_pass[c] = 0;
-//	     if( sel[c] == "TopTopLepHbb" && )
+	     sel_pass[c] = 0;
+	     if( 
+		(sel[c] == "b3j0" && nbjets == 3 && njets == 3) ||
+		(sel[c] == "b3j1" && nbjets == 3 && njets >= 4)
+	       )
 	       sel_pass[c] = 1;
 	  }   
 	     
@@ -734,14 +747,13 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
 	float H_l_dr = (_resTop) ? _H_p4.DeltaR(_l_p4) : -666.;
 	h->Fill(H_l_dr,sfj);
      }*/
-   if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHBB_") == 0 )
-     {	
-	h->Fill(_trec->chi2_TOPTOPLEPHBB(),sfj);
-     }
-   else if( strcmp(varName.c_str(),"h_HiggsMass_TOPTOPLEPHBB_") == 0 )
-     {	
-	h->Fill(_trec->Higgs_TOPTOPLEPHBB_p4().M(),sfj);
-     }	     
+   if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->chi2_TOPTOPLEPHBB(),sfj);
+   else if( strcmp(varName.c_str(),"h_chi2_TOPHLEPBB_") == 0 ) h->Fill(_trec->chi2_TOPHLEPBB(),sfj);
+   else if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->chi2_TOPTOPLEPHAD(),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsMass_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->Higgs_TOPTOPLEPHBB_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsMass_TOPHLEPBB_") == 0 ) h->Fill(_trec->Higgs_TOPHLEPBB_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopHadMass_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopHad_TOPTOPLEPHAD_p4().M(),sfj);
+   
 /*   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
      {	
 	h->Fill(_v_Lepton->at(0).charge(),sfj);
