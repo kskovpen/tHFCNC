@@ -37,6 +37,7 @@ namespace RANGE
    extern double set_chi2[3];
    extern double set_l_charge[3];
    extern double set_MVA[3];
+   extern double set_bMVA[3];
    
 /*
    double set_j_JP[19][3] = {

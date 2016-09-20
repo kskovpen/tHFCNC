@@ -29,7 +29,7 @@ class Hist
    void fill();
    void close();
    bool printout(bool doPrint);
-   void fillTree(int ic);
+   void fillTree(int ic,int is);
 
    std::vector<Lepton> filterPt(double Pt1, double Pt2, double Pt3,
 				std::vector<Electron>* ntElectron,
@@ -101,43 +101,36 @@ class Hist
    // Tree variables
    double m_weight;
    
-   double m_H_m;
-   double m_H_pt;
-   double m_top_m;
-   double m_H_eta;
-   double m_top_pt;
-   double m_top_eta;
-   double m_HT;
-   int m_njet;
-   double m_Hb1_Hb2_dr;
-   double m_H_nu_dr;
-   double m_H_l_dr;
-   double m_W_m;
-   double m_W_pt;
-   double m_W_eta;
-   double m_chi2;
-   int m_l_charge;
-   
-   double m_TTbar_topLep_m;
-   double m_TTbar_topLep_pt;
-   double m_TTbar_topLep_eta;
-   double m_TTbar_topHad_m;
-   double m_TTbar_topHad_pt;
-   double m_TTbar_topHad_eta;
-   double m_TTbar_WLep_m;
-   double m_TTbar_WLep_pt;
-   double m_TTbar_WLep_eta;
-   double m_TTbar_WHad_m;
-   double m_TTbar_WHad_pt;
-   double m_TTbar_WHad_eta;
-   double m_TTbar_tbLep_tWLep_Dr;
-   double m_TTbar_tbHad_tWHad_Dr;
-   double m_TTbar_tWj1_tWj2_Dr;
-   double m_TTbar_chi2;
+   double m_HiggsMass_TOPTOPLEPHBB;
+   double m_HiggsMass_TOPHLEPBB;
+   double m_TopHadMass_TOPTOPLEPHAD;
+   double m_chi2_TOPTOPLEPHBB;
+   double m_chi2_TOPHLEPBB;
+   double m_chi2_TOPTOPLEPHAD;
+   double m_MVA_TOPTOPLEPHBB;
+   double m_MVA_TOPHLEPBB;
+   double m_MVA_TOPTOPLEPHAD;
+   int m_LepCharge;
+   double m_HiggsEta_TOPTOPLEPHBB;
+   double m_HiggsEta_TOPHLEPBB;
+   double m_TopLepMass_TOPTOPLEPHBB;
+   double m_TopLepMass_TOPHLEPBB;
+   double m_TopLepMass_TOPTOPLEPHAD;
+   double m_TopLepPt_TOPTOPLEPHBB;
+   double m_TopLepPt_TOPHLEPBB;
+   double m_TopLepPt_TOPTOPLEPHAD;
+   double m_TopLepEta_TOPTOPLEPHBB;
+   double m_TopLepEta_TOPHLEPBB;
+   double m_TopLepEta_TOPTOPLEPHAD;
+   double m_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB;
+   double m_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+   double m_TopLepHiggsDr_TOPTOPLEPHBB;
+   double m_TopLepHiggsDr_TOPHLEPBB;
+   double m_TopLepTopHadDr_TOPTOPLEPHAD;
    
  protected:
 
-   std::vector<Lepton>             *_v_Lepton;
+   std::vector<Lepton> *_v_Lepton;
    
    std::vector<Electron>             *_v_Electron;
    std::vector<Muon>             *_v_Muon;
@@ -182,26 +175,6 @@ class Hist
 //	TLorentzVector *v_jet_sys_jerTotalLow;
 //	TLorentzVector *v_mu;
    
-   TLorentzVector _topb_p4;
-   TLorentzVector _Hb1_p4;
-   TLorentzVector _Hb2_p4;
-   TLorentzVector _l_p4;
-   TLorentzVector _nu_p4;
-   TLorentzVector _top_p4;
-   TLorentzVector _H_p4;
-   TLorentzVector _W_p4;
-
-   TLorentzVector _topLep_TTbar_p4;
-   TLorentzVector _topHad_TTbar_p4;
-   TLorentzVector _topbLep_TTbar_p4;
-   TLorentzVector _topbHad_TTbar_p4;
-   TLorentzVector _topWj1_TTbar_p4;
-   TLorentzVector _topWj2_TTbar_p4;
-   TLorentzVector _l_TTbar_p4;
-   TLorentzVector _nu_TTbar_p4;
-   TLorentzVector _WLep_TTbar_p4;
-   TLorentzVector _WHad_TTbar_p4;
-   
    FILE *_fevc;
    std::ofstream _fevcVal;
    
@@ -210,7 +183,7 @@ class Hist
    TRandom3 *rnd;
    
    TFile *_fout;
-   TTree *_trout[100];
+   TTree *_trout[10][10];
    
    TopReco *_trec;
    ApplyMVA *_mva;

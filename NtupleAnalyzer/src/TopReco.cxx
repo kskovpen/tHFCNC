@@ -247,6 +247,10 @@ void TopReco::run()
    _chi2_TOPHLEPBB = 10E+10;
    _chi2_TOPTOPLEPHAD = 10E+10;
 
+   _MVA_TOPTOPLEPHBB = 10E+10;
+   _MVA_TOPHLEPBB = 10E+10;
+   _MVA_TOPTOPLEPHAD = 10E+10;
+   
    _TopLepBJet_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
    _HiggsBJet1_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
    _HiggsBJet2_TOPTOPLEPHBB_p4.SetPtEtaPhiE(0,0,0,0);
@@ -463,6 +467,7 @@ void TopReco::run()
 	int IdxPerm = MVADisc.at(0).second;
 	
 	_chi2_TOPTOPLEPHBB = kfTopTopLepHbb->GetDisc(IdxPerm);
+	_MVA_TOPTOPLEPHBB = MVADisc.at(0).first;
 
 	int idx_ELECTRON_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(ELECTRON_TOPTOPLEPHBB,IdxPerm);
 	int idx_MUON_TOPTOPLEPHBB = kfTopTopLepHbb->GetIndex(MUON_TOPTOPLEPHBB,IdxPerm);
@@ -690,9 +695,10 @@ void TopReco::run()
 	
 	std::sort(MVADisc.begin(),MVADisc.end(),sortFunc());
 	int IdxPerm = MVADisc.at(0).second;
-	
-	_chi2_TOPHLEPBB = kfTopHLepbb->GetDisc(IdxPerm);
 
+	_chi2_TOPHLEPBB = kfTopHLepbb->GetDisc(IdxPerm);
+	_MVA_TOPHLEPBB = MVADisc.at(0).first;
+	
 	int idx_ELECTRON_TOPHLEPBB = kfTopHLepbb->GetIndex(ELECTRON_TOPHLEPBB,IdxPerm);
 	int idx_MUON_TOPHLEPBB = kfTopHLepbb->GetIndex(MUON_TOPHLEPBB,IdxPerm);
 	int idx_BJETLEP_TOPHLEPBB = kfTopHLepbb->GetIndex(BJETLEP_TOPHLEPBB,IdxPerm);
@@ -738,7 +744,9 @@ void TopReco::run()
      }
 
    // ttbar
-   if( nLep == 1 && nbjets >= 3 && nnonbjets >= 1 )
+   if( nLep == 1 && 
+       ((nbjets >= 3 && nnonbjets >= 1) || (nbjets >= 2 && nnonbjets >= 2))
+     )
      {		
 	kfTopTopLepHad->Init(TOPTOPLEPHAD);
 	
@@ -934,6 +942,7 @@ void TopReco::run()
 	int IdxPerm = MVADisc.at(0).second;
 	
 	_chi2_TOPTOPLEPHAD = kfTopTopLepHad->GetDisc(IdxPerm);
+	_MVA_TOPTOPLEPHAD = MVADisc.at(0).first;
 
 	int idx_ELECTRON_TOPTOPLEPHAD = kfTopTopLepHad->GetIndex(ELECTRON_TOPTOPLEPHAD,IdxPerm);
 	int idx_MUON_TOPTOPLEPHAD = kfTopTopLepHad->GetIndex(MUON_TOPTOPLEPHAD,IdxPerm);

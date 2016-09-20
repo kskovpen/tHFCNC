@@ -64,6 +64,10 @@ class TopReco
    double chi2_TOPTOPLEPHBB()       {return _chi2_TOPTOPLEPHBB;};
    double chi2_TOPHLEPBB()          {return _chi2_TOPHLEPBB;};
    double chi2_TOPTOPLEPHAD()       {return _chi2_TOPTOPLEPHAD;};
+
+   double MVA_TOPTOPLEPHBB()       {return _MVA_TOPTOPLEPHBB;};
+   double MVA_TOPHLEPBB()          {return _MVA_TOPHLEPBB;};
+   double MVA_TOPTOPLEPHAD()       {return _MVA_TOPTOPLEPHAD;};
    
  protected:
 
@@ -119,6 +123,10 @@ class TopReco
    double _chi2_TOPTOPLEPHBB;
    double _chi2_TOPHLEPBB;
    double _chi2_TOPTOPLEPHAD;
+
+   double _MVA_TOPTOPLEPHBB;
+   double _MVA_TOPHLEPBB;
+   double _MVA_TOPTOPLEPHAD;
    
    TRandom3 *rnd;
 

@@ -26,6 +26,8 @@ Hist::Hist(std::string home)
    _v_JetTight = new std::vector<Jet>;
    _v_BJetTight = new std::vector<Jet>;
    _v_NonBJetTight = new std::vector<Jet>;
+   
+   _v_Lepton = new std::vector<Lepton>;
 }
 
 Hist::~Hist()
@@ -37,6 +39,8 @@ Hist::~Hist()
    delete _v_JetTight;
    delete _v_BJetTight;
    delete _v_NonBJetTight;
+   
+   delete _v_Lepton;
 
    delete help;
    delete _trec;
@@ -59,32 +63,49 @@ void Hist::init()
 //   _mva = new ApplyMVA(_home);
 //   _mva->init();
    
-   _h_PassSel_all = new TH1D("h_PassSel_all","h_PassSel_all",6,0.,6.);
-   _h_PassSel_e = new TH1D("h_PassSel_e","h_PassSel_e",6,0.,6.);
-   _h_PassSel_m = new TH1D("h_PassSel_m","h_PassSel_m",6,0.,6.);
+   _h_PassSel_all = new TH1D("h_PassSel_all","h_PassSel_all",3,0.,3.);
+   _h_PassSel_e = new TH1D("h_PassSel_e","h_PassSel_e",3,0.,3.);
+   _h_PassSel_m = new TH1D("h_PassSel_m","h_PassSel_m",3,0.,3.);
 
    hname.clear(); 
 
-   histname_n = 6;
+   histname_n = 26;
    histname[0] = "h_chi2_TOPTOPLEPHBB_";
    histname[1] = "h_chi2_TOPHLEPBB_";
    histname[2] = "h_chi2_TOPTOPLEPHAD_";
-   histname[3] = "h_HiggsMass_TOPTOPLEPHBB_";
-   histname[4] = "h_HiggsMass_TOPHLEPBB_";
-   histname[5] = "h_TopHadMass_TOPTOPLEPHAD_";
+   histname[3] = "h_MVA_TOPTOPLEPHBB_";
+   histname[4] = "h_MVA_TOPHLEPBB_";
+   histname[5] = "h_MVA_TOPTOPLEPHAD_";
+   histname[6] = "h_HiggsMass_TOPTOPLEPHBB_";
+   histname[7] = "h_HiggsMass_TOPHLEPBB_";
+   histname[8] = "h_TopHadMass_TOPTOPLEPHAD_";
+   histname[9] = "h_LepCharge_";
+   histname[10] = "h_HiggsEta_TOPTOPLEPHBB_";
+   histname[11] = "h_HiggsEta_TOPHLEPBB_";
+   histname[12] = "h_TopLepMass_TOPTOPLEPHBB_";
+   histname[13] = "h_TopLepMass_TOPHLEPBB_";
+   histname[14] = "h_TopLepMass_TOPTOPLEPHAD_";
+   histname[15] = "h_TopLepPt_TOPTOPLEPHBB_";
+   histname[16] = "h_TopLepPt_TOPHLEPBB_";
+   histname[17] = "h_TopLepPt_TOPTOPLEPHAD_";
+   histname[18] = "h_TopLepEta_TOPTOPLEPHBB_";
+   histname[19] = "h_TopLepEta_TOPHLEPBB_";
+   histname[20] = "h_TopLepEta_TOPTOPLEPHAD_";
+   histname[21] = "h_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB_";
+   histname[22] = "h_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB_";
+   histname[23] = "h_TopLepHiggsDr_TOPTOPLEPHBB_";
+   histname[24] = "h_TopLepHiggsDr_TOPHLEPBB_";
+   histname[25] = "h_TopLepTopHadDr_TOPTOPLEPHAD_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
 //   type[1] = "QCD";
    type[0] = "ALL";
 
-   sel_n = 2;
-   sel[0] = "b3j0";
-   sel[1] = "b3j1";
-//   sel[0] = "bjge3";
-//   sel[0] = "bjge3";
-//   sel[5] = "bjge3_mH";
-//   sel[6] = "bjge3_mH_jveto";
+   sel_n = 3;
+   sel[0] = "b2j4";
+   sel[1] = "b3j3";
+   sel[2] = "b3j4";
 
    chan_n = 3;
    chan[0] = "all";
@@ -108,48 +129,44 @@ void Hist::init()
      {
 	sys[sys_low_n+is2] = sys_up[is2];
      }   
-/*
+
    for(int ic=0;ic<chan_n;ic++)
      {
-	std::string trName = "tr_"+chan[ic];
-	_trout[ic] = new TTree(trName.c_str(),trName.c_str());
+	for(int is=0;is<sel_n;is++)
+	  {
+	     std::string trName = "tr_"+chan[ic]+"_"+sel[is];
+	     _trout[ic][is] = new TTree(trName.c_str(),trName.c_str());
+	     
+	     _trout[ic][is]->Branch("weight",&m_weight,"weight/D");
+	     _trout[ic][is]->Branch("HiggsMass_TOPTOPLEPHBB",&m_HiggsMass_TOPTOPLEPHBB,"HiggsMass_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("HiggsMass_TOPHLEPBB",&m_HiggsMass_TOPHLEPBB,"HiggsMass_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopHadMass_TOPTOPLEPHAD",&m_TopHadMass_TOPTOPLEPHAD,"TopHadMass_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("chi2_TOPTOPLEPHBB",&m_chi2_TOPTOPLEPHBB,"chi2_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("chi2_TOPHLEPBB",&m_chi2_TOPHLEPBB,"chi2_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("chi2_TOPTOPLEPHAD",&m_chi2_TOPTOPLEPHAD,"chi2_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("MVA_TOPTOPLEPHBB",&m_MVA_TOPTOPLEPHBB,"MVA_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("MVA_TOPHLEPBB",&m_MVA_TOPHLEPBB,"MVA_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("MVA_TOPTOPLEPHAD",&m_MVA_TOPTOPLEPHAD,"MVA_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("LepCharge",&m_LepCharge,"LepCharge/I");
+	     _trout[ic][is]->Branch("HiggsEta_TOPTOPLEPHBB",&m_HiggsEta_TOPTOPLEPHBB,"HiggsEta_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("HiggsEta_TOPHLEPBB",&m_HiggsEta_TOPHLEPBB,"HiggsEta_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepMass_TOPTOPLEPHBB",&m_TopLepMass_TOPTOPLEPHBB,"TopLepMass_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("TopLepMass_TOPHLEPBB",&m_TopLepMass_TOPHLEPBB,"TopLepMass_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepMass_TOPTOPLEPHAD",&m_TopLepMass_TOPTOPLEPHAD,"TopLepMass_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("TopLepPt_TOPTOPLEPHBB",&m_TopLepPt_TOPTOPLEPHBB,"TopLepPt_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("TopLepPt_TOPHLEPBB",&m_TopLepPt_TOPHLEPBB,"TopLepPt_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepPt_TOPTOPLEPHAD",&m_TopLepPt_TOPTOPLEPHAD,"TopLepPt_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("TopLepEta_TOPTOPLEPHBB",&m_TopLepEta_TOPTOPLEPHBB,"TopLepEta_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("TopLepEta_TOPHLEPBB",&m_TopLepEta_TOPHLEPBB,"TopLepEta_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepEta_TOPTOPLEPHAD",&m_TopLepEta_TOPTOPLEPHAD,"TopLepEta_TOPTOPLEPHAD/D");
+	     _trout[ic][is]->Branch("HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB",&m_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB,"HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&m_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB,"HiggsBJet1HiggsBJet2Dr_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepHiggsDr_TOPTOPLEPHBB",&m_TopLepHiggsDr_TOPTOPLEPHBB,"TopLepHiggsDr_TOPTOPLEPHBB/D");
+	     _trout[ic][is]->Branch("TopLepHiggsDr_TOPHLEPBB",&m_TopLepHiggsDr_TOPHLEPBB,"TopLepHiggsDr_TOPHLEPBB/D");
+	     _trout[ic][is]->Branch("TopLepTopHadDr_TOPTOPLEPHAD",&m_TopLepTopHadDr_TOPTOPLEPHAD,"TopLepTopHadDr_TOPTOPLEPHAD/D");
+	  }
+     }
 
-	_trout[ic]->Branch("weight",&m_weight,"weight/D");
-	_trout[ic]->Branch("H_m",&m_H_m,"H_m/D");
-	_trout[ic]->Branch("H_pt",&m_H_pt,"H_pt/D");
-	_trout[ic]->Branch("top_m",&m_top_m,"top_m/D");
-	_trout[ic]->Branch("H_eta",&m_H_eta,"H_eta/D");
-	_trout[ic]->Branch("top_pt",&m_top_pt,"top_pt/D");
-	_trout[ic]->Branch("top_eta",&m_top_eta,"top_eta/D");
-	_trout[ic]->Branch("HT",&m_HT,"HT/D");
-	_trout[ic]->Branch("njet",&m_njet,"njet/I");
-	_trout[ic]->Branch("Hb1_Hb2_dr",&m_Hb1_Hb2_dr,"Hb1_Hb2_dr/D");
-	_trout[ic]->Branch("H_nu_dr",&m_H_nu_dr,"H_nu_dr/D");
-	_trout[ic]->Branch("H_l_dr",&m_H_l_dr,"H_l_dr/D");
-	_trout[ic]->Branch("W_m",&m_W_m,"W_m/D");
-	_trout[ic]->Branch("W_pt",&m_W_pt,"W_pt/D");
-	_trout[ic]->Branch("W_eta",&m_W_eta,"W_eta/D");
-	_trout[ic]->Branch("chi2",&m_chi2,"chi2/D");
-	_trout[ic]->Branch("l_charge",&m_l_charge,"l_charge/I");
-	
-	_trout[ic]->Branch("TTbar_topLep_m",&m_TTbar_topLep_m,"TTbar_topLep_m/D");
-	_trout[ic]->Branch("TTbar_topHad_m",&m_TTbar_topHad_m,"TTbar_topHad_m/D");
-	_trout[ic]->Branch("TTbar_topLep_pt",&m_TTbar_topLep_pt,"TTbar_topLep_pt/D");
-	_trout[ic]->Branch("TTbar_topHad_pt",&m_TTbar_topHad_pt,"TTbar_topHad_pt/D");
-	_trout[ic]->Branch("TTbar_topLep_eta",&m_TTbar_topLep_eta,"TTbar_topLep_eta/D");
-	_trout[ic]->Branch("TTbar_topHad_eta",&m_TTbar_topHad_eta,"TTbar_topHad_eta/D");
-	_trout[ic]->Branch("TTbar_WLep_m",&m_TTbar_WLep_m,"TTbar_WLep_m/D");
-	_trout[ic]->Branch("TTbar_WHad_m",&m_TTbar_WHad_m,"TTbar_WHad_m/D");
-	_trout[ic]->Branch("TTbar_WLep_pt",&m_TTbar_WLep_pt,"TTbar_WLep_pt/D");
-	_trout[ic]->Branch("TTbar_WHad_pt",&m_TTbar_WHad_pt,"TTbar_WHad_pt/D");
-	_trout[ic]->Branch("TTbar_WLep_eta",&m_TTbar_WLep_eta,"TTbar_WLep_eta/D");
-	_trout[ic]->Branch("TTbar_WHad_eta",&m_TTbar_WHad_eta,"TTbar_WHad_eta/D");
-	_trout[ic]->Branch("TTbar_tbLep_tWLep_Dr",&m_TTbar_tbLep_tWLep_Dr,"TTbar_tbLep_tWLep_Dr/D");
-	_trout[ic]->Branch("TTbar_tbHad_tWHad_Dr",&m_TTbar_tbHad_tWHad_Dr,"TTbar_tbHad_tWHad_Dr/D");
-	_trout[ic]->Branch("TTbar_tWj1_tWj2_Dr",&m_TTbar_tWj1_tWj2_Dr,"TTbar_tWj1_tWj2_Dr/D");
-	_trout[ic]->Branch("TTbar_chi2",&m_TTbar_chi2,"TTbar_chi2/D");
-     }   
-*/   
    _s_Hist = new std::vector<std::pair<std::vector<std::string>,double*> >();
    _m1d_Hist = new std::map<std::string, TH1D*>();
 
@@ -193,11 +210,29 @@ void Hist::init()
    set_hist.push_back(RANGE::set_chi2);
    set_hist.push_back(RANGE::set_chi2);
    set_hist.push_back(RANGE::set_chi2);
+   set_hist.push_back(RANGE::set_bMVA);
+   set_hist.push_back(RANGE::set_bMVA);
+   set_hist.push_back(RANGE::set_bMVA);
    set_hist.push_back(RANGE::set_H_m);
    set_hist.push_back(RANGE::set_H_m);
    set_hist.push_back(RANGE::set_top_m);
-   
-//   set_hist.push_back(RANGE::set_l_charge);
+   set_hist.push_back(RANGE::set_l_charge);
+   set_hist.push_back(RANGE::set_H_eta);
+   set_hist.push_back(RANGE::set_H_eta);
+   set_hist.push_back(RANGE::set_top_m);
+   set_hist.push_back(RANGE::set_top_m);
+   set_hist.push_back(RANGE::set_top_m);
+   set_hist.push_back(RANGE::set_top_pt);
+   set_hist.push_back(RANGE::set_top_pt);
+   set_hist.push_back(RANGE::set_top_pt);
+   set_hist.push_back(RANGE::set_top_eta);
+   set_hist.push_back(RANGE::set_top_eta);
+   set_hist.push_back(RANGE::set_top_eta);
+   set_hist.push_back(RANGE::set_Hb1_Hb2_dr);
+   set_hist.push_back(RANGE::set_Hb1_Hb2_dr);
+   set_hist.push_back(RANGE::set_W_topb_dr);
+   set_hist.push_back(RANGE::set_W_topb_dr);
+   set_hist.push_back(RANGE::set_W_topb_dr);
    
 /*   set_hist.push_back(RANGE::set_top_m);
    set_hist.push_back(RANGE::set_top_m);
@@ -410,17 +445,31 @@ void Hist::fill()
      }   
    
    // Selection crtieria for plots
-   bool pass = (CHECK_BIT(passSel_all,1) || CHECK_BIT(passSel_all,2));
+   bool pass = (CHECK_BIT(passSel_all,0) || CHECK_BIT(passSel_all,1) || CHECK_BIT(passSel_all,2));
    
    if( pass )
      {
+	_v_Lepton->clear();
+
+	for(int ie=0;ie<_v_ElectronTight->size();ie++) 
+	  {
+	     Lepton lep;
+	     lep.setLepton(&_v_ElectronTight->at(ie),ie,1);
+	     _v_Lepton->push_back(lep);
+	  }	
+	for(int im=0;im<_v_MuonTight->size();im++)
+	  {
+	     Lepton lep;
+	     lep.setLepton(&_v_MuonTight->at(im),im,0);
+	     _v_Lepton->push_back(lep);
+	  }
+	
 	_trec->setElectron(_v_ElectronTight);
 	_trec->setMuon(_v_MuonTight);
 	_trec->setJet(_v_JetTight);
 	_trec->setBJet(_v_BJetTight);
 	_trec->setNonBJet(_v_NonBJetTight);
 	_trec->setEvent(_v_Event);
-	_trec->setLepton(_v_Lepton);
 
 	// top reconstruction
 	_trec->run();	
@@ -451,8 +500,9 @@ void Hist::fill()
 	  {	
 	     sel_pass[c] = 0;
 	     if( 
-		(sel[c] == "b3j0" && nbjets == 3 && njets == 3) ||
-		(sel[c] == "b3j1" && nbjets == 3 && njets >= 4)
+		(sel[c] == "b2j4" && nbjets == 2 && njets == 4) ||
+		(sel[c] == "b3j3" && nbjets == 3 && njets == 3) ||
+		(sel[c] == "b3j4" && nbjets == 3 && njets >= 4)
 	       )
 	       sel_pass[c] = 1;
 	  }   
@@ -476,9 +526,9 @@ void Hist::fill()
 			 {
 			    if( !sel_pass[is] ) continue;
 
-			    if( ih == 0 && is == 0 && isys == 0 )
+			    if( ih == 0 && isys == 0 )
 			      {
-				 fillTree(ic);
+				 fillTree(ic,is);
 			      }				 
 				 
 			    // [CHAN][TYPE][SEL][VAR][2*(NSYS-1)+1]
@@ -514,49 +564,36 @@ void Hist::close()
 //   delete rnd;
 }
 
-void Hist::fillTree(int ic)
+void Hist::fillTree(int ic,int is)
 {
-/*   m_H_m = _H_p4.M();
-   m_H_pt = (_resTop) ? _H_p4.Pt() : -666.;
-   m_top_pt = (_resTop) ? _top_p4.Pt() : -666.;
-   m_H_eta = (_resTop) ? _H_p4.PseudoRapidity() : -666.;
-   m_top_eta = (_resTop) ? _top_p4.PseudoRapidity() : -666.;
-   m_top_m = (_resTop) ? _top_p4.M() : -666.;
+   m_HiggsMass_TOPTOPLEPHBB = _trec->Higgs_TOPTOPLEPHBB_p4().M();
+   m_HiggsMass_TOPHLEPBB = _trec->Higgs_TOPHLEPBB_p4().M();
+   m_TopHadMass_TOPTOPLEPHAD = _trec->TopHad_TOPTOPLEPHAD_p4().M();
+   m_chi2_TOPTOPLEPHBB = _trec->chi2_TOPTOPLEPHBB();
+   m_chi2_TOPHLEPBB = _trec->chi2_TOPHLEPBB();
+   m_chi2_TOPTOPLEPHAD = _trec->chi2_TOPTOPLEPHAD();
+   m_MVA_TOPTOPLEPHBB = _trec->MVA_TOPTOPLEPHBB();
+   m_MVA_TOPHLEPBB = _trec->MVA_TOPHLEPBB();
+   m_MVA_TOPTOPLEPHAD = _trec->MVA_TOPTOPLEPHAD();   
+   m_LepCharge = _v_Lepton->at(0).charge();
+   m_HiggsEta_TOPTOPLEPHBB = _trec->Higgs_TOPTOPLEPHBB_p4().PseudoRapidity();
+   m_HiggsEta_TOPHLEPBB = _trec->Higgs_TOPHLEPBB_p4().PseudoRapidity();
+   m_TopLepMass_TOPTOPLEPHBB = _trec->TopLep_TOPTOPLEPHBB_p4().M();
+   m_TopLepMass_TOPHLEPBB = _trec->TopLep_TOPHLEPBB_p4().M();
+   m_TopLepMass_TOPTOPLEPHAD = _trec->TopLep_TOPTOPLEPHAD_p4().M();
+   m_TopLepPt_TOPTOPLEPHBB = _trec->TopLep_TOPTOPLEPHBB_p4().Pt();
+   m_TopLepPt_TOPHLEPBB = _trec->TopLep_TOPHLEPBB_p4().Pt();
+   m_TopLepPt_TOPTOPLEPHAD = _trec->TopLep_TOPTOPLEPHAD_p4().Pt();
+   m_TopLepEta_TOPTOPLEPHBB = _trec->TopLep_TOPTOPLEPHBB_p4().PseudoRapidity();
+   m_TopLepEta_TOPHLEPBB = _trec->TopLep_TOPHLEPBB_p4().PseudoRapidity();
+   m_TopLepEta_TOPTOPLEPHAD = _trec->TopLep_TOPTOPLEPHAD_p4().PseudoRapidity();
+   m_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB = _trec->HiggsBJet1_TOPTOPLEPHBB_p4().DeltaR(_trec->HiggsBJet2_TOPTOPLEPHBB_p4());
+   m_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB = _trec->HiggsBJet1_TOPHLEPBB_p4().DeltaR(_trec->HiggsBJet2_TOPHLEPBB_p4());
+   m_TopLepHiggsDr_TOPTOPLEPHBB = _trec->TopLep_TOPTOPLEPHBB_p4().DeltaR(_trec->Higgs_TOPTOPLEPHBB_p4());
+   m_TopLepHiggsDr_TOPHLEPBB = _trec->TopLep_TOPHLEPBB_p4().DeltaR(_trec->Higgs_TOPHLEPBB_p4());
+   m_TopLepTopHadDr_TOPTOPLEPHAD = _trec->TopLep_TOPTOPLEPHAD_p4().DeltaR(_trec->TopHad_TOPTOPLEPHAD_p4());
    
-   float HT = 0.;
-   int njets = _v_JetTight->size();
-   for(int ij=0;ij<njets;ij++) 
-     HT += _v_JetTight->at(ij).p4().Pt();
-   
-   m_HT = HT;
-   m_njet = njets;
-   m_Hb1_Hb2_dr = (_resTop) ? _Hb1_p4.DeltaR(_Hb2_p4) : -666.;
-   m_H_nu_dr = (_resTop) ? _H_p4.DeltaR(_nu_p4) : -666.;
-   m_H_l_dr = (_resTop) ? _H_p4.DeltaR(_l_p4) : -666.;
-   m_W_m = (_resTop) ? _W_p4.M() : -666.;
-   m_W_pt = (_resTop) ? _W_p4.Pt() : -666.;
-   m_W_eta = (_resTop) ? _W_p4.PseudoRapidity() : -666.;
-   m_chi2 = (_resTop) ? _trec->chi2() : -666.;
-   m_l_charge = _v_Lepton->at(0).charge();
-
-   m_TTbar_topLep_m = (_resTop) ? _topLep_TTbar_p4.M() : -666.;
-   m_TTbar_topHad_m = (_resTop) ? _topHad_TTbar_p4.M() : -666.;
-   m_TTbar_topLep_pt = (_resTop) ? _topLep_TTbar_p4.Pt() : -666.;
-   m_TTbar_topHad_pt = (_resTop) ? _topHad_TTbar_p4.Pt() : -666.;
-   m_TTbar_topLep_eta = (_resTop) ? _topLep_TTbar_p4.PseudoRapidity() : -666.;
-   m_TTbar_topHad_eta = (_resTop) ? _topHad_TTbar_p4.PseudoRapidity() : -666.;
-   m_TTbar_WLep_m = (_resTop) ? _WLep_TTbar_p4.M() : -666.;
-   m_TTbar_WHad_m = (_resTop) ? _WHad_TTbar_p4.M() : -666.;
-   m_TTbar_WLep_pt = (_resTop) ? _WLep_TTbar_p4.Pt() : -666.;
-   m_TTbar_WHad_pt = (_resTop) ? _WHad_TTbar_p4.Pt() : -666.;
-   m_TTbar_WLep_eta = (_resTop) ? _WLep_TTbar_p4.PseudoRapidity() : -666.;
-   m_TTbar_WHad_eta = (_resTop) ? _WHad_TTbar_p4.PseudoRapidity() : -666.;
-   m_TTbar_tbLep_tWLep_Dr = (_resTop) ? _WLep_TTbar_p4.DeltaR(_topbLep_TTbar_p4) : -666.;
-   m_TTbar_tbHad_tWHad_Dr = (_resTop) ? _WHad_TTbar_p4.DeltaR(_topbHad_TTbar_p4) : -666.;
-   m_TTbar_tWj1_tWj2_Dr = (_resTop) ? _topWj1_TTbar_p4.DeltaR(_topWj2_TTbar_p4) : -666.;
-   m_TTbar_chi2 = (_resTop) ? _trec->chi2TTbar() : -666.;
-   
-   _trout[ic]->Fill();*/
+   _trout[ic][is]->Fill();
 }
 
 bool Hist::printout(bool doPrint)
@@ -750,9 +787,29 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
    if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->chi2_TOPTOPLEPHBB(),sfj);
    else if( strcmp(varName.c_str(),"h_chi2_TOPHLEPBB_") == 0 ) h->Fill(_trec->chi2_TOPHLEPBB(),sfj);
    else if( strcmp(varName.c_str(),"h_chi2_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->chi2_TOPTOPLEPHAD(),sfj);
+   else if( strcmp(varName.c_str(),"h_MVA_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->MVA_TOPTOPLEPHBB(),sfj);
+   else if( strcmp(varName.c_str(),"h_MVA_TOPHLEPBB_") == 0 ) h->Fill(_trec->MVA_TOPHLEPBB(),sfj);
+   else if( strcmp(varName.c_str(),"h_MVA_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->MVA_TOPTOPLEPHAD(),sfj);
    else if( strcmp(varName.c_str(),"h_HiggsMass_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->Higgs_TOPTOPLEPHBB_p4().M(),sfj);
    else if( strcmp(varName.c_str(),"h_HiggsMass_TOPHLEPBB_") == 0 ) h->Fill(_trec->Higgs_TOPHLEPBB_p4().M(),sfj);
    else if( strcmp(varName.c_str(),"h_TopHadMass_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopHad_TOPTOPLEPHAD_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_LepCharge_") == 0 ) h->Fill(_v_Lepton->at(0).charge(),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsEta_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->Higgs_TOPTOPLEPHBB_p4().PseudoRapidity(),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsEta_TOPHLEPBB_") == 0 ) h->Fill(_trec->Higgs_TOPHLEPBB_p4().PseudoRapidity(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepMass_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHBB_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepMass_TOPHLEPBB_") == 0 ) h->Fill(_trec->TopLep_TOPHLEPBB_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepMass_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHAD_p4().M(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepPt_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHBB_p4().Pt(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepPt_TOPHLEPBB_") == 0 ) h->Fill(_trec->TopLep_TOPHLEPBB_p4().Pt(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepPt_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHAD_p4().Pt(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepEta_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHBB_p4().PseudoRapidity(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepEta_TOPHLEPBB_") == 0 ) h->Fill(_trec->TopLep_TOPHLEPBB_p4().PseudoRapidity(),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepEta_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHAD_p4().PseudoRapidity(),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->HiggsBJet1_TOPTOPLEPHBB_p4().DeltaR(_trec->HiggsBJet2_TOPTOPLEPHBB_p4()),sfj);
+   else if( strcmp(varName.c_str(),"h_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB_") == 0 ) h->Fill(_trec->HiggsBJet1_TOPHLEPBB_p4().DeltaR(_trec->HiggsBJet2_TOPHLEPBB_p4()),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepHiggsDr_TOPTOPLEPHBB_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHBB_p4().DeltaR(_trec->Higgs_TOPTOPLEPHBB_p4()),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepHiggsDr_TOPHLEPBB_") == 0 ) h->Fill(_trec->TopLep_TOPHLEPBB_p4().DeltaR(_trec->Higgs_TOPHLEPBB_p4()),sfj);
+   else if( strcmp(varName.c_str(),"h_TopLepTopHadDr_TOPTOPLEPHAD_") == 0 ) h->Fill(_trec->TopLep_TOPTOPLEPHAD_p4().DeltaR(_trec->TopHad_TOPTOPLEPHAD_p4()),sfj);
    
 /*   else if( strcmp(varName.c_str(),"h_l_charge_") == 0 )
      {	
