@@ -36,5 +36,5 @@ namespace RANGE
    double set_chi2[3] = {25,0.,200.0};
    double set_l_charge[3] = {3,-1.5,1.5};
    double set_bMVA[3] = {20,-0.7,0.7};
-   double set_MVA[3] = {20,-0.7,0.7};
+   double set_MVA[3] = {20,-1.0,1.0};
 }

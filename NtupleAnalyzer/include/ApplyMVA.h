@@ -14,55 +14,76 @@ class ApplyMVA
 
    ApplyMVA(std::string home);
    virtual ~ApplyMVA();
-   
-   void setVariable_H_m(double v)       {_H_m = v;};
-   void setVariable_H_eta(double v)       {_H_eta = v;};
-   void setVariable_top_m(double v)       {_top_m = v;};
-   void setVariable_top_pt(double v)       {_top_pt = v;};
-   void setVariable_top_eta(double v)       {_top_eta = v;};
-   void setVariable_Hb1_Hb2_dr(double v)       {_Hb1_Hb2_dr = v;};
-   void setVariable_W_m(double v)       {_W_m = v;};
-   void setVariable_H_nu_dr(double v)       {_H_nu_dr = v;};
-   void setVariable_H_l_dr(double v)       {_H_l_dr = v;};
-   void setVariable_chi2(double v)       {_chi2 = v;};
-   void setVariable_l_charge(double v)       {_l_charge = v;};
-   void setVariable_TTbar_chi2(double v)       {_TTbar_chi2 = v;};
-   void setVariable_TTbar_topLep_m(double v)       {_TTbar_topLep_m = v;};
-   void setVariable_TTbar_tbLep_tWLep_Dr(double v)       {_TTbar_tbLep_tWLep_Dr = v;};
-   void setVariable_TTbar_tbHad_tWHad_Dr(double v)       {_TTbar_tbHad_tWHad_Dr = v;};
 
-   double disc() {return _disc;};
+   void setVariable_HiggsMass_TOPHLEPBB(float v)       {HiggsMass_TOPHLEPBB = v;};
+   void setVariable_TopHadMass_TOPTOPLEPHAD(float v)       {TopHadMass_TOPTOPLEPHAD = v;};
+   void setVariable_MVA_TOPHLEPBB(float v)       {MVA_TOPHLEPBB = v;};
+   void setVariable_MVA_TOPTOPLEPHAD(float v)       {MVA_TOPTOPLEPHAD = v;};
+   void setVariable_LepCharge(float v)       {LepCharge = v;};
+   void setVariable_HiggsEta_TOPHLEPBB(float v)       {HiggsEta_TOPHLEPBB = v;};
+   void setVariable_TopLepMass_TOPHLEPBB(float v)       {TopLepMass_TOPHLEPBB = v;};
+   void setVariable_TopLepMass_TOPTOPLEPHAD(float v)       {TopLepMass_TOPTOPLEPHAD = v;};
+   void setVariable_TopLepPt_TOPHLEPBB(float v)       {TopLepPt_TOPHLEPBB = v;};
+   void setVariable_TopLepEta_TOPHLEPBB(float v)       {TopLepEta_TOPHLEPBB = v;};
+   void setVariable_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB(float v)       {HiggsBJet1HiggsBJet2Dr_TOPHLEPBB = v;};
+   void setVariable_TopLepHiggsDr_TOPHLEPBB(float v)       {TopLepHiggsDr_TOPHLEPBB = v;};
+   void setVariable_TopLepTopHadDr_TOPTOPLEPHAD(float v)       {TopLepTopHadDr_TOPTOPLEPHAD = v;};
+   
+   void setVariable_HiggsMass_TOPTOPLEPHBB(float v)       {HiggsMass_TOPTOPLEPHBB = v;};
+   void setVariable_MVA_TOPTOPLEPHBB(float v)       {MVA_TOPTOPLEPHBB = v;};
+   void setVariable_HiggsEta_TOPTOPLEPHBB(float v)       {HiggsEta_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepMass_TOPTOPLEPHBB(float v)       {TopLepMass_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepPt_TOPTOPLEPHBB(float v)       {TopLepPt_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepEta_TOPTOPLEPHBB(float v)       {TopLepEta_TOPTOPLEPHBB = v;};
+   void setVariable_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB(float v)       {HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepHiggsDr_TOPTOPLEPHBB(float v)       {TopLepHiggsDr_TOPTOPLEPHBB = v;};
    
    void init();
-   void run();
-   void close();
+   double run(std::string chan);
 
  protected:
 
-   TMVA::Reader* reader;
+   TMVA::Reader* b3j4HutSTreader;
+   TMVA::Reader* b3j4HctSTreader;
+   TMVA::Reader* b3j4HutTTreader;
+   TMVA::Reader* b3j4HctTTreader;
+
+   TMVA::Reader* b3j3HutSTreader;
+   TMVA::Reader* b3j3HctSTreader;
+
+   TMVA::Reader* b2j4HutSTreader;
+   TMVA::Reader* b2j4HctSTreader;
+   TMVA::Reader* b2j4HutTTreader;
+   TMVA::Reader* b2j4HctTTreader;
    
    std::string _home;
 
    double _disc;
    
-   double _H_m; float _in_H_m;
-   double _H_eta; float _in_H_eta;
-   double _top_m; float _in_top_m;
-   double _top_pt; float _in_top_pt;
-   double _top_eta; float _in_top_eta;
-   double _Hb1_Hb2_dr; float _in_Hb1_Hb2_dr;
-   double _W_m; float _in_W_m;
-   double _H_nu_dr; float _in_H_nu_dr;
-   double _H_l_dr; float _in_H_l_dr;
-   double _chi2; float _in_chi2;
-   double _l_charge; float _in_l_charge;
-   double _TTbar_chi2; float _in_TTbar_chi2;
-   double _TTbar_topLep_m; float _in_TTbar_topLep_m;
-   double _TTbar_tbLep_tWLep_Dr; float _in_TTbar_tbLep_tWLep_Dr;
-   double _TTbar_tbHad_tWHad_Dr; float _in_TTbar_tbHad_tWHad_Dr;
-   
  private:
 
+   float HiggsMass_TOPHLEPBB;
+   float TopHadMass_TOPTOPLEPHAD;
+   float MVA_TOPHLEPBB;
+   float MVA_TOPTOPLEPHAD;
+   float LepCharge;
+   float HiggsEta_TOPHLEPBB;
+   float TopLepMass_TOPHLEPBB;
+   float TopLepMass_TOPTOPLEPHAD;
+   float TopLepPt_TOPHLEPBB;
+   float TopLepEta_TOPHLEPBB;
+   float HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+   float TopLepHiggsDr_TOPHLEPBB;
+   float TopLepTopHadDr_TOPTOPLEPHAD;
+
+   float HiggsMass_TOPTOPLEPHBB;
+   float MVA_TOPTOPLEPHBB;
+   float HiggsEta_TOPTOPLEPHBB;
+   float TopLepMass_TOPTOPLEPHBB;
+   float TopLepPt_TOPTOPLEPHBB;
+   float TopLepEta_TOPTOPLEPHBB;
+   float HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB;
+   float TopLepHiggsDr_TOPTOPLEPHBB;
 };
 
 #endif

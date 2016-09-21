@@ -7,55 +7,209 @@ ApplyMVA::ApplyMVA(std::string home)
 
 ApplyMVA::~ApplyMVA()
 {
+   delete b3j4HutSTreader;
+   delete b3j4HctSTreader;
+   delete b3j4HutTTreader;
+   delete b3j4HctTTreader;
+
+   delete b3j3HutSTreader;
+   delete b3j3HctSTreader;
+
+   delete b2j4HutSTreader;
+   delete b2j4HctSTreader;
+   delete b2j4HutTTreader;
+   delete b2j4HctTTreader;
 }
 
 void ApplyMVA::init()
 {
-   reader = new TMVA::Reader("!Color:!Silent");
-
-   reader->AddVariable("H_m",&_in_H_m);
-   reader->AddVariable("H_eta",&_in_H_eta);
-   reader->AddVariable("top_m",&_in_top_m);
-   reader->AddVariable("top_pt",&_in_top_pt);
-   reader->AddVariable("top_eta",&_in_top_eta);
-   reader->AddVariable("Hb1_Hb2_dr",&_in_Hb1_Hb2_dr);
-   reader->AddVariable("W_m",&_in_W_m);
-   reader->AddVariable("H_nu_dr",&_in_H_nu_dr);
-   reader->AddVariable("H_l_dr",&_in_H_l_dr);
-   reader->AddVariable("chi2",&_in_chi2);
-   reader->AddVariable("l_charge",&_in_l_charge);
-   reader->AddVariable("TTbar_chi2",&_in_TTbar_chi2);
-   reader->AddVariable("TTbar_topLep_m",&_in_TTbar_topLep_m);
-   reader->AddVariable("TTbar_tbLep_tWLep_Dr",&_in_TTbar_tbLep_tWLep_Dr);
-   reader->AddVariable("TTbar_tbHad_tWHad_Dr",&_in_TTbar_tbHad_tWHad_Dr);
-
-   std::string weightsFile = _home+"/MVA/weights/TMVAClassification_BDT.weights.xml";
-   reader->BookMVA("BDTG method",weightsFile.c_str());
+   b3j4HutSTreader = new TMVA::Reader("!Color:!Silent");
    
+   b3j4HutSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b3j4HutSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b3j4HutSTreader->AddVariable("LepCharge",&LepCharge);
+   b3j4HutSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b3j4HutSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+   b3j4HutSTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b3j4HctSTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j4HctSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b3j4HctSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b3j4HctSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b3j4HctSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+   b3j4HctSTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b3j4HutTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j4HutTTreader->AddVariable("HiggsMass_TOPTOPLEPHBB",&HiggsMass_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b3j4HutTTreader->AddVariable("MVA_TOPTOPLEPHBB",&MVA_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b3j4HutTTreader->AddVariable("HiggsEta_TOPTOPLEPHBB",&HiggsEta_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("TopLepMass_TOPTOPLEPHBB",&TopLepMass_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b3j4HutTTreader->AddVariable("TopLepPt_TOPTOPLEPHBB",&TopLepPt_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("TopLepEta_TOPTOPLEPHBB",&TopLepEta_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j4HutTTreader->AddVariable("TopLepHiggsDr_TOPTOPLEPHBB",&TopLepHiggsDr_TOPTOPLEPHBB);
+   b3j4HutTTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b3j4HctTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j4HctTTreader->AddVariable("HiggsMass_TOPTOPLEPHBB",&HiggsMass_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b3j4HctTTreader->AddVariable("MVA_TOPTOPLEPHBB",&MVA_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b3j4HctTTreader->AddVariable("HiggsEta_TOPTOPLEPHBB",&HiggsEta_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("TopLepMass_TOPTOPLEPHBB",&TopLepMass_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b3j4HctTTreader->AddVariable("TopLepPt_TOPTOPLEPHBB",&TopLepPt_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("TopLepEta_TOPTOPLEPHBB",&TopLepEta_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j4HctTTreader->AddVariable("TopLepHiggsDr_TOPTOPLEPHBB",&TopLepHiggsDr_TOPTOPLEPHBB);
+   b3j4HctTTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+   
+   std::string b3j4HutSTweightsFile = _home+"/MVA/weights/TMVA_HutST_b3j4_BDT.weights.xml";
+   b3j4HutSTreader->BookMVA("BDTG method",b3j4HutSTweightsFile.c_str());
+   std::string b3j4HctSTweightsFile = _home+"/MVA/weights/TMVA_HctST_b3j4_BDT.weights.xml";
+   b3j4HctSTreader->BookMVA("BDTG method",b3j4HctSTweightsFile.c_str());
+   std::string b3j4HutTTweightsFile = _home+"/MVA/weights/TMVA_HutTT_b3j4_BDT.weights.xml";
+   b3j4HutTTreader->BookMVA("BDTG method",b3j4HutTTweightsFile.c_str());
+   std::string b3j4HctTTweightsFile = _home+"/MVA/weights/TMVA_HctTT_b3j4_BDT.weights.xml";
+   b3j4HctTTreader->BookMVA("BDTG method",b3j4HctTTweightsFile.c_str());
+
+   b3j3HutSTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j3HutSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("LepCharge",&LepCharge);
+   b3j3HutSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j3HutSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+   b3j3HctSTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j3HctSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j3HctSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+   
+   std::string b3j3HutSTweightsFile = _home+"/MVA/weights/TMVA_HutST_b3j3_BDT.weights.xml";
+   b3j3HutSTreader->BookMVA("BDTG method",b3j3HutSTweightsFile.c_str());
+   std::string b3j3HctSTweightsFile = _home+"/MVA/weights/TMVA_HctST_b3j3_BDT.weights.xml";
+   b3j3HctSTreader->BookMVA("BDTG method",b3j3HctSTweightsFile.c_str());
+
+   b2j4HutSTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b2j4HutSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b2j4HutSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b2j4HutSTreader->AddVariable("LepCharge",&LepCharge);
+   b2j4HutSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b2j4HutSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+   b2j4HutSTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b2j4HctSTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b2j4HctSTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b2j4HctSTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b2j4HctSTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b2j4HctSTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+   b2j4HctSTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b2j4HutTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b2j4HutTTreader->AddVariable("HiggsMass_TOPTOPLEPHBB",&HiggsMass_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b2j4HutTTreader->AddVariable("MVA_TOPTOPLEPHBB",&MVA_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b2j4HutTTreader->AddVariable("HiggsEta_TOPTOPLEPHBB",&HiggsEta_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("TopLepMass_TOPTOPLEPHBB",&TopLepMass_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b2j4HutTTreader->AddVariable("TopLepPt_TOPTOPLEPHBB",&TopLepPt_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("TopLepEta_TOPTOPLEPHBB",&TopLepEta_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b2j4HutTTreader->AddVariable("TopLepHiggsDr_TOPTOPLEPHBB",&TopLepHiggsDr_TOPTOPLEPHBB);
+   b2j4HutTTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+
+   b2j4HctTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b2j4HctTTreader->AddVariable("HiggsMass_TOPTOPLEPHBB",&HiggsMass_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("TopHadMass_TOPTOPLEPHAD",&TopHadMass_TOPTOPLEPHAD);
+   b2j4HctTTreader->AddVariable("MVA_TOPTOPLEPHBB",&MVA_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("MVA_TOPTOPLEPHAD",&MVA_TOPTOPLEPHAD);
+   b2j4HctTTreader->AddVariable("HiggsEta_TOPTOPLEPHBB",&HiggsEta_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("TopLepMass_TOPTOPLEPHBB",&TopLepMass_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("TopLepMass_TOPTOPLEPHAD",&TopLepMass_TOPTOPLEPHAD);
+   b2j4HctTTreader->AddVariable("TopLepPt_TOPTOPLEPHBB",&TopLepPt_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("TopLepEta_TOPTOPLEPHBB",&TopLepEta_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b2j4HctTTreader->AddVariable("TopLepHiggsDr_TOPTOPLEPHBB",&TopLepHiggsDr_TOPTOPLEPHBB);
+   b2j4HctTTreader->AddVariable("TopLepTopHadDr_TOPTOPLEPHAD",&TopLepTopHadDr_TOPTOPLEPHAD);
+   
+   std::string b2j4HutSTweightsFile = _home+"/MVA/weights/TMVA_HutST_b2j4_BDT.weights.xml";
+   b2j4HutSTreader->BookMVA("BDTG method",b2j4HutSTweightsFile.c_str());
+   std::string b2j4HctSTweightsFile = _home+"/MVA/weights/TMVA_HctST_b2j4_BDT.weights.xml";
+   b2j4HctSTreader->BookMVA("BDTG method",b2j4HctSTweightsFile.c_str());
+   std::string b2j4HutTTweightsFile = _home+"/MVA/weights/TMVA_HutTT_b2j4_BDT.weights.xml";
+   b2j4HutTTreader->BookMVA("BDTG method",b2j4HutTTweightsFile.c_str());
+   std::string b2j4HctTTweightsFile = _home+"/MVA/weights/TMVA_HctTT_b2j4_BDT.weights.xml";
+   b2j4HctTTreader->BookMVA("BDTG method",b2j4HctTTweightsFile.c_str());
+
    std::cout << "ApplyMVA initialisation done" << std::endl;
 }
 
-void ApplyMVA::run()
+double ApplyMVA::run(std::string chan)
 {
-   _in_H_m = _H_m;
-   _in_H_eta = _H_eta;
-   _in_top_m = _top_m;
-   _in_top_pt = _top_pt;
-   _in_top_eta = _top_eta;
-   _in_Hb1_Hb2_dr = _Hb1_Hb2_dr;
-   _in_W_m = _W_m;
-   _in_H_nu_dr = _H_nu_dr;
-   _in_H_l_dr = _H_l_dr;
-   _in_chi2 = _chi2;
-   _in_l_charge = _l_charge;
-   _in_TTbar_chi2 = _TTbar_chi2;
-   _in_TTbar_topLep_m = _TTbar_topLep_m;
-   _in_TTbar_tbLep_tWLep_Dr = _TTbar_tbLep_tWLep_Dr;
-   _in_TTbar_tbHad_tWHad_Dr = _TTbar_tbHad_tWHad_Dr;
+   _disc = 10E+10;
    
-   _disc = reader->EvaluateMVA("BDTG method");
-}
+   if( chan == "b3j4HutST" ) _disc = b3j4HutSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j4HctST" ) _disc = b3j4HctSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j4HutTT" ) _disc = b3j4HutTTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j4HctTT" ) _disc = b3j4HctTTreader->EvaluateMVA("BDTG method");
 
-void ApplyMVA::close()
-{
+   else if( chan == "b3j3HutST" ) _disc = b3j3HutSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j3HctST" ) _disc = b3j3HctSTreader->EvaluateMVA("BDTG method");
+
+   else if( chan == "b2j4HutST" ) _disc = b2j4HutSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b2j4HctST" ) _disc = b2j4HctSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b2j4HutTT" ) _disc = b2j4HutTTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b2j4HctTT" ) _disc = b2j4HctTTreader->EvaluateMVA("BDTG method");
+   
+   return _disc;
 }

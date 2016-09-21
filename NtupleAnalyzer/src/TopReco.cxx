@@ -282,7 +282,8 @@ void TopReco::run()
    _TopHadBJet_TOPTOPLEPHAD_p4.SetPtEtaPhiE(0,0,0,0);
    
    // tH ttbar
-   if( nLep == 1 && nbjets >= 3 && nnonbjets >= 1 )
+   if( nLep == 1 &&
+       ((nbjets >= 3 && nnonbjets >= 1) || (nbjets == 2 && nnonbjets >= 2)) )
      {		
 	kfTopTopLepHbb->Init(TOPTOPLEPHBB);
 	
@@ -332,10 +333,20 @@ void TopReco::run()
 	     
 	for(int i=0;i<_v_NonBJetTight->size();i++)
 	  {
-	     NonBJetPt.push_back(_v_NonBJetTight->at(i).pt());
-	     NonBJetEta.push_back(_v_NonBJetTight->at(i).eta());
-	     NonBJetPhi.push_back(_v_NonBJetTight->at(i).phi());
-	     NonBJetE.push_back(_v_NonBJetTight->at(i).E());
+	     if( nbjets == 2 && i == 0 )
+	       {
+		  BJetPt.push_back(_v_NonBJetTight->at(i).pt());
+		  BJetEta.push_back(_v_NonBJetTight->at(i).eta());
+		  BJetPhi.push_back(_v_NonBJetTight->at(i).phi());
+		  BJetE.push_back(_v_NonBJetTight->at(i).E());
+	       }
+	     else
+	       {
+		  NonBJetPt.push_back(_v_NonBJetTight->at(i).pt());
+		  NonBJetEta.push_back(_v_NonBJetTight->at(i).eta());
+		  NonBJetPhi.push_back(_v_NonBJetTight->at(i).phi());
+		  NonBJetE.push_back(_v_NonBJetTight->at(i).E());
+	       }	     
 	  }   
 	
 	kfTopTopLepHbb->SetBJet(BJetPt,BJetEta,BJetPhi,BJetE);
@@ -520,7 +531,8 @@ void TopReco::run()
      }
 
    // tH single top
-   if( nLep == 1 && nbjets >= 3 )
+   if( nLep == 1 && 
+       ((nbjets >= 3) || (nbjets == 2 && nnonbjets >= 1)) )
      {		
 	kfTopHLepbb->Init(TOPHLEPBB);
 
@@ -570,10 +582,20 @@ void TopReco::run()
 	     
 	for(int i=0;i<_v_NonBJetTight->size();i++)
 	  {
-	     NonBJetPt.push_back(_v_NonBJetTight->at(i).pt());
-	     NonBJetEta.push_back(_v_NonBJetTight->at(i).eta());
-	     NonBJetPhi.push_back(_v_NonBJetTight->at(i).phi());
-	     NonBJetE.push_back(_v_NonBJetTight->at(i).E());
+	     if( nbjets == 2 && i == 0 )
+	       {		  
+		  BJetPt.push_back(_v_NonBJetTight->at(i).pt());
+		  BJetEta.push_back(_v_NonBJetTight->at(i).eta());
+		  BJetPhi.push_back(_v_NonBJetTight->at(i).phi());
+		  BJetE.push_back(_v_NonBJetTight->at(i).E());
+	       }
+	     else
+	       {
+		  NonBJetPt.push_back(_v_NonBJetTight->at(i).pt());
+		  NonBJetEta.push_back(_v_NonBJetTight->at(i).eta());
+		  NonBJetPhi.push_back(_v_NonBJetTight->at(i).phi());
+		  NonBJetE.push_back(_v_NonBJetTight->at(i).E());
+	       }	     
 	  }   
 	
 	kfTopHLepbb->SetBJet(BJetPt,BJetEta,BJetPhi,BJetE);
@@ -744,8 +766,8 @@ void TopReco::run()
      }
 
    // ttbar
-   if( nLep == 1 && 
-       ((nbjets >= 3 && nnonbjets >= 1) || (nbjets >= 2 && nnonbjets >= 2))
+   if( nLep == 1 &&
+       ((nbjets >= 3 && nnonbjets >= 1) || (nbjets == 2 && nnonbjets >= 2))
      )
      {		
 	kfTopTopLepHad->Init(TOPTOPLEPHAD);

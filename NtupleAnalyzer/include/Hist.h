@@ -189,6 +189,19 @@ class Hist
    ApplyMVA *_mva;
    
    Helper *help;
+   
+   double _mvab3j4HutST;
+   double _mvab3j4HctST;
+   double _mvab3j4HutTT;
+   double _mvab3j4HctTT;
+
+   double _mvab3j3HutST;
+   double _mvab3j3HctST;
+
+   double _mvab2j4HutST;
+   double _mvab2j4HctST;
+   double _mvab2j4HutTT;
+   double _mvab2j4HctTT;
 };
 
 #endif
