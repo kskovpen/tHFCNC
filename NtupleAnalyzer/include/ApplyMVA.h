@@ -50,6 +50,8 @@ class ApplyMVA
 
    TMVA::Reader* b3j3HutSTreader;
    TMVA::Reader* b3j3HctSTreader;
+   TMVA::Reader* b3j3HutTTreader;
+   TMVA::Reader* b3j3HctTTreader;
 
    TMVA::Reader* b2j4HutSTreader;
    TMVA::Reader* b2j4HctSTreader;

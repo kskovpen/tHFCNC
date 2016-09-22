@@ -14,6 +14,8 @@ ApplyMVA::~ApplyMVA()
 
    delete b3j3HutSTreader;
    delete b3j3HctSTreader;
+   delete b3j3HutTTreader;
+   delete b3j3HctTTreader;
 
    delete b2j4HutSTreader;
    delete b2j4HctSTreader;
@@ -115,11 +117,37 @@ void ApplyMVA::init()
    b3j3HctSTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
    b3j3HctSTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
    b3j3HctSTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+   b3j3HutTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j3HutTTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j3HutTTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+   b3j3HctTTreader = new TMVA::Reader("!Color:!Silent");
+   
+   b3j3HctTTreader->AddVariable("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+   b3j3HctTTreader->AddVariable("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
    
    std::string b3j3HutSTweightsFile = _home+"/MVA/weights/TMVA_HutST_b3j3_BDT.weights.xml";
    b3j3HutSTreader->BookMVA("BDTG method",b3j3HutSTweightsFile.c_str());
    std::string b3j3HctSTweightsFile = _home+"/MVA/weights/TMVA_HctST_b3j3_BDT.weights.xml";
    b3j3HctSTreader->BookMVA("BDTG method",b3j3HctSTweightsFile.c_str());
+   std::string b3j3HutTTweightsFile = _home+"/MVA/weights/TMVA_HutTT_b3j3_BDT.weights.xml";
+   b3j3HutTTreader->BookMVA("BDTG method",b3j3HutTTweightsFile.c_str());
+   std::string b3j3HctTTweightsFile = _home+"/MVA/weights/TMVA_HctTT_b3j3_BDT.weights.xml";
+   b3j3HctTTreader->BookMVA("BDTG method",b3j3HctTTweightsFile.c_str());
 
    b2j4HutSTreader = new TMVA::Reader("!Color:!Silent");
    
@@ -205,6 +233,8 @@ double ApplyMVA::run(std::string chan)
 
    else if( chan == "b3j3HutST" ) _disc = b3j3HutSTreader->EvaluateMVA("BDTG method");
    else if( chan == "b3j3HctST" ) _disc = b3j3HctSTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j3HutTT" ) _disc = b3j3HutTTreader->EvaluateMVA("BDTG method");
+   else if( chan == "b3j3HctTT" ) _disc = b3j3HctTTreader->EvaluateMVA("BDTG method");
 
    else if( chan == "b2j4HutST" ) _disc = b2j4HutSTreader->EvaluateMVA("BDTG method");
    else if( chan == "b2j4HctST" ) _disc = b2j4HctSTreader->EvaluateMVA("BDTG method");

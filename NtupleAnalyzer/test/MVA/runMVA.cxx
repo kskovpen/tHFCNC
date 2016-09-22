@@ -870,12 +870,258 @@ int main(int argc, char *argv[])
 	outfile->Close();
      }
 
+   // b3j3 ttbar Hut vs ttbar
+   else if( imva == 6 )
+     {
+	TFile* outfile = TFile::Open("TMVA_HutTT_b3j3.root","RECREATE");
+	
+	double weight;
+	
+	double HiggsMass_TOPHLEPBB;
+	double MVA_TOPHLEPBB;
+	double HiggsEta_TOPHLEPBB;
+	double TopLepMass_TOPHLEPBB;
+	double TopLepPt_TOPHLEPBB;
+	double TopLepEta_TOPHLEPBB;
+	double HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	double TopLepHiggsDr_TOPHLEPBB;
+
+	TMVA::Factory *factory = new TMVA::Factory("TMVA_HutTT_b3j3",outfile,
+						   "!V:!Silent:Color:DrawProgressBar:Transformations=I;D:AnalysisType=Classification" );
+
+	factory->AddVariable("HiggsMass_TOPHLEPBB",'D');
+	factory->AddVariable("MVA_TOPHLEPBB",'D');
+	factory->AddVariable("HiggsEta_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepMass_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepPt_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepEta_TOPHLEPBB",'D');
+	factory->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepHiggsDr_TOPHLEPBB",'D');
+
+	TChain tr_sig("tr_all_b3j3");
+	tr_sig.Add("../histTEST_MERGED/TT_TopLeptonicDecay_TH_1L3B_Eta_Hut.root");
+	tr_sig.Add("../histTEST_MERGED/TT_AntitopLeptonicDecay_TH_1L3B_Eta_Hut.root");
+
+	TChain tr_bkg("tr_all_b3j3");
+	tr_bkg.Add("../histTEST_MERGED/TT_TuneCUETP8M1_13TeV-powheg-pythia8.root");
+   
+	tr_sig.SetBranchAddress("weight",&weight);
+	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+	tr_sig.SetBranchAddress("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+	tr_sig.SetBranchAddress("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+	tr_sig.SetBranchAddress("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+	tr_bkg.SetBranchAddress("weight",&weight);
+	tr_bkg.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+	TRandom3 *r = new TRandom3(666);
+	
+	std::vector<double> vars(8);
+
+	for(int i=0;i<tr_sig.GetEntries();i++)
+	  {
+	     tr_sig.GetEntry(i);
+
+	     if( HiggsMass_TOPHLEPBB > 500. ) HiggsMass_TOPHLEPBB = 500.;
+	     if( TopLepMass_TOPHLEPBB > 500. ) TopLepMass_TOPHLEPBB = 500.;
+	     if( TopLepPt_TOPHLEPBB > 1000. ) TopLepPt_TOPHLEPBB = 1000.;
+	     
+	     vars[0] = HiggsMass_TOPHLEPBB;
+	     vars[1] = MVA_TOPHLEPBB;
+	     vars[2] = HiggsEta_TOPHLEPBB;
+	     vars[3] = TopLepMass_TOPHLEPBB;
+	     vars[4] = TopLepPt_TOPHLEPBB;
+	     vars[5] = TopLepEta_TOPHLEPBB;
+	     vars[6] = HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	     vars[7] = TopLepHiggsDr_TOPHLEPBB;
+	     
+	     float rnd = r->Rndm();
+	     if( rnd < 0.5 )
+	       factory->AddSignalTrainingEvent(vars,weight);
+	     else
+	       factory->AddSignalTestEvent(vars,weight);
+	  }
+	
+	for(int i=0;i<tr_bkg.GetEntries();i++)
+	  {
+	     tr_bkg.GetEntry(i);
+
+	     if( HiggsMass_TOPHLEPBB > 500. ) HiggsMass_TOPHLEPBB = 500.;
+	     if( TopLepMass_TOPHLEPBB > 500. ) TopLepMass_TOPHLEPBB = 500.;
+	     if( TopLepPt_TOPHLEPBB > 1000. ) TopLepPt_TOPHLEPBB = 1000.;
+	     
+	     vars[0] = HiggsMass_TOPHLEPBB;
+	     vars[1] = MVA_TOPHLEPBB;
+	     vars[2] = HiggsEta_TOPHLEPBB;
+	     vars[3] = TopLepMass_TOPHLEPBB;
+	     vars[4] = TopLepPt_TOPHLEPBB;
+	     vars[5] = TopLepEta_TOPHLEPBB;
+	     vars[6] = HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	     vars[7] = TopLepHiggsDr_TOPHLEPBB;
+	     
+	     float rnd = r->Rndm();
+	     if( rnd < 0.5 )
+	       factory->AddBackgroundTrainingEvent(vars,weight);
+	     else
+	       factory->AddBackgroundTestEvent(vars,weight);
+	  }
+
+	factory->PrepareTrainingAndTestTree("","",
+					    "SplitMode=Random:NormMode=NumEvents:!V" );
+	
+	factory->BookMethod(TMVA::Types::kBDT,"BDT",
+			    "!H:!V:NTrees=100:MaxDepth=3:SeparationType=GiniIndex:nCuts=20:PruneMethod=NoPruning" );
+	
+	factory->TrainAllMethods();
+	
+	factory->TestAllMethods();
+	
+	factory->EvaluateAllMethods();
+
+	outfile->Write();
+	outfile->Close();
+     }
+
+   // b3j3 ttbar Hct vs ttbar
+   else if( imva == 7 )
+     {
+	TFile* outfile = TFile::Open("TMVA_HctTT_b3j3.root","RECREATE");
+	
+	double weight;
+	
+	double HiggsMass_TOPHLEPBB;
+	double MVA_TOPHLEPBB;
+	double HiggsEta_TOPHLEPBB;
+	double TopLepMass_TOPHLEPBB;
+	double TopLepPt_TOPHLEPBB;
+	double TopLepEta_TOPHLEPBB;
+	double HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	double TopLepHiggsDr_TOPHLEPBB;
+
+	TMVA::Factory *factory = new TMVA::Factory("TMVA_HctTT_b3j3",outfile,
+						   "!V:!Silent:Color:DrawProgressBar:Transformations=I;D:AnalysisType=Classification" );
+
+	factory->AddVariable("HiggsMass_TOPHLEPBB",'D');
+	factory->AddVariable("MVA_TOPHLEPBB",'D');
+	factory->AddVariable("HiggsEta_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepMass_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepPt_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepEta_TOPHLEPBB",'D');
+	factory->AddVariable("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",'D');
+	factory->AddVariable("TopLepHiggsDr_TOPHLEPBB",'D');
+
+	TChain tr_sig("tr_all_b3j3");
+	tr_sig.Add("../histTEST_MERGED/TT_TopLeptonicDecay_TH_1L3B_Eta_Hct.root");
+	tr_sig.Add("../histTEST_MERGED/TT_AntitopLeptonicDecay_TH_1L3B_Eta_Hct.root");
+
+	TChain tr_bkg("tr_all_b3j3");
+	tr_bkg.Add("../histTEST_MERGED/TT_TuneCUETP8M1_13TeV-powheg-pythia8.root");
+   
+	tr_sig.SetBranchAddress("weight",&weight);
+	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+	tr_sig.SetBranchAddress("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+	tr_sig.SetBranchAddress("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+	tr_sig.SetBranchAddress("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+	tr_sig.SetBranchAddress("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+	tr_bkg.SetBranchAddress("weight",&weight);
+	tr_bkg.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("MVA_TOPHLEPBB",&MVA_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("HiggsEta_TOPHLEPBB",&HiggsEta_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepMass_TOPHLEPBB",&TopLepMass_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepPt_TOPHLEPBB",&TopLepPt_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepEta_TOPHLEPBB",&TopLepEta_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("HiggsBJet1HiggsBJet2Dr_TOPHLEPBB",&HiggsBJet1HiggsBJet2Dr_TOPHLEPBB);
+	tr_bkg.SetBranchAddress("TopLepHiggsDr_TOPHLEPBB",&TopLepHiggsDr_TOPHLEPBB);
+
+	TRandom3 *r = new TRandom3(666);
+	
+	std::vector<double> vars(8);
+
+	for(int i=0;i<tr_sig.GetEntries();i++)
+	  {
+	     tr_sig.GetEntry(i);
+
+	     if( HiggsMass_TOPHLEPBB > 500. ) HiggsMass_TOPHLEPBB = 500.;
+	     if( TopLepMass_TOPHLEPBB > 500. ) TopLepMass_TOPHLEPBB = 500.;
+	     if( TopLepPt_TOPHLEPBB > 1000. ) TopLepPt_TOPHLEPBB = 1000.;
+	     
+	     vars[0] = HiggsMass_TOPHLEPBB;
+	     vars[1] = MVA_TOPHLEPBB;
+	     vars[2] = HiggsEta_TOPHLEPBB;
+	     vars[3] = TopLepMass_TOPHLEPBB;
+	     vars[4] = TopLepPt_TOPHLEPBB;
+	     vars[5] = TopLepEta_TOPHLEPBB;
+	     vars[6] = HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	     vars[7] = TopLepHiggsDr_TOPHLEPBB;
+	     
+	     float rnd = r->Rndm();
+	     if( rnd < 0.5 )
+	       factory->AddSignalTrainingEvent(vars,weight);
+	     else
+	       factory->AddSignalTestEvent(vars,weight);
+	  }
+	
+	for(int i=0;i<tr_bkg.GetEntries();i++)
+	  {
+	     tr_bkg.GetEntry(i);
+
+	     if( HiggsMass_TOPHLEPBB > 500. ) HiggsMass_TOPHLEPBB = 500.;
+	     if( TopLepMass_TOPHLEPBB > 500. ) TopLepMass_TOPHLEPBB = 500.;
+	     if( TopLepPt_TOPHLEPBB > 1000. ) TopLepPt_TOPHLEPBB = 1000.;
+	     
+	     vars[0] = HiggsMass_TOPHLEPBB;
+	     vars[1] = MVA_TOPHLEPBB;
+	     vars[2] = HiggsEta_TOPHLEPBB;
+	     vars[3] = TopLepMass_TOPHLEPBB;
+	     vars[4] = TopLepPt_TOPHLEPBB;
+	     vars[5] = TopLepEta_TOPHLEPBB;
+	     vars[6] = HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
+	     vars[7] = TopLepHiggsDr_TOPHLEPBB;
+	     
+	     float rnd = r->Rndm();
+	     if( rnd < 0.5 )
+	       factory->AddBackgroundTrainingEvent(vars,weight);
+	     else
+	       factory->AddBackgroundTestEvent(vars,weight);
+	  }
+
+	factory->PrepareTrainingAndTestTree("","",
+					    "SplitMode=Random:NormMode=NumEvents:!V" );
+	
+	factory->BookMethod(TMVA::Types::kBDT,"BDT",
+			    "!H:!V:NTrees=100:MaxDepth=3:SeparationType=GiniIndex:nCuts=20:PruneMethod=NoPruning" );
+	
+	factory->TrainAllMethods();
+	
+	factory->TestAllMethods();
+	
+	factory->EvaluateAllMethods();
+
+	outfile->Write();
+	outfile->Close();
+     }
+   
    //////////
    // b2j4 //
    //////////
    
    // b2j4 tH Hut vs ttbar
-   else if( imva == 6 )
+   else if( imva == 8 )
      {
 	TFile* outfile = TFile::Open("TMVA_HutST_b2j4.root","RECREATE");
 	
@@ -1031,7 +1277,7 @@ int main(int argc, char *argv[])
      }
 
    // b2j4 tH Hct vs ttbar
-   else if( imva == 7 )
+   else if( imva == 9 )
      {
 	TFile* outfile = TFile::Open("TMVA_HctST_b2j4.root","RECREATE");
 	
@@ -1181,7 +1427,7 @@ int main(int argc, char *argv[])
      }
 
    // b2j4 ttbar Hut vs ttbar
-   else if( imva == 8 )
+   else if( imva == 10 )
      {
 	TFile* outfile = TFile::Open("TMVA_HutTT_b2j4.root","RECREATE");
 	
@@ -1332,7 +1578,7 @@ int main(int argc, char *argv[])
      }
 
    // b2j4 ttbar Hct vs ttbar
-   else if( imva == 9 )
+   else if( imva == 11 )
      {
 	TFile* outfile = TFile::Open("TMVA_HctTT_b2j4.root","RECREATE");
 	

@@ -69,7 +69,7 @@ void Hist::init()
 
    hname.clear(); 
 
-   histname_n = 36;
+   histname_n = 38;
    histname[0] = "h_chi2_TOPTOPLEPHBB_";
    histname[1] = "h_chi2_TOPHLEPBB_";
    histname[2] = "h_chi2_TOPTOPLEPHAD_";
@@ -102,10 +102,12 @@ void Hist::init()
    histname[29] = "h_MVAb3j4HctTT_";
    histname[30] = "h_MVAb3j3HutST_";
    histname[31] = "h_MVAb3j3HctST_";
-   histname[32] = "h_MVAb2j4HutST_";
-   histname[33] = "h_MVAb2j4HctST_";
-   histname[34] = "h_MVAb2j4HutTT_";
-   histname[35] = "h_MVAb2j4HctTT_";
+   histname[32] = "h_MVAb3j3HutTT_";
+   histname[33] = "h_MVAb3j3HctTT_";
+   histname[34] = "h_MVAb2j4HutST_";
+   histname[35] = "h_MVAb2j4HctST_";
+   histname[36] = "h_MVAb2j4HutTT_";
+   histname[37] = "h_MVAb2j4HctTT_";
 
    type_n = 1;
 //   type[0] = "nonQCD";
@@ -210,6 +212,8 @@ void Hist::init()
    set_hist.push_back(RANGE::set_W_topb_dr);
    set_hist.push_back(RANGE::set_W_topb_dr);
    set_hist.push_back(RANGE::set_W_topb_dr);
+   set_hist.push_back(RANGE::set_MVA);
+   set_hist.push_back(RANGE::set_MVA);
    set_hist.push_back(RANGE::set_MVA);
    set_hist.push_back(RANGE::set_MVA);
    set_hist.push_back(RANGE::set_MVA);
@@ -501,6 +505,8 @@ void Hist::fill()
 
 	_mvab3j3HutST = _mva->run("b3j3HutST");
 	_mvab3j3HctST = _mva->run("b3j3HctST");
+	_mvab3j3HutTT = _mva->run("b3j3HutTT");
+	_mvab3j3HctTT = _mva->run("b3j3HctTT");
 
 	_mvab2j4HutST = _mva->run("b2j4HutST");
 	_mvab2j4HctST = _mva->run("b2j4HctST");
@@ -889,6 +895,8 @@ void Hist::fillHisto1D(TH1D *h,float sfj,std::string sys,int ilep,std::string va
    
    else if( strcmp(varName.c_str(),"h_MVAb3j3HutST_") == 0 ) h->Fill(_mvab3j3HutST,sfj);
    else if( strcmp(varName.c_str(),"h_MVAb3j3HctST_") == 0 ) h->Fill(_mvab3j3HctST,sfj);
+   else if( strcmp(varName.c_str(),"h_MVAb3j3HutTT_") == 0 ) h->Fill(_mvab3j3HutTT,sfj);
+   else if( strcmp(varName.c_str(),"h_MVAb3j3HctTT_") == 0 ) h->Fill(_mvab3j3HctTT,sfj);
 
    else if( strcmp(varName.c_str(),"h_MVAb2j4HutST_") == 0 ) h->Fill(_mvab2j4HutST,sfj);
    else if( strcmp(varName.c_str(),"h_MVAb2j4HctST_") == 0 ) h->Fill(_mvab2j4HctST,sfj);

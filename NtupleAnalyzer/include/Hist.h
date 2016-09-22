@@ -197,6 +197,8 @@ class Hist
 
    double _mvab3j3HutST;
    double _mvab3j3HctST;
+   double _mvab3j3HutTT;
+   double _mvab3j3HctTT;
 
    double _mvab2j4HutST;
    double _mvab2j4HctST;
