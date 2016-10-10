@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
 	std::cout << "--isdata: is data flag" << std::endl;
 	std::cout << "--stream: data stream" << std::endl;
 	std::cout << "--issig: is signal" << std::endl;
+	std::cout << "--isttbar: is ttbar" << std::endl;
 	exit(1);
      }
    
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
    _isdata = 0;
    int dataStream = -1;
    int issig = 0;
+   int isttbar = 0;
    
    for(int i=0;i<argc;i++)
      {
@@ -60,6 +62,7 @@ int main(int argc, char *argv[])
 	if( ! strcmp(argv[i],"--isdata") ) _isdata = atoi(argv[i+1]);
 	if( ! strcmp(argv[i],"--stream") ) dataStream = atoi(argv[i+1]);
 	if( ! strcmp(argv[i],"--issig") ) issig = atoi(argv[i+1]);
+	if( ! strcmp(argv[i],"--isttbar") ) isttbar = atoi(argv[i+1]);
      }   
 
    const char *fname  = fname_str;
@@ -75,6 +78,7 @@ int main(int argc, char *argv[])
    std::cout << "--isdata=" << _isdata << std::endl;
    std::cout << "--stream=" << dataStream << std::endl;
    std::cout << "--issig=" << issig << std::endl;
+   std::cout << "--isttbar=" << isttbar << std::endl;
 
    std::cout << fname << std::endl;
    Tree tree(0,const_cast<char*>(fname),stream);
@@ -99,8 +103,11 @@ int main(int argc, char *argv[])
    calib = new BTagCalibration("csvv2","/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/CSVv2_ichep.csv");
    reader_iterativefit = new BTagCalibrationReader(BTagEntry::OP_RESHAPING,"central",
 						   {"up_jes","down_jes","up_lf","down_lf",
+							"up_hf","down_hf",
 							"up_hfstats1","down_hfstats1",
 							"up_hfstats2","down_hfstats2",
+							"up_lfstats1","down_lfstats1",
+							"up_lfstats2","down_lfstats2",
 							"up_cferr1","down_cferr1",
 							"up_cferr2","down_cferr2"});
    reader_iterativefit->load(*calib,BTagEntry::FLAV_B,"iterativefit");
@@ -125,7 +132,7 @@ int main(int argc, char *argv[])
 	
 	// event
 	ev.init();
-	ev.read(xsec,noe,dataStream,issig);
+	ev.read(xsec,noe,dataStream,issig,isttbar);
 	
 	nt->NtEvent->push_back(ev);
 	
@@ -191,7 +198,7 @@ int main(int argc, char *argv[])
 	if(
 	   nElecTight+nMuonTight == 1 &&
 	   nElecLoose+nMuonLoose == 1 &&
-	   nJetTight >= 3 
+	   nJetTight >= 3
 	  )
 	  {
 	     nt->fill();

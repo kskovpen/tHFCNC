@@ -47,6 +47,9 @@ class Jet : public Base
    float CharmCvsL()         {return _CharmCvsL;};
    float CharmCvsB()         {return _CharmCvsB;};
    
+   float charge()            {return _charge;};
+   float chargeVec()         {return _chargeVec;};
+   
    bool isLoose()         {return _isLoose;};
    bool isTight()         {return _isTight;};
    
@@ -70,10 +73,16 @@ class Jet : public Base
    float SfIterativeFitJesDown()         {return _SfIterativeFitJesDown;};
    float SfIterativeFitLfUp()         {return _SfIterativeFitLfUp;};
    float SfIterativeFitLfDown()         {return _SfIterativeFitLfDown;};
+   float SfIterativeFitHfUp()         {return _SfIterativeFitHfUp;};
+   float SfIterativeFitHfDown()         {return _SfIterativeFitHfDown;};
    float SfIterativeFitHfstats1Up()         {return _SfIterativeFitHfstats1Up;};
    float SfIterativeFitHfstats1Down()         {return _SfIterativeFitHfstats1Down;};
    float SfIterativeFitHfstats2Up()         {return _SfIterativeFitHfstats2Up;};
    float SfIterativeFitHfstats2Down()         {return _SfIterativeFitHfstats2Down;};
+   float SfIterativeFitLfstats1Up()         {return _SfIterativeFitLfstats1Up;};
+   float SfIterativeFitLfstats1Down()         {return _SfIterativeFitLfstats1Down;};
+   float SfIterativeFitLfstats2Up()         {return _SfIterativeFitLfstats2Up;};
+   float SfIterativeFitLfstats2Down()         {return _SfIterativeFitLfstats2Down;};
    float SfIterativeFitCferr1Up()         {return _SfIterativeFitCferr1Up;};
    float SfIterativeFitCferr1Down()         {return _SfIterativeFitCferr1Down;};
    float SfIterativeFitCferr2Up()         {return _SfIterativeFitCferr2Up;};
@@ -108,6 +117,9 @@ class Jet : public Base
    float _CharmCvsL;
    float _CharmCvsB;
 
+   float _charge;
+   float _chargeVec;
+   
    bool _isLoose;
    bool _isTight;
    
@@ -132,10 +144,16 @@ class Jet : public Base
    float _SfIterativeFitJesDown;
    float _SfIterativeFitLfUp;
    float _SfIterativeFitLfDown;
+   float _SfIterativeFitHfUp;
+   float _SfIterativeFitHfDown;
    float _SfIterativeFitHfstats1Up;
    float _SfIterativeFitHfstats1Down;
    float _SfIterativeFitHfstats2Up;
    float _SfIterativeFitHfstats2Down;
+   float _SfIterativeFitLfstats1Up;
+   float _SfIterativeFitLfstats1Down;
+   float _SfIterativeFitLfstats2Up;
+   float _SfIterativeFitLfstats2Down;
    float _SfIterativeFitCferr1Up;
    float _SfIterativeFitCferr1Down;
    float _SfIterativeFitCferr2Up;
