@@ -18,7 +18,7 @@ isMuonStream=${isMuonStream}
 isSig=${isSig}
 isTTBar=${isTTBar}
 
-export ROOTSYS=/cvmfs/cms.cern.ch/slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed4
+export ROOTSYS=/cvmfs/cms.cern.ch/slc6_amd64_gcc530/lcg/root/6.06.00-ikhhed6
 ls $ROOTSYS/bin/thisroot.sh
 source $ROOTSYS/bin/thisroot.sh
 rootV=$(root-config --version)
