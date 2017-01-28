@@ -46,10 +46,8 @@ void Event::read(float xsec,float noe,int dataStream,bool issig,bool isttbar)
    int nTrig = ntP->trigger_name->size();
    for(int it=0;it<nTrig;it++)
      {
-	if( ntP->trigger_name->at(it).find("HLT_IsoMu22_v") != std::string::npos ||
-	    ntP->trigger_name->at(it).find("HLT_IsoTkMu22_v") != std::string::npos )
-//	if( ntP->trigger_name->at(it).find("HLT_IsoMu24_v") != std::string::npos ||
-//	    ntP->trigger_name->at(it).find("HLT_IsoTkMu24_v") != std::string::npos )
+	if( ntP->trigger_name->at(it).find("HLT_IsoMu24_v") != std::string::npos ||
+	    ntP->trigger_name->at(it).find("HLT_IsoTkMu24_v") != std::string::npos )
 	  {	     
 	     if( (_isData && dataStream == 1) || !_isData )
 	       {		  
@@ -57,8 +55,6 @@ void Event::read(float xsec,float noe,int dataStream,bool issig,bool isttbar)
 	       }	     
 	  }	
 
-//	if( ntP->trigger_name->at(it).find("HLT_Ele35_WPLoose_Gsf_v") != std::string::npos ||
-//	    ntP->trigger_name->at(it).find("HLT_Ele27_WPTight_Gsf_v") != std::string::npos )
 	if( ntP->trigger_name->at(it).find("HLT_Ele32_eta2p1_WPTight_Gsf_v") != std::string::npos )
 	  {	     
 	     if( (_isData && dataStream == 0) || !_isData )

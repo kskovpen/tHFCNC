@@ -45,9 +45,9 @@ EffectiveAreas* effectiveAreas_;
 
 unsigned int idx;
 
-double _weights[50];
-double _weightsUp[50];
-double _weightsDown[50];
+double _weights[75];
+double _weightsUp[75];
+double _weightsDown[75];
 
 int main(int argc, char *argv[])
 {
@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
    Event ev;
    Truth truth;
 
-   calib = new BTagCalibration("csvv2","/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/CSVv2_ichep.csv");
+   calib = new BTagCalibration("csvv2","/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/CSVv2Moriond17_2017_1_26_BtoH.csv");
    reader_iterativefit = new BTagCalibrationReader(BTagEntry::OP_RESHAPING,"central",
 						   {"up_jes","down_jes","up_lf","down_lf",
 							"up_hf","down_hf",
@@ -143,11 +143,11 @@ int main(int argc, char *argv[])
 
    std::cout << "BTagCalibration initialized" << std::endl;
 
-   jesTotal = new JetCorrectionUncertainty(*(new JetCorrectorParameters("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/Spring16_25nsV6_MC/Spring16_25nsV6_MC_Uncertainty_AK4PFchs.txt")));
+   jesTotal = new JetCorrectionUncertainty(*(new JetCorrectorParameters("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/Summer16_23Sep2016V3_MC/Summer16_23Sep2016V3_MC_Uncertainty_AK4PFchs.txt")));
    
-   jer = new JME::JetResolution("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");
+   jer = new JME::JetResolution("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");
    
-   effectiveAreas_ = new EffectiveAreas("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt");
+   effectiveAreas_ = new EffectiveAreas("/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/RecoEgamma/ElectronIdentification/data/Summer16/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_80X.txt");
    
    rnd = new TRandom3();
 
@@ -195,9 +195,9 @@ int main(int argc, char *argv[])
 
    if( !_isdata )
      {	   
-	std::string puNom = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/Pileup.root";
-	std::string puUp = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/PileupUp.root";
-	std::string puDown = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/PileupDown.root";
+	std::string puNom = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/Pileup.root";
+	std::string puUp = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/PileupUp.root";
+	std::string puDown = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/PileupDown.root";
 	
 	_fpuNom = TFile::Open(puNom.c_str(),"READ");
 	_fpuUp = TFile::Open(puUp.c_str(),"READ");
@@ -209,7 +209,7 @@ int main(int argc, char *argv[])
 
 	readPU();
    
-	std::string egID = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_12/src/tHFCNC/NtupleProducer/test/egammaEffi_MediumCB_SF2D.root";
+	std::string egID = "/user/kskovpen/analysis/tHFCNC/CMSSW_8_0_25/src/tHFCNC/NtupleProducer/test/egammaEffi_MediumCB_SF2D.root";
 	_fegammaID = TFile::Open(egID.c_str(),"READ");
 	
 	_fegammaID->GetObject("EGamma_SF2D",_hegammaID);
@@ -325,79 +325,106 @@ int main(int argc, char *argv[])
 
 void readPU()
 {
-   // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/SimGeneral/MixingModule/python/mix_2016_25ns_SpringMC_PUScenarioV1_PoissonOOTPU_cfi.py
-   
-   double npuSpring16_25ns[50] = {
-      0.000829312873542,
-      0.00124276120498,
-      0.00339329181587,
-      0.00408224735376,
-      0.00383036590008,
-      0.00659159288946,
-      0.00816022734493,
-      0.00943640833116,
-      0.0137777376066,
-      0.017059392038,
-      0.0213193035468,
-      0.0247343174676,
-      0.0280848773878,
-      0.0323308476564,
-      0.0370394341409,
-      0.0456917721191,
-      0.0558762890594,
-      0.0576956187107,
-      0.0625325287017,
-      0.0591603758776,
-      0.0656650815128,
-      0.0678329011676,
-      0.0625142146389,
-      0.0548068448797,
-      0.0503893295063,
-      0.040209818868,
-      0.0374446988111,
-      0.0299661572042,
-      0.0272024759921,
-      0.0219328403791,
-      0.0179586571619,
-      0.0142926728247,
-      0.00839941654725,		
-      0.00522366397213,
-      0.00224457976761,
-      0.000779274977993,
-      0.000197066585944,
-      0.0000716031761328,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0};
+   // https://github.com/cms-sw/cmssw/blob/CMSSW_8_0_X/SimGeneral/MixingModule/python/mix_2016_25ns_Moriond17MC_PoissonOOTPU_cfi.py
+
+   double npuSummer16_25ns[75] =
+     {
+	1.78653e-05,
+	2.56602e-05,
+	5.27857e-05,
+	8.88954e-05,
+	0.000109362,
+	0.000140973,
+	0.000240998,
+	0.00071209,
+	0.00130121,
+	0.00245255,
+	0.00502589,
+	0.00919534,
+	0.0146697,
+	0.0204126,
+	0.0267586,
+	0.0337697,
+	0.0401478,
+	0.0450159,
+	0.0490577,
+	0.0524855,
+	0.0548159,
+	0.0559937,
+	0.0554468,
+	0.0537687,
+	0.0512055,
+	0.0476713,
+	0.0435312,
+	0.0393107,
+	0.0349812,
+	0.0307413,
+	0.0272425,
+	0.0237115,
+	0.0208329,
+	0.0182459,
+	0.0160712,
+	0.0142498,
+	0.012804,
+	0.011571,
+	0.010547,
+	0.00959489,
+	0.00891718,
+	0.00829292,
+	0.0076195,
+	0.0069806,
+	0.0062025,
+	0.00546581,
+	0.00484127,
+	0.00407168,
+	0.00337681,
+	0.00269893,
+	0.00212473,
+	0.00160208,
+	0.00117884,
+	0.000859662,
+	0.000569085,
+	0.000365431,
+	0.000243565,
+	0.00015688,
+	9.88128e-05,
+	6.53783e-05,
+	3.73924e-05,
+	2.61382e-05,
+	2.0307e-05,
+	1.73032e-05,
+	1.435e-05,
+	1.36486e-05,
+	1.35555e-05,
+	1.37491e-05,
+	1.34255e-05,
+	1.33987e-05,
+	1.34061e-05,
+	1.34211e-05,
+	1.34177e-05,
+	1.32959e-05,
+	1.33287e-05
+     };
 
    double tot = 0;
    double totUp = 0;
    double totDown = 0;
-   for(unsigned int npu=0;npu<50;++npu)
+   for(unsigned int npu=0;npu<75;++npu)
      {	
 	const double npuEst = _hpuNom->GetBinContent(_hpuNom->GetXaxis()->FindBin(npu));
-	_weights[npu] = (npuSpring16_25ns[npu]) ? npuEst / npuSpring16_25ns[npu] : 0.;
+	_weights[npu] = (npuSummer16_25ns[npu]) ? npuEst / npuSummer16_25ns[npu] : 0.;
 	tot += npuEst;
 
 	const double npuEstUp = _hpuUp->GetBinContent(_hpuUp->GetXaxis()->FindBin(npu));
-	_weightsUp[npu] = (npuSpring16_25ns[npu]) ? npuEstUp / npuSpring16_25ns[npu] : 0.;
+	_weightsUp[npu] = (npuSummer16_25ns[npu]) ? npuEstUp / npuSummer16_25ns[npu] : 0.;
 	totUp += npuEstUp;
 
 	const double npuEstDown = _hpuDown->GetBinContent(_hpuDown->GetXaxis()->FindBin(npu));
-	_weightsDown[npu] = (npuSpring16_25ns[npu]) ? npuEstDown / npuSpring16_25ns[npu] : 0.;
+	_weightsDown[npu] = (npuSummer16_25ns[npu]) ? npuEstDown / npuSummer16_25ns[npu] : 0.;
 	totDown += npuEstDown;
      }
 
-   for(unsigned int npu=0;npu<50;++npu)
+   for(unsigned int npu=0;npu<75;++npu)
      {
 	_weights[npu] /= tot;
 	_weightsUp[npu] /= totUp;
