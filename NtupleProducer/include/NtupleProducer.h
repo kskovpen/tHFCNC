@@ -36,9 +36,9 @@ extern double cJER[13];
 extern double cJER_down[13];
 extern double cJER_up[13];
 
-extern double _weights[50];
-extern double _weightsUp[50];
-extern double _weightsDown[50];
+extern double _weights[75];
+extern double _weightsUp[75];
+extern double _weightsDown[75];
 
 extern TH2F* _hegammaID;
 
