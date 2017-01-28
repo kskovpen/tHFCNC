@@ -1,4 +1,4 @@
-#include "include/NtupleProducer.h"
+#includEп "include/NtupleProducer.h"
 
 ClassImp(Event)
     
@@ -116,11 +116,11 @@ double Event::getPUWeight(int nPU,std::string opt)
 {   
    double w = 1.;
    
-   if( nPU >= 50 )
+   if( nPU >= 75 )
      {	
-	w = _weights[50];
-	if( opt == "up" ) w = _weightsUp[50];
-	if( opt == "down" ) w = _weightsDown[50];
+	w = _weights[75];
+	if( opt == "up" ) w = _weightsUp[75];
+	if( opt == "down" ) w = _weightsDown[75];
      }   
    else
      {	
