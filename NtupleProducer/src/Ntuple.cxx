@@ -20,8 +20,10 @@ void Ntuple::Init(std::string fname)
 
 void Ntuple::setBranchAddress()
 {
-   m_tree->Branch("Electron","std::vector<Electron>",(NtElectronTight),32000,1);
-   m_tree->Branch("Muon","std::vector<Muon>",(NtMuonTight),32000,1);
+   m_tree->Branch("ElectronLoose","std::vector<Electron>",(NtElectronLoose),32000,1);
+   m_tree->Branch("MuonLoose","std::vector<Muon>",(NtMuonLoose),32000,1);
+   m_tree->Branch("ElectronTight","std::vector<Electron>",(NtElectronTight),32000,1);
+   m_tree->Branch("MuonTight","std::vector<Muon>",(NtMuonTight),32000,1);
    m_tree->Branch("Event","std::vector<Event>",(NtEvent),32000,1);
    m_tree->Branch("Jet","std::vector<Jet>",(NtJetTight),32000,1);
    m_tree->Branch("Truth","std::vector<Truth>",(NtTruth),32000,1);

@@ -54,41 +54,60 @@ void Electron::init()
    _isTightCBId = 0;
    
    _relIso = 0;
+   
+   _wid = 1.;
+   _widUp = 1.;
+   _widDown = 1.;
 }
 
 void Electron::sel()
 {   
    bool passPtLoose = (_pt > 10.);
-   bool passPtTight = (_pt > 40.);
-   bool passEta = (fabs(_eta) < 2.4);
-   bool passDxy = (fabs(_dxy) < 0.05);   
-   bool passDz = (fabs(_dz) < 0.1);   
+   bool passPtTight = (_pt > 35.);
+   bool passEtaLoose = (fabs(_eta) < 2.5);
+   bool passEtaTight = (fabs(_eta) < 2.1);
+//   bool passDxy = (fabs(_dxy) < 0.05);   
+//   bool passDz = (fabs(_dz) < 0.1);   
    bool passCrack = !(abs(_scleta) > 1.4442 && abs(_scleta) < 1.5660);   
    bool passConversionVeto = ntP->el_passConversionVeto->at(idx);
+
+   // https://twiki.cern.ch/twiki/bin/view/CMS/EgammaPFBasedIsolationRun2#Pile_up_corrections
+   
+   float rho = ntP->ev_rho;
+   float eA = effectiveAreas_->getEffectiveArea(fabs(_scleta));
    
    _relIso = (ntP->el_pfIso_sumChargedHadronPt->at(idx)+
 	      std::max(ntP->el_pfIso_sumNeutralHadronEt->at(idx)+ntP->el_pfIso_sumPhotonEt->at(idx)-
-		       0.5*ntP->el_pfIso_sumPUPt->at(idx),0.0))/_pt;
+		       eA*ntP->ev_rho,0.0f))/_pt;
    
    bool passRelIsoLoose = (_relIso < 0.25);
    bool passRelIsoTight = (_relIso < 0.15);
    
+   if( !_isdata )
+     {	
+	std::pair<float,float> sf = getSF(_eta,_pt);
+	_wid = sf.first;
+	_widUp = sf.first+sf.second;
+	_widDown = std::max(float(0.),float(sf.first-sf.second));
+     }   
+   
    _isLoose = (
 	       passPtLoose &&
-	       passEta &&
-	       passDxy &&
-	       passDz &&
-	       passCrack &&
-	       passConversionVeto &&
-	       passRelIsoLoose &&
+	       passEtaLoose &&
+//	       passDxy &&
+//	       passDz &&
+//	       passCrack &&
+//	       passConversionVeto &&
+//	       passRelIsoLoose &&
 	       _isLooseCBId
 	      );
 
    _isTight = (
 	       _isLoose &&
+	       passEtaTight &&
 	       passPtTight &&
-	       _isMediumCBId &&
-	       passRelIsoTight
+	       _isMediumCBId
+//	       passRelIsoTight
 	      );
    
    for(int id=0;id<evdebug->size();id++)
@@ -99,4 +118,36 @@ void Electron::sel()
 	     std::cout << "   pt=" << _pt << " eta=" << _eta << " phi=" << _phi << std::endl;
 	  }
      }
+}
+
+std::pair<float,float> Electron::getSF(float eta,float pt)
+{
+   std::pair<float,float> w;
+   
+   float v = 1.;
+   float err = 0.;
+   
+   if( fabs(eta) > 2.5 ) return std::make_pair(v,err);
+   
+   int nbinsX = _hegammaID->GetXaxis()->GetNbins();
+   int nbinsY = _hegammaID->GetYaxis()->GetNbins();
+
+   int ibinX = _hegammaID->GetXaxis()->FindBin(eta);
+   
+   if( pt < 200 )
+     {	
+	int ibinY = _hegammaID->GetYaxis()->FindBin(pt);
+	
+	v = _hegammaID->GetBinContent(ibinX,ibinY);
+	err = _hegammaID->GetBinError(ibinX,ibinY);
+     }
+   else
+     {
+	v = _hegammaID->GetBinContent(ibinX,nbinsY);
+	err = _hegammaID->GetBinError(ibinX,nbinsY);
+     }  
+   
+   w = std::make_pair(v,err);
+   
+   return w;
 }

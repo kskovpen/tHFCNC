@@ -54,25 +54,26 @@ void Muon::sel()
    _isTightID = ntP->mu_isTightMuon->at(idx);
    
    bool passPtLoose = (_pt > 10.);
-   bool passPtTight = (_pt > 30.);
-   bool passEta = (fabs(_eta) < 2.4);
+   bool passPtTight = (_pt > 27.);
+   bool passEtaLoose = (fabs(_eta) < 2.4);
+   bool passEtaTight = (fabs(_eta) < 2.1);
    bool passDxy = (fabs(_dxy) < 0.05);
    bool passDz = (fabs(_dz) < 0.1);
 
    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/SWGuideMuonIdRun2#Muon_Isolation
    // http://www.sciencedirect.com/science/article/pii/S0370269312005564#
-   _relIso = (ntP->mu_pfIso03_sumChargedHadronPt->at(idx) +
-	      std::max(ntP->mu_pfIso03_sumNeutralHadronEt->at(idx) +
-		       ntP->mu_pfIso03_sumPhotonEt->at(idx) - 0.5*ntP->mu_pfIso03_sumPUPt->at(idx),0.0))/_pt;
+   _relIso = (ntP->mu_pfIso04_sumChargedHadronPt->at(idx) +
+	      std::max(ntP->mu_pfIso04_sumNeutralHadronEt->at(idx) +
+		       ntP->mu_pfIso04_sumPhotonEt->at(idx) - 0.5*ntP->mu_pfIso04_sumPUPt->at(idx),0.0))/_pt;
    
    bool passRelIsoLoose = (_relIso < 0.25);
    bool passRelIsoTight = (_relIso < 0.15);
      
    _isLoose = (
 	       passPtLoose &&
-	       passEta &&
-	       passDxy &&
-	       passDz &&
+	       passEtaLoose &&
+//	       passDxy &&
+//	       passDz &&
 	       passRelIsoLoose &&
 	       _isLooseID
 	      );
@@ -80,6 +81,7 @@ void Muon::sel()
    _isTight = (
 	       _isLoose &&
 	       passPtTight &&
+	       passEtaTight &&
 	       _isTightID &&
 	       passRelIsoTight
 	      );

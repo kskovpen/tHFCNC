@@ -48,7 +48,14 @@ void Jet::read()
    if( CHECK(ntP->jet_charge) )                _charge   = ntP->jet_charge->at(idx);
    if( CHECK(ntP->jet_chargeVec) )             _chargeVec   = ntP->jet_chargeVec->at(idx);
    
-   if(_pt > 0.) _p4.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   if(_pt > 0.) 
+     {
+	_p4.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+	_p4_jesTotalUp.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+	_p4_jesTotalDown.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+	_p4_jerTotalUp.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+	_p4_jerTotalDown.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+     }   
 }
 
 void Jet::init()
@@ -119,25 +126,25 @@ void Jet::init()
 void Jet::sel()
 {   
    bool passPt = (_pt > 30.);
-   bool passEta = (fabs(_eta) < 5.2);
+   bool passEta = (fabs(_eta) < 2.4);
 
    TLorentzVector vjet;
    vjet.SetPtEtaPhiE(_pt,_eta,_phi,_E);
    
    bool passMuOverlap = 1;
-   int nMuonLoose = nt->NtMuonLoose->size();
-   for(int im=0;im<nMuonLoose;im++)
+   int nMuonTight = nt->NtMuonTight->size();
+   for(int im=0;im<nMuonTight;im++)
      {
-	float dr = GetDeltaR(_eta,_phi,nt->NtMuonLoose->at(im).eta(),nt->NtMuonLoose->at(im).phi());
-	if( dr < 0.4 && nt->NtMuonLoose->at(im).pt() > 10. ) passMuOverlap = 0;
+	float dr = GetDeltaR(_eta,_phi,nt->NtMuonTight->at(im).eta(),nt->NtMuonTight->at(im).phi());
+	if( dr < 0.4 ) passMuOverlap = 0;
      }  
 
    bool passElOverlap = 1;
-   int nElectronLoose = nt->NtElectronLoose->size();
-   for(int ie=0;ie<nElectronLoose;ie++)
+   int nElectronTight = nt->NtElectronTight->size();
+   for(int ie=0;ie<nElectronTight;ie++)
      {
-	float dr = GetDeltaR(_eta,_phi,nt->NtElectronLoose->at(ie).eta(),nt->NtElectronLoose->at(ie).phi());
-	if( dr < 0.4 && nt->NtElectronLoose->at(ie).pt() > 10. ) passElOverlap = 0;
+	float dr = GetDeltaR(_eta,_phi,nt->NtElectronTight->at(ie).eta(),nt->NtElectronTight->at(ie).phi());
+	if( dr < 0.4 ) passElOverlap = 0;
      }  
 
    _passElecOverlap = passElOverlap;
@@ -214,6 +221,119 @@ void Jet::sel()
 	     _SfIterativeFitLfstats2Down = reader_iterativefit->eval_auto_bounds("down_lfstats2",BTagEntry::FLAV_UDSG,aeta,_pt,_CSVv2);
 	  }   
      }
+
+   _p4.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   _p4_jesTotalDown.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   _p4_jesTotalUp.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   _p4_jerTotalDown.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   _p4_jerTotalUp.SetPtEtaPhiE(_pt,_eta,_phi,_E);
+   
+   if( !_isdata )
+     {	
+	// JER
+
+	JME::JetParameters pjer;
+	pjer.setJetPt(_pt);
+	pjer.setJetEta(_eta);
+	pjer.setRho(nt->NtEvent->at(0).rho());
+	
+	float dpt;
+	float dR;
+	float dpt_min = 99999;
+	int idx_matched_genjet = -1;
+	
+	float resol = jer->getResolution(pjer)*_pt;
+	
+	for(int ij=0;ij<ntP->genJet_n;ij++)
+	  {
+	     dpt = fabs(_pt-ntP->genJet_pt->at(ij));
+	     dR = GetDeltaR(_eta,_phi,ntP->genJet_eta->at(ij),ntP->genJet_phi->at(ij));
+	     
+	     if( dR < 0.2 )
+	       {
+		  if( dpt < (3*fabs(resol)) )
+		    {
+		       if( dpt <= dpt_min )
+			 {
+			    idx_matched_genjet = ij;
+			    dpt_min = dpt;
+			 }
+		    }
+	       }
+	  }
+
+	int etaIdx = -1;
+	if( fabs(_eta) >= 0. && fabs(_eta) < 0.5 ) etaIdx = 0;
+	if( fabs(_eta) >= 0.5 && fabs(_eta) < 0.8 ) etaIdx = 1;
+	if( fabs(_eta) >= 0.8 && fabs(_eta) < 1.1 ) etaIdx = 2;
+	if( fabs(_eta) >= 1.1 && fabs(_eta) < 1.3 ) etaIdx = 3;
+	if( fabs(_eta) >= 1.3 && fabs(_eta) < 1.7 ) etaIdx = 4;
+	if( fabs(_eta) >= 1.7 && fabs(_eta) < 1.9 ) etaIdx = 5;
+	if( fabs(_eta) >= 1.9 && fabs(_eta) < 2.1 ) etaIdx = 6;
+	if( fabs(_eta) >= 2.1 && fabs(_eta) < 2.3 ) etaIdx = 7;
+	if( fabs(_eta) >= 2.3 && fabs(_eta) < 2.5 ) etaIdx = 8;
+	if( fabs(_eta) >= 2.5 && fabs(_eta) < 2.8 ) etaIdx = 9;
+	if( fabs(_eta) >= 2.8 && fabs(_eta) < 3.0 ) etaIdx = 10;
+	if( fabs(_eta) >= 3.0 && fabs(_eta) < 3.2 ) etaIdx = 11;
+	if( fabs(_eta) >= 3.2 && fabs(_eta) < 5.0 ) etaIdx = 12;
+	
+	float jpt_c = _pt;
+	float jpt_c_up = _pt;
+	float jpt_c_down = _pt;
+	
+	if( idx_matched_genjet >= 0 )
+	  {	     	
+	     if( etaIdx >= 0 )
+	       {
+		  float genpt = ntP->genJet_pt->at(idx_matched_genjet);
+		  
+		  if( genpt >= 0. )
+		    {
+		       jpt_c = std::max(float(0.),float(genpt+cJER[etaIdx]*(_pt-genpt)));		       
+		       jpt_c_down = std::max(float(0.),float(genpt+cJER_down[etaIdx]*(_pt-genpt)));
+		       jpt_c_up = std::max(float(0.),float(genpt+cJER_up[etaIdx]*(_pt-genpt)));
+		    }	     
+	       }	 
+	  }
+	else
+	  {
+	     if( etaIdx >= 0 )
+	       {		  
+		  float smear = rnd->Gaus(0.,1.);
+		  
+		  float sig = std::sqrt(cJER[etaIdx]*cJER[etaIdx]-1.)*resol*_pt;
+		  float sigUp = std::sqrt(cJER_up[etaIdx]*cJER_up[etaIdx]-1.)*resol*_pt;
+		  float sigDn = std::sqrt(cJER_down[etaIdx]*cJER_down[etaIdx]-1.)*resol*_pt;
+		  
+		  jpt_c = std::max(float(0.),float(smear*sig+_pt));
+		  jpt_c_up = std::max(float(0.),float(smear*sigUp+_pt));
+		  jpt_c_down = std::max(float(0.),float(smear*sigDn+_pt));
+	       }
+	  }
+
+	float jerCor = jpt_c/_pt;
+	float jerCorUp = jpt_c_up/_pt;
+	float jerCorDown = jpt_c_down/_pt;
+	
+	_p4.SetPtEtaPhiE(_pt*jerCor,_eta,_phi,_E*jerCor);
+	_p4_jerTotalDown.SetPtEtaPhiE(_pt*jerCorDown,_eta,_phi,_E*jerCorDown);
+	_p4_jerTotalUp.SetPtEtaPhiE(_pt*jerCorUp,_eta,_phi,_E*jerCorUp);
+	
+	// JES
+
+	float ptjer = _p4.Pt();
+	float phijer = _p4.Phi();
+	float etajer = _p4.PseudoRapidity();
+	float ejer = _p4.E();
+	
+	jesTotal->setJetPt(ptjer);
+	jesTotal->setJetEta(etajer);
+	
+	double uncert = jesTotal->getUncertainty(true);
+	
+	_p4_jesTotalUp.SetPtEtaPhiE(ptjer*(1.+uncert),etajer,phijer,ejer*(1.+uncert));
+	_p4_jesTotalDown.SetPtEtaPhiE(ptjer*(1.-uncert),etajer,phijer,ejer*(1.-uncert));
+     }      
    
    _isLoose = (
 	       passPt &&
@@ -235,9 +355,12 @@ void Jet::sel()
 	  {
 	     std::cout << "Jet #" << _ID << std::endl;
 	     std::cout << "   pt=" << _pt << " eta=" << _eta << " phi=" << _phi << std::endl;
+	     std::cout << "   passPt=" << passPt << std::endl;
+	     std::cout << "   passEta=" << passEta << std::endl;
 	     std::cout << "   isTight=" << _isTight << std::endl;
-	     std::cout << "   passElOverlap=" << passElOverlap << std::endl;
-	     std::cout << "   passMuOverlap=" << passMuOverlap << std::endl;
+	     std::cout << "   isLooseJetID=" << _isLooseJetID << std::endl;
+//	     std::cout << "   passElOverlap=" << passElOverlap << std::endl;
+//	     std::cout << "   passMuOverlap=" << passMuOverlap << std::endl;
 	  }	
      }
 }

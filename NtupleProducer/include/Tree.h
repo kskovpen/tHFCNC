@@ -108,7 +108,7 @@ public :
    Float_t         pv_yError;
    Float_t         pv_zError;
    Float_t         pv_chi2;
-   Int_t           pv_ndof;
+   Float_t         pv_ndof;
    Float_t         pv_rho;
    Int_t           pv_isFake;
    Float_t         mc_weight;
@@ -521,6 +521,8 @@ public :
    vector<float>   *jet_CMVA;
    vector<float>   *jet_CSVv2;
    vector<float>   *jet_cMVAv2;
+   vector<float>   *jet_charge;
+   vector<float>   *jet_chargeVec;
    vector<float>   *jet_CharmCvsL;
    vector<float>   *jet_CharmCvsB;
    vector<int>     *jet_partonFlavour;
@@ -588,6 +590,7 @@ public :
    vector<int>     *gen_mother_index;
    vector<int>     *gen_daughter_n;
    vector<vector<int> > *gen_daughter_index;
+   Int_t           genTTX_id;
    
    // List of branches
    TBranch        *b_ev_run;   //!
@@ -1097,6 +1100,8 @@ public :
    TBranch        *b_jet_CMVA;   //!
    TBranch        *b_jet_CSVv2;   //!
    TBranch        *b_jet_cMVAv2;   //!
+   TBranch        *b_jet_charge;   //!
+   TBranch        *b_jet_chargeVec;   //!
    TBranch        *b_jet_CharmCvsL;   //!
    TBranch        *b_jet_CharmCvsB;   //!
    TBranch        *b_jet_partonFlavour;   //!
@@ -1164,6 +1169,7 @@ public :
    TBranch        *b_gen_mother_index;   //!
    TBranch        *b_gen_daughter_n;   //!
    TBranch        *b_gen_daughter_index;   //!
+   TBranch        *b_genTTX_id;  //!
    
    Tree(TChain *tree=0,std::string fname="output.root",std::string treename="FlatTree/tree");
    virtual ~Tree();

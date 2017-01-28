@@ -435,6 +435,8 @@ void Tree::Init(TChain *ch)
    jet_CMVA = 0;
    jet_CSVv2 = 0;
    jet_cMVAv2 = 0;
+   jet_charge = 0;
+   jet_chargeVec = 0;
    jet_CharmCvsL = 0;
    jet_CharmCvsB = 0;
    jet_partonFlavour = 0;
@@ -500,6 +502,7 @@ void Tree::Init(TChain *ch)
    gen_mother_index = 0;
    gen_daughter_n = 0;
    gen_daughter_index = 0;
+   genTTX_id = 0;
 
    // Set branch addresses and branch pointers
    if (!ch) return;
@@ -1010,6 +1013,8 @@ void Tree::Init(TChain *ch)
    fChain->SetBranchAddress("jet_CMVA", &jet_CMVA, &b_jet_CMVA);
    fChain->SetBranchAddress("jet_CSVv2", &jet_CSVv2, &b_jet_CSVv2);
    fChain->SetBranchAddress("jet_cMVAv2", &jet_cMVAv2, &b_jet_cMVAv2);
+   fChain->SetBranchAddress("jet_charge", &jet_charge, &b_jet_charge);
+   fChain->SetBranchAddress("jet_chargeVec", &jet_chargeVec, &b_jet_chargeVec);
    fChain->SetBranchAddress("jet_CharmCvsL", &jet_CharmCvsL, &b_jet_CharmCvsL);
    fChain->SetBranchAddress("jet_CharmCvsB", &jet_CharmCvsB, &b_jet_CharmCvsB);
    fChain->SetBranchAddress("jet_partonFlavour", &jet_partonFlavour, &b_jet_partonFlavour);
@@ -1078,4 +1083,6 @@ void Tree::Init(TChain *ch)
    if( fChain->GetBranch("gen_mother_index") ) fChain->SetBranchAddress("gen_mother_index", &gen_mother_index, &b_gen_mother_index);
    if( fChain->GetBranch("gen_daughter_n") ) fChain->SetBranchAddress("gen_daughter_n", &gen_daughter_n, &b_gen_daughter_n);
    if( fChain->GetBranch("gen_daughter_index") ) fChain->SetBranchAddress("gen_daughter_index", &gen_daughter_index, &b_gen_daughter_index);
+   
+   if( fChain->GetBranch("genTTX_id") ) fChain->SetBranchAddress("genTTX_id", &genTTX_id, &b_genTTX_id);
 }

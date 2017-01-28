@@ -42,11 +42,17 @@ class Electron : public Base
    
    float relIso()     {return _relIso;};
    
+   float wid()     {return _wid;};
+   float widUp()     {return _widUp;};
+   float widDown()     {return _widDown;};
+   
    void read();
    void init();
 	
  protected:
 
+   std::pair<float,float> getSF(float eta,float pt);
+   
    int _ID;
    
    float _E;
@@ -71,6 +77,10 @@ class Electron : public Base
    bool _isTightCBId;
    
    float _relIso;
+   
+   float _wid;
+   float _widUp;
+   float _widDown;
    
    ClassDef(Electron,1)
 };

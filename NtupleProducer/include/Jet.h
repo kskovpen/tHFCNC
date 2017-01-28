@@ -41,6 +41,12 @@ class Jet : public Base
    
    TLorentzVector p4()  {return _p4;};
    
+   TLorentzVector p4_jesTotalUp()  {return _p4_jesTotalUp;};
+   TLorentzVector p4_jesTotalDown()  {return _p4_jesTotalDown;};
+
+   TLorentzVector p4_jerTotalUp()  {return _p4_jerTotalUp;};
+   TLorentzVector p4_jerTotalDown()  {return _p4_jerTotalDown;};
+   
    float CSVv2()         {return _CSVv2;};
    float cMVAv2()         {return _cMVAv2;};
    
@@ -110,6 +116,10 @@ class Jet : public Base
    int _gen_id;
    
    TLorentzVector _p4;
+   TLorentzVector _p4_jesTotalUp;
+   TLorentzVector _p4_jesTotalDown;
+   TLorentzVector _p4_jerTotalUp;
+   TLorentzVector _p4_jerTotalDown;
 
    float _CSVv2;
    float _cMVAv2;

@@ -1,20 +1,20 @@
 CMSINC      = -I$(CMSSW_BASE)/src
 
-#EGAMLIB      = -L$(CMSSW_BASE)/lib/slc6_amd64_gcc481 -lEgammaAnalysisElectronTools
-#FORMLIB      = -L$(CMSSW_BASE)/lib/slc6_amd64_gcc481 -lEgammaAnalysisElectronTools
+CMSSWINC      = -I/cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_8_0_12/src
+JECLIB      = -L/cvmfs/cms.cern.ch/slc6_amd64_gcc530/cms/cmssw/CMSSW_8_0_12/lib/slc6_amd64_gcc530/ -lCondFormatsJetMETObjects -lJetMETCorrectionsModules -lRecoEgammaEgammaTools
 
 ROOTCFLAGS    = $(shell root-config --cflags)
 ROOTLIBS      = $(shell root-config --libs)
 ROOTGLIBS     = $(shell root-config --glibs)
 
-CXX           = g++ -fPIC -Wno-write-strings -Wno-writable-strings
+CXX           = g++ -g -Wno-write-strings -Wno-attributes -fPIC
 LD            = g++
 LDFLAGS       = -g
 SOFLAGS       = -shared
 
 CXXFLAGS       = $(ROOTCFLAGS)
-INCLUDE_FLAGS  = $(CMSINC)
-LDLIBS         = $(ROOTLIBS)
+INCLUDE_FLAGS  = $(CMSSWINC)
+LDLIBS         = $(ROOTLIBS) $(JECLIB)
 GLIBS          = $(ROOTGLIBS)
 
 EXE           = test/NtupleProducer
