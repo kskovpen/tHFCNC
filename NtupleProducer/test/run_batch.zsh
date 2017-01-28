@@ -60,7 +60,7 @@ do
     nmax=${nmax}
   fi
 
-  sigfl=$(echo $sample | grep "TH")
+  sigfl=$(echo $sample | grep "FCNC")
   isSig=0
   if [[ $sigfl != "" ]]; then
     isSig=1
