@@ -299,7 +299,12 @@ int main(int argc, char *argv[])
 	   ((nElecTight == 1 && nMuonLoose+nMuonTight == 0 && nElecLoose == 0) ||
 	       (nMuonTight == 1 && nElecLoose+nElecTight == 0 && nMuonLoose == 0)) &&
 	   (nJetLoose+nJetTight) >= 3 && nJetBTag >= 2
-	  )
+	  ) // main analysis
+/*	if(
+	   ((nElecTight == 1 && nMuonLoose+nMuonTight == 0 && nElecLoose == 0) ||
+	       (nMuonTight == 1 && nElecLoose+nElecTight == 0 && nMuonLoose == 0)) &&
+	   (nJetLoose+nJetTight) >= 3
+	  ) // TopKinFit*/
 	  {
 	     nt->fill();
 	  }
