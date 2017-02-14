@@ -27,8 +27,7 @@ class ApplyMVA
    void setVariable_TopLepEta_TOPHLEPBB(float v)       {TopLepEta_TOPHLEPBB = v;};
    void setVariable_HiggsBJet1HiggsBJet2Dr_TOPHLEPBB(float v)       {HiggsBJet1HiggsBJet2Dr_TOPHLEPBB = v;};
    void setVariable_TopLepHiggsDr_TOPHLEPBB(float v)       {TopLepHiggsDr_TOPHLEPBB = v;};
-   void setVariable_TopLepTopHadDr_TOPTOPLEPHAD(float v)       {TopLepTopHadDr_TOPTOPLEPHAD = v;};
-   
+   void setVariable_TopLepTopHadDr_TOPTOPLEPHAD(float v)       {TopLepTopHadDr_TOPTOPLEPHAD = v;};   
    void setVariable_HiggsMass_TOPTOPLEPHBB(float v)       {HiggsMass_TOPTOPLEPHBB = v;};
    void setVariable_MVA_TOPTOPLEPHBB(float v)       {MVA_TOPTOPLEPHBB = v;};
    void setVariable_HiggsEta_TOPTOPLEPHBB(float v)       {HiggsEta_TOPTOPLEPHBB = v;};
@@ -37,26 +36,67 @@ class ApplyMVA
    void setVariable_TopLepEta_TOPTOPLEPHBB(float v)       {TopLepEta_TOPTOPLEPHBB = v;};
    void setVariable_HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB(float v)       {HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB = v;};
    void setVariable_TopLepHiggsDr_TOPTOPLEPHBB(float v)       {TopLepHiggsDr_TOPTOPLEPHBB = v;};
+   void setVariable_HiggsBJet1CSVv2_TOPHLEPBB(float v)       {HiggsBJet1CSVv2_TOPHLEPBB = v;};
+   void setVariable_HiggsBJet2CSVv2_TOPHLEPBB(float v)       {HiggsBJet2CSVv2_TOPHLEPBB = v;};
+   void setVariable_TopLepBJetCSVv2_TOPHLEPBB(float v)       {TopLepBJetCSVv2_TOPHLEPBB = v;};
+   void setVariable_HiggsBJet1CSVv2_TOPTOPLEPHBB(float v)       {HiggsBJet1CSVv2_TOPTOPLEPHBB = v;};
+   void setVariable_HiggsBJet2CSVv2_TOPTOPLEPHBB(float v)       {HiggsBJet2CSVv2_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepBJetCSVv2_TOPTOPLEPHBB(float v)       {TopLepBJetCSVv2_TOPTOPLEPHBB = v;};
+   void setVariable_TopHadNonBJetCSVv2_TOPTOPLEPHBB(float v)       {TopHadNonBJetCSVv2_TOPTOPLEPHBB = v;};
+   void setVariable_TopLepBJetCSVv2_TOPTOPLEPHAD(float v)       {TopLepBJetCSVv2_TOPTOPLEPHAD = v;};
+   void setVariable_TopHadBJetCSVv2_TOPTOPLEPHAD(float v)       {TopHadBJetCSVv2_TOPTOPLEPHAD = v;};
+   void setVariable_TopHadWNonBJet1CSVv2_TOPTOPLEPHAD(float v)       {TopHadWNonBJet1CSVv2_TOPTOPLEPHAD = v;};
+   void setVariable_TopHadWNonBJet2CSVv2_TOPTOPLEPHAD(float v)       {TopHadWNonBJet2CSVv2_TOPTOPLEPHAD = v;};
    
    void init();
    double run(std::string chan);
 
  protected:
 
-   TMVA::Reader* b3j4HutSTreader;
-   TMVA::Reader* b3j4HctSTreader;
-   TMVA::Reader* b3j4HutTTreader;
-   TMVA::Reader* b3j4HctTTreader;
+   TMVA::Reader* b0j3HutSTreader;
+   TMVA::Reader* b0j3HctSTreader;
+   TMVA::Reader* b0j3HutTTreader;
+   TMVA::Reader* b0j3HctTTreader;
+
+   TMVA::Reader* b0j4HutSTreader;
+   TMVA::Reader* b0j4HctSTreader;
+   TMVA::Reader* b0j4HutTTreader;
+   TMVA::Reader* b0j4HctTTreader;
+
+   TMVA::Reader* b1j3HutSTreader;
+   TMVA::Reader* b1j3HctSTreader;
+   TMVA::Reader* b1j3HutTTreader;
+   TMVA::Reader* b1j3HctTTreader;
+
+   TMVA::Reader* b1j4HutSTreader;
+   TMVA::Reader* b1j4HctSTreader;
+   TMVA::Reader* b1j4HutTTreader;
+   TMVA::Reader* b1j4HctTTreader;
+
+   TMVA::Reader* b2j3HutSTreader;
+   TMVA::Reader* b2j3HctSTreader;
+   TMVA::Reader* b2j3HutTTreader;
+   TMVA::Reader* b2j3HctTTreader;
+
+   TMVA::Reader* b2j4HutSTreader;
+   TMVA::Reader* b2j4HctSTreader;
+   TMVA::Reader* b2j4HutTTreader;
+   TMVA::Reader* b2j4HctTTreader;
 
    TMVA::Reader* b3j3HutSTreader;
    TMVA::Reader* b3j3HctSTreader;
    TMVA::Reader* b3j3HutTTreader;
    TMVA::Reader* b3j3HctTTreader;
 
-   TMVA::Reader* b2j4HutSTreader;
-   TMVA::Reader* b2j4HctSTreader;
-   TMVA::Reader* b2j4HutTTreader;
-   TMVA::Reader* b2j4HctTTreader;
+   TMVA::Reader* b3j4HutSTreader;
+   TMVA::Reader* b3j4HctSTreader;
+   TMVA::Reader* b3j4HutTTreader;
+   TMVA::Reader* b3j4HctTTreader;
+
+   TMVA::Reader* b4j4HutSTreader;
+   TMVA::Reader* b4j4HctSTreader;
+   TMVA::Reader* b4j4HutTTreader;
+   TMVA::Reader* b4j4HctTTreader;
    
    std::string _home;
 
@@ -77,7 +117,6 @@ class ApplyMVA
    float HiggsBJet1HiggsBJet2Dr_TOPHLEPBB;
    float TopLepHiggsDr_TOPHLEPBB;
    float TopLepTopHadDr_TOPTOPLEPHAD;
-
    float HiggsMass_TOPTOPLEPHBB;
    float MVA_TOPTOPLEPHBB;
    float HiggsEta_TOPTOPLEPHBB;
@@ -85,7 +124,18 @@ class ApplyMVA
    float TopLepPt_TOPTOPLEPHBB;
    float TopLepEta_TOPTOPLEPHBB;
    float HiggsBJet1HiggsBJet2Dr_TOPTOPLEPHBB;
-   float TopLepHiggsDr_TOPTOPLEPHBB;
+   float TopLepHiggsDr_TOPTOPLEPHBB;   
+   float HiggsBJet1CSVv2_TOPHLEPBB;
+   float HiggsBJet2CSVv2_TOPHLEPBB;
+   float TopLepBJetCSVv2_TOPHLEPBB;
+   float HiggsBJet1CSVv2_TOPTOPLEPHBB;
+   float HiggsBJet2CSVv2_TOPTOPLEPHBB;
+   float TopLepBJetCSVv2_TOPTOPLEPHBB;
+   float TopHadNonBJetCSVv2_TOPTOPLEPHBB;
+   float TopLepBJetCSVv2_TOPTOPLEPHAD;
+   float TopHadBJetCSVv2_TOPTOPLEPHAD;
+   float TopHadWNonBJet1CSVv2_TOPTOPLEPHAD;
+   float TopHadWNonBJet2CSVv2_TOPTOPLEPHAD;
 };
 
 #endif

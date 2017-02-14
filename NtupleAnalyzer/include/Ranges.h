@@ -6,14 +6,18 @@ namespace RANGE
    extern double set_H_m[3];
    extern double set_H_pt[3];
    extern double set_H_eta[3];
+   extern double set_H_phi[3];
    extern double set_top_m[3];
    extern double set_top_pt[3];
    extern double set_top_eta[3];
+   extern double set_top_phi[3];
    extern double set_W_m[3];
    extern double set_W_pt[3];
    extern double set_W_eta[3];
+   extern double set_W_phi[3];
    extern double set_l_pt[3];
    extern double set_l_eta[3];
+   extern double set_l_phi[3];
    extern double set_nu_pt[3];
    extern double set_nu_eta[3];
    extern double set_Hb_pt[3];
@@ -37,7 +41,18 @@ namespace RANGE
    extern double set_chi2[3];
    extern double set_l_charge[3];
    extern double set_MVA[3];
+   extern double set_MVA36[3];
    extern double set_bMVA[3];
+   extern double set_CSVv2[3];
+   extern double set_charge[3];
+   extern double set_CharmCvsL[3];
+   extern double set_CharmCvsB[3];
+   extern double set_JetPt[3];
+   extern double set_JetEta[3];
+   extern double set_JetPhi[3];
+   extern double set_JetE[3];
+   extern double set_PassSel9[3];
+   extern double set_PassSel5[3];
    
 /*
    double set_j_JP[19][3] = {

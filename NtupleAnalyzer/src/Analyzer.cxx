@@ -1,45 +1,32 @@
 #include "../include/Hist.h"
 #include "../include/ApplyMVA.h"
-//#include "ChargeMisid.h"
-//#include "RealEff.h"
-//#include "FakeRate.h"
-//#include "FakePred.h"
-//#include "FakeCR.h"
-//#include "FakeWeight.h"
 
 char *fin;
 char *flog;
 //char *runmode;
 char *tool;
-char *evc;
 std::string home;
 int nmax;
+bool evec;
 //int lept;
 //int lepm;
 //int imfake;
 TTree *tr;
-//TTree *treePRESCALE;
-
-std::vector<Electron>             *v_Electron;
-std::vector<Muon>             *v_Muon;
-std::vector<Event>             *v_Event;
-std::vector<Jet>             *v_Jet;
-std::vector<Truth>             *v_Truth;
 
 int main(int argc, char *argv[])
 {
-   if( argc < 6 )
+   if( argc < 7 )
      {
-	std::cout << "Usage: ./Analyzer [input file] [log file] [tool] [evc] [nmax] [home]" << std::endl;
+	std::cout << "Usage: ./Analyzer [input file] [log file] [tool] [nmax] [home] [evec]" << std::endl;
 	exit(1);
      }   
    
    fin = argv[1];
    flog = argv[2];
    tool = argv[3];
-   evc = argv[4];
-   nmax = atoi(argv[5]);
-   home = std::string(argv[6]);
+   nmax = atoi(argv[4]);
+   home = std::string(argv[5]);
+   evec = atoi(argv[6]);
    
    TChain f("Nt");
    
@@ -58,14 +45,18 @@ int main(int argc, char *argv[])
    
    infile.close();
 
-   std::vector<Electron>             *v_Electron             = new std::vector<Electron>();
-   std::vector<Muon>                 *v_Muon                 = new std::vector<Muon>();
+   std::vector<Electron>             *v_ElectronTight             = new std::vector<Electron>();
+   std::vector<Electron>             *v_ElectronLoose             = new std::vector<Electron>();
+   std::vector<Muon>                 *v_MuonTight                 = new std::vector<Muon>();
+   std::vector<Muon>                 *v_MuonLoose                 = new std::vector<Muon>();
    std::vector<Event>                 *v_Event                 = new std::vector<Event>();
    std::vector<Jet>                 *v_Jet                 = new std::vector<Jet>();
    std::vector<Truth>                 *v_Truth                 = new std::vector<Truth>();
    
-   f.SetBranchAddress("Electron", &v_Electron);
-   f.SetBranchAddress("Muon", &v_Muon);
+   f.SetBranchAddress("ElectronTight", &v_ElectronTight);
+   f.SetBranchAddress("ElectronLoose", &v_ElectronLoose);
+   f.SetBranchAddress("MuonTight", &v_MuonTight);
+   f.SetBranchAddress("MuonLoose", &v_MuonLoose);
    f.SetBranchAddress("Jet", &v_Jet);
    f.SetBranchAddress("Event", &v_Event);
    f.SetBranchAddress("Truth", &v_Truth);
@@ -87,21 +78,18 @@ int main(int argc, char *argv[])
    
    if( strcmp(tool,"plot") == 0 )
      {		
-	Hist hist(home);
+	Hist hist(home,evec);
 	
-	hist.setElectron(v_Electron);
-	hist.setMuon(v_Muon);
+	hist.setElectronTight(v_ElectronTight);
+	hist.setElectronLoose(v_ElectronLoose);
+	hist.setMuonTight(v_MuonTight);
+	hist.setMuonLoose(v_MuonLoose);
 	hist.setEvent(v_Event);
 	hist.setJet(v_Jet);
 	hist.setTruth(v_Truth);
 //	hist.setFakeWeight(fakeWeight);
 	hist.init();
-	
-	if( strcmp(evc,"1") == 0 )
-	  {
-	     std::cout << "Running in data challenge mode" << std::endl;
-	  }	     
-	
+
 	for(int i=0;i<nent;i++)
 	  {
 	     if( nmax >= 0 && i > nmax ) break;
@@ -109,15 +97,8 @@ int main(int argc, char *argv[])
 	     f.GetEntry(i);
 	     
 	     std::string fcur = f.GetCurrentFile()->GetName();
-	     if( strcmp(evc,"1") == 0 )
-	       {		 
-		  bool passFINAL = hist.printout(true);
-	       }
-	     else
-	       {	
-		  bool passFINAL = hist.printout(false);
-		  hist.fill();
-	       }	     
+
+	     hist.fill();
 	  }   
 	
 	hist.close();
