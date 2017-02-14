@@ -347,7 +347,7 @@ void Jet::sel()
 	       _isLooseJetID
 	      );
    
-   _isBTag = (_CSVv2 > 0.800);
+   _isBTag = (_CSVv2 > 0.8484);
 
    for(int id=0;id<evdebug->size();id++)
      {	
