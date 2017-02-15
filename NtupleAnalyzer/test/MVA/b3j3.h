@@ -58,6 +58,9 @@ void b3j3(std::string imva)
         tr_bkg.Add("../histTEST_MERGED/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WW_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/ZZ_TuneCUETP8M1_13TeV-pythia8.root");
 
 	tr_sig.SetBranchAddress("weight",&weight);
 	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
@@ -217,6 +220,9 @@ void b3j3(std::string imva)
         tr_bkg.Add("../histTEST_MERGED/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WW_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/ZZ_TuneCUETP8M1_13TeV-pythia8.root");
 
 	tr_sig.SetBranchAddress("weight",&weight);
 	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
@@ -367,6 +373,9 @@ void b3j3(std::string imva)
         tr_bkg.Add("../histTEST_MERGED/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WW_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/ZZ_TuneCUETP8M1_13TeV-pythia8.root");
    
 	tr_sig.SetBranchAddress("weight",&weight);
 	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
@@ -503,6 +512,9 @@ void b3j3(std::string imva)
         tr_bkg.Add("../histTEST_MERGED/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
 	tr_bkg.Add("../histTEST_MERGED/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WW_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/WZ_TuneCUETP8M1_13TeV-pythia8.root");
+	tr_bkg.Add("../histTEST_MERGED/ZZ_TuneCUETP8M1_13TeV-pythia8.root");
    
 	tr_sig.SetBranchAddress("weight",&weight);
 	tr_sig.SetBranchAddress("HiggsMass_TOPHLEPBB",&HiggsMass_TOPHLEPBB);
