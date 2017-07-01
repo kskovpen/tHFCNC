@@ -1,0 +1,90 @@
+imax * # number of channels
+jmax * # number of backgrounds
+kmax * # number of nuisance parameters
+---------------
+bin b4j4
+observation 2764
+---------------
+shapes * * /user/kskovpen/analysis/Limit/CMSSW_7_4_7/src/Limit/merge/merged/input_MVAHctComb_b4j4_hct.root combSTandTT_$PROCESS combSTandTT_$PROCESS_$SYSTEMATIC
+---------------
+bin b4j4 b4j4 b4j4 b4j4 b4j4
+process sig ttbb ttcc ttlf other
+process 0 1 2 3 4
+rate 285.53 1370.48 468.409 524.439 272.701
+---------------
+lumi lnN 1.027 1.027 1.027 1.027 1.027
+Jes lnN 1.05 1.05 1.05 1.05 1.05
+tt_norm lnN - 1.055 1.055 1.055 -
+other_norm_b4j4 lnN - - - - 1.10
+tt_add_bb lnN - 1.50 - - -
+tt_add_cc lnN - - 1.50 - -
+hdamp lnN - 1.05 1.05 1.05 -
+scaleEnvelope lnN - 1.20 1.20 1.20 -
+SfIteraviveFitHfstats1 shape 1 1 1 1 1
+SfIteraviveFitHfstats2 shape 1 1 1 1 1
+SfIteraviveFitLfstats1 shape 1 1 1 1 1
+SfIteraviveFitLfstats2 shape 1 1 1 1 1
+SfIteraviveFitLf shape 1 1 1 1 1
+SfIteraviveFitHf shape 1 1 1 1 1
+SfIteraviveFitCferr1 shape 1 1 1 1 1
+SfIteraviveFitCferr2 shape 1 1 1 1 1
+Jer shape 1 1 1 1 1
+b4j4StatBinttbb4 shape 0 1 0 0 0
+b4j4StatBinother4 shape 0 0 0 0 1
+b4j4StatBinSig5 shape 1 0 0 0 0
+b4j4StatBinttbb5 shape 0 1 0 0 0
+b4j4StatBinttcc5 shape 0 0 1 0 0
+b4j4StatBinttlf5 shape 0 0 0 1 0
+b4j4StatBinother5 shape 0 0 0 0 1
+b4j4StatBinSig6 shape 1 0 0 0 0
+b4j4StatBinttbb6 shape 0 1 0 0 0
+b4j4StatBinttcc6 shape 0 0 1 0 0
+b4j4StatBinttlf6 shape 0 0 0 1 0
+b4j4StatBinother6 shape 0 0 0 0 1
+b4j4StatBinSig7 shape 1 0 0 0 0
+b4j4StatBinttbb7 shape 0 1 0 0 0
+b4j4StatBinttcc7 shape 0 0 1 0 0
+b4j4StatBinttlf7 shape 0 0 0 1 0
+b4j4StatBinother7 shape 0 0 0 0 1
+b4j4StatBinSig8 shape 1 0 0 0 0
+b4j4StatBinttbb8 shape 0 1 0 0 0
+b4j4StatBinttcc8 shape 0 0 1 0 0
+b4j4StatBinttlf8 shape 0 0 0 1 0
+b4j4StatBinother8 shape 0 0 0 0 1
+b4j4StatBinSig9 shape 1 0 0 0 0
+b4j4StatBinttbb9 shape 0 1 0 0 0
+b4j4StatBinttcc9 shape 0 0 1 0 0
+b4j4StatBinttlf9 shape 0 0 0 1 0
+b4j4StatBinother9 shape 0 0 0 0 1
+b4j4StatBinSig10 shape 1 0 0 0 0
+b4j4StatBinttbb10 shape 0 1 0 0 0
+b4j4StatBinttcc10 shape 0 0 1 0 0
+b4j4StatBinttlf10 shape 0 0 0 1 0
+b4j4StatBinother10 shape 0 0 0 0 1
+b4j4StatBinSig11 shape 1 0 0 0 0
+b4j4StatBinttbb11 shape 0 1 0 0 0
+b4j4StatBinttcc11 shape 0 0 1 0 0
+b4j4StatBinttlf11 shape 0 0 0 1 0
+b4j4StatBinother11 shape 0 0 0 0 1
+b4j4StatBinSig12 shape 1 0 0 0 0
+b4j4StatBinttbb12 shape 0 1 0 0 0
+b4j4StatBinttcc12 shape 0 0 1 0 0
+b4j4StatBinttlf12 shape 0 0 0 1 0
+b4j4StatBinother12 shape 0 0 0 0 1
+b4j4StatBinSig13 shape 1 0 0 0 0
+b4j4StatBinttbb13 shape 0 1 0 0 0
+b4j4StatBinttcc13 shape 0 0 1 0 0
+b4j4StatBinttlf13 shape 0 0 0 1 0
+b4j4StatBinother13 shape 0 0 0 0 1
+b4j4StatBinSig14 shape 1 0 0 0 0
+b4j4StatBinttbb14 shape 0 1 0 0 0
+b4j4StatBinttcc14 shape 0 0 1 0 0
+b4j4StatBinttlf14 shape 0 0 0 1 0
+b4j4StatBinother14 shape 0 0 0 0 1
+b4j4StatBinSig15 shape 1 0 0 0 0
+b4j4StatBinttbb15 shape 0 1 0 0 0
+b4j4StatBinttlf15 shape 0 0 0 1 0
+b4j4StatBinother15 shape 0 0 0 0 1
+b4j4StatBinSig16 shape 1 0 0 0 0
+b4j4StatBinother16 shape 0 0 0 0 1
+---------------
