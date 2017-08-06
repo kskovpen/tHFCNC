@@ -10,14 +10,12 @@ shapes * * /user/kskovpen/analysis/Limit/CMSSW_7_4_7/src/Limit/merge/merged/inpu
 bin b3j3 b3j3 b3j3 b3j3 b3j3
 process sig ttbb ttcc ttlf other
 process 0 1 2 3 4
-rate 880.95 1131.27 1251.98 9290.83 1502.93
+rate 647.757 1131.27 1251.98 9290.83 1502.93
 ---------------
 lumi lnN 1.027 1.027 1.027 1.027 1.027
 Jes lnN 1.01 1.01 1.01 1.01 1.01
 tt_norm lnN - 1.055 1.055 1.055 -
 other_norm_b3j3 lnN - - - - 1.10
-tt_add_bb lnN - 1.50 - - -
-tt_add_cc lnN - - 1.50 - -
 hdamp lnN - 1.05 1.05 1.05 -
 scaleEnvelope lnN - 1.15 1.15 1.15 -
 SfIteraviveFitHfstats1 shape 1 1 1 1 1
@@ -29,6 +27,8 @@ SfIteraviveFitHf shape 1 1 1 1 1
 SfIteraviveFitCferr1 shape 1 1 1 1 1
 SfIteraviveFitCferr2 shape 1 1 1 1 1
 Jer shape 1 1 1 1 1
+tt_add_bbj3 lnN - 1.50 - - -
+tt_add_ccj3 lnN - - 1.50 - -
 b3j3StatBinSig4 shape 1 0 0 0 0
 b3j3StatBinttlf4 shape 0 0 0 1 0
 b3j3StatBinother4 shape 0 0 0 0 1
